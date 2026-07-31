@@ -25,7 +25,41 @@ $msbuild = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere
 
 ### 2. 注入游戏 dump
 
-启动游戏进入主菜单,然后注入 Dumper-7.dll(用 System Informer:右键进程 → Miscellaneous → Inject DLL,或用 PowerShell 注入脚本)。
+启动游戏进入主菜单,然后用任一方式注入 `Dumper-7.dll`:
+
+**方式 A:System Informer**(图形界面)
+右键游戏进程 → Miscellaneous → Inject DLL → 选 Dumper-7.dll
+
+**方式 B:PowerShell 脚本**(需管理员)
+
+```powershell
+Add-Type -TypeDefinition @"
+using System; using System.Runtime.InteropServices;
+public class Injector {
+    [DllImport("kernel32.dll")] public static extern IntPtr OpenProcess(uint a,bool b,uint c);
+    [DllImport("kernel32.dll")] public static extern IntPtr VirtualAllocEx(IntPtr h,IntPtr a,uint s,uint t,uint p);
+    [DllImport("kernel32.dll")] public static extern bool WriteProcessMemory(IntPtr h,IntPtr a,byte[] b,uint s,out uint w);
+    [DllImport("kernel32.dll")] public static extern IntPtr GetProcAddress(IntPtr h,string n);
+    [DllImport("kernel32.dll")] public static extern IntPtr GetModuleHandle(string n);
+    [DllImport("kernel32.dll")] public static extern IntPtr CreateRemoteThread(IntPtr h,IntPtr a,uint s,IntPtr f,IntPtr p,uint fl,out uint t);
+    [DllImport("kernel32.dll")] public static extern uint WaitForSingleObject(IntPtr h,uint t);
+    [DllImport("kernel32.dll")] public static extern bool CloseHandle(IntPtr h);
+    public static string Inject(uint pid,string dll){
+        IntPtr h=OpenProcess(0x1F0FFF,false,pid);
+        if(h==IntPtr.Zero) return "OpenProcess failed (need admin)";
+        byte[] b=System.Text.Encoding.ASCII.GetBytes(dll+"\0");
+        IntPtr m=VirtualAllocEx(h,IntPtr.Zero,(uint)b.Length,0x3000,0x40);
+        uint w; WriteProcessMemory(h,m,b,(uint)b.Length,out w);
+        IntPtr f=GetProcAddress(GetModuleHandle("kernel32.dll"),"LoadLibraryA");
+        uint t; IntPtr th=CreateRemoteThread(h,IntPtr.Zero,0,f,m,0,out t);
+        WaitForSingleObject(th,10000); CloseHandle(th); CloseHandle(h);
+        return "OK";
+    }
+}
+"@
+$proc = Get-Process | Where-Object { $_.ProcessName -like "*scape*" -or $_.ProcessName -like "*Backrooms*" } | Select-Object -First 1
+[Injector]::Inject($proc.Id, "Dumper-7.dll 的完整路径")
+```
 
 控制台显示 `Generating SDK took (Xms)` 即完成。SDK 输出到 `C:\Dumper-7\<FolderName>\CppSDK\`。
 
