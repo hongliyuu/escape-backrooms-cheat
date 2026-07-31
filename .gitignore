@@ -4,3 +4,20 @@ Release/
 .idea/
 .vscode/
 x64/
+
+# Build artifacts and caches
+*.aps
+*.user
+*.suo
+*.pdb
+*.dll
+*.exe
+*.obj
+*.ilk
+*.exp
+*.lib
+*.tlog
+*.idb
+*.ipdb
+*.iobj
+ipch/
