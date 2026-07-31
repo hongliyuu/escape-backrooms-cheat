@@ -1,4 +1,4 @@
-#include "menu.h"
+ï»¿#include "menu.h"
 
 #include "render.h"
 #include "_sdk.h"
@@ -227,8 +227,8 @@ void menu::lable()
 	function::set_font(12);
 
 	const std::wstring lab_text =
-		std::wstring(L"°´ÏÂ Ins£¨Insert£©»ò F1 ÏÔÊ¾/Òş²Ø²Ëµ¥\n°´ÏÂ Del£¨Delete£©¹Ø±ÕĞŞ¸ÄÆ÷\n") +
-		std::wstring(L"°´ÏÂ Tab ´ò¿ª¿ì½İ²Ëµ¥\n\n¿ÉÔÚ [ÔÓÏî] ²Ëµ¥ÖĞ¹Ø±Õ´ËÌáÊ¾");
+		std::wstring(L"æŒ‰ä¸‹ Insï¼ˆInsertï¼‰æˆ– F1 æ˜¾ç¤º/éšè—èœå•\næŒ‰ä¸‹ Delï¼ˆDeleteï¼‰å…³é—­ä¿®æ”¹å™¨\n") +
+		std::wstring(L"æŒ‰ä¸‹ Tab æ‰“å¼€å¿«æ·èœå•\n\nå¯åœ¨ [æ‚é¡¹] èœå•ä¸­å…³é—­æ­¤æç¤º");
 
 	render::draw_text(
 		gvalue::engine->TinyFont,
@@ -283,7 +283,7 @@ void menu::base()
 			SDK::FVector2D(param::size.X * gvalue::menu_scale, 35 * gvalue::menu_scale), 
 			SDK::FLinearColor(0.1f, 0.06f, 0.0f, 1.0f)
 		);
-		function::text(SDK::FVector2D(10, param::size.Y + 18), L"±¾ĞŞ¸ÄÆ÷ÓÀ¾ÃÃâ·Ñ¿ªÔ´£¬ÎÊÌâ·´À¡QQÈº£º1071845133");
+		function::text(SDK::FVector2D(10, param::size.Y + 18), L"æœ¬ä¿®æ”¹å™¨æ°¸ä¹…å…è´¹å¼€æºï¼Œé—®é¢˜åé¦ˆQQç¾¤ï¼š1071845133");
 	}
 
 	if (gvalue::max_version != VERSION && gvalue::max_version != "")
@@ -298,7 +298,7 @@ void menu::base()
 			SDK::FVector2D(170 * gvalue::menu_scale, 35 * gvalue::menu_scale),
 			SDK::FLinearColor(0.1f, 0.06f, 0.0f, 1.0f)
 		);
-		function::text(SDK::FVector2D(10, param::size.Y + 68), L"ÓĞĞÂ°æ±¾¿ÉÒÔÏÂÔØ£¡");
+		function::text(SDK::FVector2D(10, param::size.Y + 68), L"æœ‰æ–°ç‰ˆæœ¬å¯ä»¥ä¸‹è½½ï¼");
 	}
 
 	param::size = SDK::FVector2D(600, 400);
@@ -372,12 +372,12 @@ if (function::button_text(#_page_, SDK::FVector2D(10, _ypos_), SDK::FVector2D(80
 	param::page = e_page::_page_; \
 }
 
-	ETB_BUTTON(visual, ÊÓ¾õ, 10);
-	ETB_BUTTON(player, Íæ¼Ò, 50);
-	ETB_BUTTON(item, ÎïÆ·, 90);
-	ETB_BUTTON(entity, ÊµÌå, 130);
-	ETB_BUTTON(level, ¹Ø¿¨, 170);
-	ETB_BUTTON(misc, ÔÓÏî, 210);
+	ETB_BUTTON(visual, è§†è§‰, 10);
+	ETB_BUTTON(player, ç©å®¶, 50);
+	ETB_BUTTON(item, ç‰©å“, 90);
+	ETB_BUTTON(entity, å®ä½“, 130);
+	ETB_BUTTON(level, å…³å¡, 170);
+	ETB_BUTTON(misc, æ‚é¡¹, 210);
 
 #undef ETB_BUTTON
 
@@ -396,22 +396,22 @@ void menu::visual()
 #define ETB_TEXT(_x_,_text_) \
 function::text(SDK::FVector2D(_x_ - 5, 20), L#_text_);
 
-	ETB_TEXT(180, ÆôÓÃ);
-	ETB_TEXT(240, ·½¿ò);
-	ETB_TEXT(300, Ãû³Æ);
-	ETB_TEXT(360, ¾àÀë);
-	ETB_TEXT(420, Á¬Ïß);
-	ETB_TEXT(480, ·¶Î§);
+	ETB_TEXT(180, å¯ç”¨);
+	ETB_TEXT(240, æ–¹æ¡†);
+	ETB_TEXT(300, åç§°);
+	ETB_TEXT(360, è·ç¦»);
+	ETB_TEXT(420, è¿çº¿);
+	ETB_TEXT(480, èŒƒå›´);
 
 #undef ETB_TEXT
 
 #define ETB_TEXT(_y_,_text_) \
 function::text(SDK::FVector2D(120, _y_), L#_text_);
 
-	ETB_TEXT(60, Íæ¼Ò);
-	ETB_TEXT(100, ÊµÌå);
-	ETB_TEXT(140, ÎïÆ·);
-	ETB_TEXT(180, »¥¶¯);
+	ETB_TEXT(60, ç©å®¶);
+	ETB_TEXT(100, å®ä½“);
+	ETB_TEXT(140, ç‰©å“);
+	ETB_TEXT(180, äº’åŠ¨);
 
 #undef ETB_TEXT
 
@@ -432,38 +432,38 @@ function::text(SDK::FVector2D(120, _y_), L#_text_);
 
 	{
 		const int dist = 1000 * gvalue::esp_distance;
-		const std::wstring wstr = L"Í¸ÊÓ¾àÀë£º" + std::to_wstring(dist) + L"Ã×";
+		const std::wstring wstr = L"é€è§†è·ç¦»ï¼š" + std::to_wstring(dist) + L"ç±³";
 		function::text(SDK::FVector2D(120, 240), wstr.c_str());
 		function::drag_bar("visual_distance", SDK::FVector2D(120, 270), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::esp_distance);
 	}
 
 	{
 		function::check_box(" ", SDK::FVector2D(120, 300), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::draw_mesh);
-		function::text(SDK::FVector2D(150, 300), L"»æÖÆÖÜÎ§Íø¸ñÌå");
+		function::text(SDK::FVector2D(150, 300), L"ç»˜åˆ¶å‘¨å›´ç½‘æ ¼ä½“");
 	}
 
 	{
 		const int dist = 1000 * gvalue::draw_mesh_distance;
-		const std::wstring wstr = L"Íø¸ñÌå¾àÀë£º" + std::to_wstring(dist) + L"Ã×";
+		const std::wstring wstr = L"ç½‘æ ¼ä½“è·ç¦»ï¼š" + std::to_wstring(dist) + L"ç±³";
 		function::text(SDK::FVector2D(120, 330), wstr.c_str());
 		function::drag_bar("draw_mesh_distance", SDK::FVector2D(120, 360), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::draw_mesh_distance);
 	}
 
 	{
 		const int fov = 180 * gvalue::fov;
-		const std::wstring wstr = L"ÊÓÒ°£º" + std::to_wstring(fov);
+		const std::wstring wstr = L"è§†é‡ï¼š" + std::to_wstring(fov);
 		function::text(SDK::FVector2D(330, 240), wstr.c_str());
 		function::drag_bar("fov", SDK::FVector2D(420, 240), SDK::FVector2D(160, 20), SDK::FVector2D(10, 20), &gvalue::fov);
 	}
 
 	{
 		function::check_box(" ", SDK::FVector2D(330, 270), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::disable_post);
-		function::text(SDK::FVector2D(360, 270), L"½ûÓÃºóÆÚ´¦Àí");
+		function::text(SDK::FVector2D(360, 270), L"ç¦ç”¨åæœŸå¤„ç†");
 	}
 
 	{
 		function::check_box(" ", SDK::FVector2D(330, 300), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::third_person);
-		function::text(SDK::FVector2D(360, 300), L"µÚÈıÈË³Æ");
+		function::text(SDK::FVector2D(360, 300), L"ç¬¬ä¸‰äººç§°");
 	}
 
 	{
@@ -473,7 +473,7 @@ function::text(SDK::FVector2D(120, _y_), L#_text_);
 		function::text(SDK::FVector2D(420, 330), L"Y");
 		function::drag_bar("cam_y", SDK::FVector2D(440, 330), SDK::FVector2D(60, 20), SDK::FVector2D(10, 20), &gvalue::cam_y);
 
-		if (function::button_color_text(" ", SDK::FVector2D(520, 330), SDK::FVector2D(60, 20), L"ÖØÖÃ"))
+		if (function::button_color_text(" ", SDK::FVector2D(520, 330), SDK::FVector2D(60, 20), L"é‡ç½®"))
 		{
 			gvalue::cam_x = 0.5f;
 			gvalue::cam_y = 0.5f;
@@ -481,7 +481,7 @@ function::text(SDK::FVector2D(120, _y_), L#_text_);
 		}
 
 		const int cam_distance = 1000 * gvalue::cam_distance;
-		const std::wstring wstr = L"¾àÀë£º" + std::to_wstring(cam_distance);
+		const std::wstring wstr = L"è·ç¦»ï¼š" + std::to_wstring(cam_distance);
 		function::text(SDK::FVector2D(330, 360), wstr.c_str());
 		function::drag_bar("cam_distance", SDK::FVector2D(430, 360), SDK::FVector2D(150, 20), SDK::FVector2D(10, 20), &gvalue::cam_distance);
 	}
@@ -545,7 +545,7 @@ function::text(SDK::FVector2D(120, _y_), L#_text_);
 				}
 				if (esp.distance)
 				{
-					draw_str += L"10Ã×\n";
+					draw_str += L"10ç±³\n";
 				}
 				render::draw_text(
 					gvalue::engine->MediumFont,
@@ -570,18 +570,18 @@ function::text(SDK::FVector2D(120, _y_), L#_text_);
 				SDK::FVector2D(250, 70),
 				SDK::FVector2D(100, 210),
 				SDK::FLinearColor(1.0f, 0.0f, 0.0f, 1.0f),
-				L"ÄêÊŞÏ¦"
+				L"å¹´å…½å¤•"
 			);
-			show_esp(gvalue::esp_item, SDK::FVector2D(275, 290), SDK::FVector2D(70, 60), SDK::FLinearColor(0.0f, 1.0f, 1.0f, 1.0f), L"ºì°ü");
-			show_esp(gvalue::esp_interact, SDK::FVector2D(40, 20), SDK::FVector2D(60, 180), SDK::FLinearColor(1.0f, 1.0f, 0.0f, 1.0f), L"±ŞÅÚ");
-			show_esp(gvalue::esp_player, SDK::FVector2D(110, 40), SDK::FVector2D(130, 320), SDK::FLinearColor(0.0f, 1.0f, 0.0f, 1.0f), L"ÃÅÉñ£ºÉñİ±");
+			show_esp(gvalue::esp_item, SDK::FVector2D(275, 290), SDK::FVector2D(70, 60), SDK::FLinearColor(0.0f, 1.0f, 1.0f, 1.0f), L"çº¢åŒ…");
+			show_esp(gvalue::esp_interact, SDK::FVector2D(40, 20), SDK::FVector2D(60, 180), SDK::FLinearColor(1.0f, 1.0f, 0.0f, 1.0f), L"é­ç‚®");
+			show_esp(gvalue::esp_player, SDK::FVector2D(110, 40), SDK::FVector2D(130, 320), SDK::FLinearColor(0.0f, 1.0f, 0.0f, 1.0f), L"é—¨ç¥ï¼šç¥è¼");
 		}
 		else
 		{
-			show_esp(gvalue::esp_entity, SDK::FVector2D(220, 80), SDK::FVector2D(100, 140), SDK::FLinearColor(1.0f, 0.0f, 0.0f, 1.0f), L"¹÷Ä¸");
-			show_esp(gvalue::esp_item, SDK::FVector2D(235, 270), SDK::FVector2D(80, 80), SDK::FLinearColor(0.0f, 1.0f, 1.0f, 1.0f), L"¹¾¹¾¸Â¸Â");
-			show_esp(gvalue::esp_interact, SDK::FVector2D(35, 120), SDK::FVector2D(100, 250), SDK::FLinearColor(1.0f, 1.0f, 0.0f, 1.0f), L"¼ªËû");
-			show_esp(gvalue::esp_player, SDK::FVector2D(110, 40), SDK::FVector2D(130, 320), SDK::FLinearColor(0.0f, 1.0f, 0.0f, 1.0f), L"Íæ¼Ò£ºÇ§Ôç°®Òô");
+			show_esp(gvalue::esp_entity, SDK::FVector2D(220, 80), SDK::FVector2D(100, 140), SDK::FLinearColor(1.0f, 0.0f, 0.0f, 1.0f), L"æ£æ¯");
+			show_esp(gvalue::esp_item, SDK::FVector2D(235, 270), SDK::FVector2D(80, 80), SDK::FLinearColor(0.0f, 1.0f, 1.0f, 1.0f), L"å’•å’•å˜å˜");
+			show_esp(gvalue::esp_interact, SDK::FVector2D(35, 120), SDK::FVector2D(100, 250), SDK::FLinearColor(1.0f, 1.0f, 0.0f, 1.0f), L"å‰ä»–");
+			show_esp(gvalue::esp_player, SDK::FVector2D(110, 40), SDK::FVector2D(130, 320), SDK::FLinearColor(0.0f, 1.0f, 0.0f, 1.0f), L"ç©å®¶ï¼šåƒæ—©çˆ±éŸ³");
 		}
 	}
 }
@@ -598,23 +598,23 @@ void menu::player()
 	function::text(SDK::FVector2D(150, _y_), L#_name_); \
 }
 
-	ETB_CHECK(20, ÎŞÏŞÄÍÁ¦, inf_energy);
-	ETB_CHECK(50, ÎŞÏŞSANÖµ[·¿Ö÷], inf_san);
-	ETB_CHECK(80, ÎŞµĞÄ£Ê½[·¿Ö÷], inf_health);
-	ETB_CHECK(110, Áé»ê³öÇÏ[³ÉÔ±], ghost_mode);
-	ETB_CHECK(140, ×Ô¶¯Æ½ºâ, auto_balance);
-	ETB_CHECK(170, ÎŞÏŞÌøÔ¾[·¿Ö÷], inf_jump);
-	ETB_CHECK(200, ·ÉÌì¶İµØ[·¿Ö÷], fly_mode);
+	ETB_CHECK(20, æ— é™è€åŠ›, inf_energy);
+	ETB_CHECK(50, æ— é™SANå€¼[æˆ¿ä¸»], inf_san);
+	ETB_CHECK(80, æ— æ•Œæ¨¡å¼[æˆ¿ä¸»], inf_health);
+	ETB_CHECK(110, çµé­‚å‡ºçª[æˆå‘˜], ghost_mode);
+	ETB_CHECK(140, è‡ªåŠ¨å¹³è¡¡, auto_balance);
+	ETB_CHECK(170, æ— é™è·³è·ƒ[æˆ¿ä¸»], inf_jump);
+	ETB_CHECK(200, é£å¤©éåœ°[æˆ¿ä¸»], fly_mode);
 
 	{
 		const int speed = 100 * gvalue::fly_speed;
-		const std::wstring wstr = L"·ÉĞĞËÙ¶È£º" + std::to_wstring(speed);
+		const std::wstring wstr = L"é£è¡Œé€Ÿåº¦ï¼š" + std::to_wstring(speed);
 		function::text(SDK::FVector2D(120, 230), wstr.c_str());
 		function::drag_bar("fly_speed", SDK::FVector2D(120, 260), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::fly_speed);
 	}
 
-	ETB_CHECK(290, X¼üÉ¾³ı[·¿Ö÷], x_delete);
-	ETB_CHECK(320, ÓÒ¼üÒÆ¶¯[·¿Ö÷], rb_move);
+	ETB_CHECK(290, Xé”®åˆ é™¤[æˆ¿ä¸»], x_delete);
+	ETB_CHECK(320, å³é”®ç§»åŠ¨[æˆ¿ä¸»], rb_move);
 
 #undef ETB_CHECK
 
@@ -626,26 +626,26 @@ void menu::player()
 	function::drag_bar(#_param_, SDK::FVector2D(460, _y_), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::_param_); \
 }
 
-	ETB_DRAG(20, 2750, ĞĞ×ßËÙ¶È£º, walk_speed);
-	ETB_DRAG(50, 5500, ÅÜ²½ËÙ¶È£º, run_speed);
+	ETB_DRAG(20, 2750, è¡Œèµ°é€Ÿåº¦ï¼š, walk_speed);
+	ETB_DRAG(50, 5500, è·‘æ­¥é€Ÿåº¦ï¼š, run_speed);
 
 	{
 		const float speed = 10 * gvalue::global_speed;
-		const std::wstring wstr = L"È«¾Ö¼ÓËÙ£º" + std::format(L"{:.2f}", gvalue::global_speed * 10);
+		const std::wstring wstr = L"å…¨å±€åŠ é€Ÿï¼š" + std::format(L"{:.2f}", gvalue::global_speed * 10);
 		function::text(SDK::FVector2D(330, 80), wstr.c_str());
 		function::drag_bar("global_speed", SDK::FVector2D(460, 80), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::global_speed);
 	}
 
-	ETB_DRAG(110, 4000, ÌøÔ¾ËÙ¶È£º, jump_speed);
+	ETB_DRAG(110, 4000, è·³è·ƒé€Ÿåº¦ï¼š, jump_speed);
 
 	{
-		const std::wstring wstr = L"¿ÕÖĞ¿ØÖÆ£º" + std::format(L"{:.2f}", gvalue::air_control * 5);
+		const std::wstring wstr = L"ç©ºä¸­æ§åˆ¶ï¼š" + std::format(L"{:.2f}", gvalue::air_control * 5);
 		function::text(SDK::FVector2D(330, 140), wstr.c_str());
 		function::drag_bar("air_control", SDK::FVector2D(460, 140), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::air_control);
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(330, 170), SDK::FVector2D(250, 30), L"ÖØÖÃËÙ¶È"))
+		if (function::button_color_text(" ", SDK::FVector2D(330, 170), SDK::FVector2D(250, 30), L"é‡ç½®é€Ÿåº¦"))
 		{
 			gvalue::run_speed = 0.1f;
 			gvalue::walk_speed = 0.1f;
@@ -656,14 +656,14 @@ void menu::player()
 	}
 
 	function::check_box(" ", SDK::FVector2D(330, 230), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::spin);
-	function::text(SDK::FVector2D(360, 230), L"·´Ãé×¼[Õû»î]");
+	function::text(SDK::FVector2D(360, 230), L"åç„å‡†[æ•´æ´»]");
 
-	ETB_DRAG(260, 100, Ğı×ªËÙ¶È£º, spin_speed);
+	ETB_DRAG(260, 100, æ—‹è½¬é€Ÿåº¦ï¼š, spin_speed);
 
 #undef ETB_DRAG
 
 	function::check_box(" ", SDK::FVector2D(330, 290), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::t_pos);
-	function::text(SDK::FVector2D(360, 290), L"T×Ö×ËÊÆ[Õû»î]");
+	function::text(SDK::FVector2D(360, 290), L"Tå­—å§¿åŠ¿[æ•´æ´»]");
 
 	auto flush_player = [&]()
 		{
@@ -687,17 +687,17 @@ void menu::player()
 			function::pice(pos, SDK::FVector2D(400, 40));
 			function::text(pos + SDK::FVector2D(10, 12), pawn->PlayerState->GetPlayerName());
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"´«ËÍ"))
+			if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"ä¼ é€"))
 			{
 				gvalue::controller->Pawn->K2_SetActorLocation(pawn->K2_GetActorLocation(), false, nullptr, false);
 			}
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"´«ËÍµ½ÎÒ"))
+			if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"ä¼ é€åˆ°æˆ‘"))
 			{
 				pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
 			}
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"É±ËÀ"))
+			if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"æ€æ­»"))
 			{
 				pawn->KillClient();
 				pawn->KillServer(false);
@@ -717,12 +717,12 @@ void menu::player()
 		color::get()->back_col
 	);
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(400, 30), L"Ë¢ĞÂÍæ¼ÒÁĞ±í"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(400, 30), L"åˆ·æ–°ç©å®¶åˆ—è¡¨"))
 	{
 		flush_player();
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(400, 30), L"½«ËùÓĞÈË´«ËÍµ½ÎÒ"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(400, 30), L"å°†æ‰€æœ‰äººä¼ é€åˆ°æˆ‘"))
 	{
 		for (int i = 0; i < param::player_list.size(); i++)
 		{
@@ -749,40 +749,40 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 } \
 
 	// line 1
-	ETB_BUTTON(¹ûÖ­, ABP_DroppedItem_Juice_C, 120, 20);
-	ETB_BUTTON(ĞÓÈÊË®, ABP_DroppedItem_AlmondWater_C, 120, 60);
-	ETB_BUTTON(ÊÖµçÍ², ABP_DroppedItem_Flashlight_C, 120, 100);
-	ETB_BUTTON(ÒºÌ¬Í´¿à, ABP_DroppedItem_LiquidPain_C, 120, 140);
-	ETB_BUTTON(ÄÜÁ¿°ô, ABP_DroppedItem_EnergyBar_C, 120, 180);
-	ETB_BUTTON(Ç±Ë®Í·¿ø, ABP_DroppedItem_DivingHelmet_C, 120, 220);
-	ETB_BUTTON(ĞÅºÅÇ¹, ABP_DroppedItem_FlareGun_C, 120, 260);
-	ETB_BUTTON(Éş×Ó, ABP_DroppedItem_Rope_C, 120, 300);
-	ETB_BUTTON(¶Ô½²»ú, ABP_DroppedItem_WalkieTalkie_C, 120, 340);
+	ETB_BUTTON(æœæ±, ABP_DroppedItem_Juice_C, 120, 20);
+	ETB_BUTTON(æä»æ°´, ABP_DroppedItem_AlmondWater_C, 120, 60);
+	ETB_BUTTON(æ‰‹ç”µç­’, ABP_DroppedItem_Flashlight_C, 120, 100);
+	ETB_BUTTON(æ¶²æ€ç—›è‹¦, ABP_DroppedItem_LiquidPain_C, 120, 140);
+	ETB_BUTTON(èƒ½é‡æ£’, ABP_DroppedItem_EnergyBar_C, 120, 180);
+	ETB_BUTTON(æ½œæ°´å¤´ç›”, ABP_DroppedItem_DivingHelmet_C, 120, 220);
+	ETB_BUTTON(ä¿¡å·æª, ABP_DroppedItem_FlareGun_C, 120, 260);
+	ETB_BUTTON(ç»³å­, ABP_DroppedItem_Rope_C, 120, 300);
+	ETB_BUTTON(å¯¹è®²æœº, ABP_DroppedItem_WalkieTalkie_C, 120, 340);
 
 	// line 2
-	ETB_BUTTON(µç¾â, ABP_DroppedItem_Chainsaw_C, 250, 20);
-	ETB_BUTTON(ÑÌ»¨, ABP_DroppedItem_Firework_C, 250, 60);
-	ETB_BUTTON(»ÆÉ«Ó«¹â°ô, ABP_DroppedItem_Glowstick_Yellow_C, 250, 100);
-	ETB_BUTTON(À¶É«Ó«¹â°ô, ABP_DroppedItem_Glowstick_Blue_C, 250, 140);
-	ETB_BUTTON(ºìÉ«Ó«¹â°ô, ABP_Item_Glowstick_Red_C, 250, 180);
-	ETB_BUTTON(Ó«¹â°ô, ABP_DroppedItem_Glowstick_C, 250, 220);
-	ETB_BUTTON(É±³æÅçÎí, ABP_DroppedItem_BugSpray_C, 250, 260);
-	ETB_BUTTON(Ïà»ú, ABP_DroppedItem_Camera_C, 250, 300);
-	ETB_BUTTON(ÇË¹÷, ABP_DroppedItem_Crowbar_C, 250, 340);
+	ETB_BUTTON(ç”µé”¯, ABP_DroppedItem_Chainsaw_C, 250, 20);
+	ETB_BUTTON(çƒŸèŠ±, ABP_DroppedItem_Firework_C, 250, 60);
+	ETB_BUTTON(é»„è‰²è§å…‰æ£’, ABP_DroppedItem_Glowstick_Yellow_C, 250, 100);
+	ETB_BUTTON(è“è‰²è§å…‰æ£’, ABP_DroppedItem_Glowstick_Blue_C, 250, 140);
+	ETB_BUTTON(çº¢è‰²è§å…‰æ£’, ABP_Item_Glowstick_Red_C, 250, 180);
+	ETB_BUTTON(è§å…‰æ£’, ABP_DroppedItem_Glowstick_C, 250, 220);
+	ETB_BUTTON(æ€è™«å–·é›¾, ABP_DroppedItem_BugSpray_C, 250, 260);
+	ETB_BUTTON(ç›¸æœº, ABP_DroppedItem_Camera_C, 250, 300);
+	ETB_BUTTON(æ’¬æ£, ABP_DroppedItem_Crowbar_C, 250, 340);
 
 	// line 3
-	ETB_BUTTON(ÎÂ¶È¼Æ, ABP_DroppedItem_Thermometer_C, 380, 20);
-	ETB_BUTTON(É¨ÃèÒÇ, ABP_DroppedItem_LiDAR_C, 380, 60);
-	ETB_BUTTON(Íæ¾ß, ABP_DroppedItem_Toy_C, 380, 100);
-	ETB_BUTTON(µ¶, ABP_DroppedItem_Knife_C, 380, 140);
-	ETB_BUTTON(¹û¶³, ABP_DroppedItem_Jelly_C, 380, 180);
-	ETB_BUTTON(¿ìËÙµç¾â, ABP_DroppedItem_Chainsaw_Fast_C, 380, 220);
+	ETB_BUTTON(æ¸©åº¦è®¡, ABP_DroppedItem_Thermometer_C, 380, 20);
+	ETB_BUTTON(æ‰«æä»ª, ABP_DroppedItem_LiDAR_C, 380, 60);
+	ETB_BUTTON(ç©å…·, ABP_DroppedItem_Toy_C, 380, 100);
+	ETB_BUTTON(åˆ€, ABP_DroppedItem_Knife_C, 380, 140);
+	ETB_BUTTON(æœå†», ABP_DroppedItem_Jelly_C, 380, 180);
+	ETB_BUTTON(å¿«é€Ÿç”µé”¯, ABP_DroppedItem_Chainsaw_Fast_C, 380, 220);
 
 #undef ETB_BUTTON
 
 	function::pice(SDK::FVector2D(520, 10), SDK::FVector2D(140, param::size.Y - 20));
 
-	if (function::button_color_text(" ", SDK::FVector2D(530, 20), SDK::FVector2D(120, 30), L"Îü¸½ËùÓĞ´Å´ø"))
+	if (function::button_color_text(" ", SDK::FVector2D(530, 20), SDK::FVector2D(120, 30), L"å¸é™„æ‰€æœ‰ç£å¸¦"))
 	{
 		item::get()->interact_all("Tape_BP_C");
 	} 
@@ -795,25 +795,25 @@ void menu::entity()
 	function::pice(SDK::FVector2D(110, 10), SDK::FVector2D(160, param::size.Y - 20));
 	function::pice(SDK::FVector2D(280, 10), SDK::FVector2D(270, param::size.Y - 20));
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 20), SDK::FVector2D(140, 30), L"¸ÉËÀËùÓĞÊµÌå"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 20), SDK::FVector2D(140, 30), L"å¹²æ­»æ‰€æœ‰å®ä½“"))
 	{
 		entity::get()->kill_all();
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 60), SDK::FVector2D(140, 30), L"É¾³ıÏ¸¾ú"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 60), SDK::FVector2D(140, 30), L"åˆ é™¤ç»†èŒ"))
 	{
 		entity::get()->kill("Bacteria_Roaming_BP_C");
 		entity::get()->kill("Bacteria_BP_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 100), SDK::FVector2D(140, 30), L"É¾³ıĞ¦÷Ê"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 100), SDK::FVector2D(140, 30), L"åˆ é™¤ç¬‘é­‡"))
 	{
 		entity::get()->kill("Smiler_BP2_C");
 		entity::get()->kill("BP_Roaming_Smiler_C");
 		entity::get()->kill("BP_Smiler_Dash_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 140), SDK::FVector2D(140, 30), L"É¾³ıÅÉ¶Ô¿Í"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 140), SDK::FVector2D(140, 30), L"åˆ é™¤æ´¾å¯¹å®¢"))
 	{
 		entity::get()->kill("BP_RoamingPartygoer_Idle_C");
 		entity::get()->kill("BP_RoamingPartygoer_C");
@@ -823,13 +823,13 @@ void menu::entity()
 		entity::get()->kill("BP_HidingPartyGoer_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 180), SDK::FVector2D(140, 30), L"É¾³ıËÀÍö·É¶ê"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 180), SDK::FVector2D(140, 30), L"åˆ é™¤æ­»äº¡é£è›¾"))
 	{
 		entity::get()->kill("BP_Moth_C");
 		entity::get()->kill("BP_Cave_Moth_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 220), SDK::FVector2D(140, 30), L"É¾³ıÇÔÆ¤Õß"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 220), SDK::FVector2D(140, 30), L"åˆ é™¤çªƒçš®è€…"))
 	{
 		entity::get()->kill("BP_SkinStealer_C");
 		entity::get()->kill("BP_SkinStealer_Cave_C");
@@ -837,13 +837,13 @@ void menu::entity()
 		entity::get()->kill("BP_SkinStealer_Hotel_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 260), SDK::FVector2D(140, 30), L"É¾³ıÁÔÈ®"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 260), SDK::FVector2D(140, 30), L"åˆ é™¤çŒçŠ¬"))
 	{
 		entity::get()->kill("BP_Hound_C");
 		entity::get()->kill("BP_Hound_Hotel_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 300), SDK::FVector2D(140, 30), L"É¾³ı±¯Ê¬"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 300), SDK::FVector2D(140, 30), L"åˆ é™¤æ‚²å°¸"))
 	{
 		entity::get()->kill("BP_Wretch_C");
 		entity::get()->kill("BP_Wretch_House_C");
@@ -855,14 +855,14 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 	entity::get()->spawn(SDK::_class_::StaticClass()); \
 }
 
-	ETB_BUTTON(Ï¸¾ú1, ABacteria_BP_C, 290, 20);
-	ETB_BUTTON(Ï¸¾ú2, ABacteria_Roaming_BP_C, 290, 60);
-	ETB_BUTTON(ÇÔÆ¤Õß1, ABP_SkinStealer_C, 290, 100);
-	ETB_BUTTON(ÇÔÆ¤Õß2, ABP_SkinStealer_Level07_C, 290, 140);
-	ETB_BUTTON(Ğ¦÷Ê, ABP_Roaming_Smiler_C, 420, 20);
-	ETB_BUTTON(¶¯»­, ABP_Animation_C, 420, 60);
-	ETB_BUTTON(ËÀÍö·É¶ê, ABP_Moth_C, 420, 100);
-	ETB_BUTTON(ÁÔÈ®, ABP_Hound_C, 420, 140);
+	ETB_BUTTON(ç»†èŒ1, ABacteria_BP_C, 290, 20);
+	ETB_BUTTON(ç»†èŒ2, ABacteria_Roaming_BP_C, 290, 60);
+	ETB_BUTTON(çªƒçš®è€…1, ABP_SkinStealer_C, 290, 100);
+	ETB_BUTTON(çªƒçš®è€…2, ABP_SkinStealer_Level07_C, 290, 140);
+	ETB_BUTTON(ç¬‘é­‡, ABP_Roaming_Smiler_C, 420, 20);
+	ETB_BUTTON(åŠ¨ç”», ABP_Animation_C, 420, 60);
+	ETB_BUTTON(æ­»äº¡é£è›¾, ABP_Moth_C, 420, 100);
+	ETB_BUTTON(çŒçŠ¬, ABP_Hound_C, 420, 140);
 
 #undef ETB_BUTTON
 
@@ -872,16 +872,16 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 	entity::get()->spawn(SDK::UObject::FindClassFast(#_class_)); \
 }
 
-	ETB_BUTTON(Kitty[ÏŞ¶¨], BP_Entity974_C, 290, 180);
-	ETB_BUTTON(ÅÉ¶Ô¿Í1[ÏŞ¶¨], BP_RoamingPartygoer_Idle_C, 290, 220);
-	ETB_BUTTON(ÅÉ¶Ô¿Í2[ÏŞ¶¨], BP_RoamingPartygoer_C, 290, 260);
-	ETB_BUTTON(ÅÉ¶Ô¿Í3[ÏŞ¶¨], BP_DarkPartyGoer_C, 290, 300);
-	ETB_BUTTON(ÅÉ¶Ô¿Í4[ÏŞ¶¨], BP_HidingPartyGoer_C, 290, 340);
-	ETB_BUTTON(´óÑÛ¹Ö[ÏŞ¶¨], BP_NPC_Type01_C, 420, 180);
-	ETB_BUTTON(³ØºËÖ«ÍÅ[ÏŞ¶¨], BP_Clump_Poolrooms_C, 420, 220);
-	ETB_BUTTON(±¯Ê¬[ÏŞ¶¨], BP_Wretch_House_C, 420, 260);
-	ETB_BUTTON(ÎŞÃæÁé[ÏŞ¶¨], BP_Faceling_C, 420, 300);
-	ETB_BUTTON(Ö©Öë¹Ö[ÏŞ¶¨], BP_Membri_C, 420, 340);
+	ETB_BUTTON(Kitty[é™å®š], BP_Entity974_C, 290, 180);
+	ETB_BUTTON(æ´¾å¯¹å®¢1[é™å®š], BP_RoamingPartygoer_Idle_C, 290, 220);
+	ETB_BUTTON(æ´¾å¯¹å®¢2[é™å®š], BP_RoamingPartygoer_C, 290, 260);
+	ETB_BUTTON(æ´¾å¯¹å®¢3[é™å®š], BP_DarkPartyGoer_C, 290, 300);
+	ETB_BUTTON(æ´¾å¯¹å®¢4[é™å®š], BP_HidingPartyGoer_C, 290, 340);
+	ETB_BUTTON(å¤§çœ¼æ€ª[é™å®š], BP_NPC_Type01_C, 420, 180);
+	ETB_BUTTON(æ± æ ¸è‚¢å›¢[é™å®š], BP_Clump_Poolrooms_C, 420, 220);
+	ETB_BUTTON(æ‚²å°¸[é™å®š], BP_Wretch_House_C, 420, 260);
+	ETB_BUTTON(æ— é¢çµ[é™å®š], BP_Faceling_C, 420, 300);
+	ETB_BUTTON(èœ˜è››æ€ª[é™å®š], BP_Membri_C, 420, 340);
 
 #undef ETB_BUTTON
 
@@ -916,12 +916,12 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 				name.c_str()
 			);
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(140, 10), SDK::FVector2D(40, 20), L"¿ØÖÆ"))
+			if (function::button_color_text(" ", pos + SDK::FVector2D(140, 10), SDK::FVector2D(40, 20), L"æ§åˆ¶"))
 			{
 				entity::get()->poss(pawn);
 			}
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(190, 10), SDK::FVector2D(40, 20), L"É¾³ı"))
+			if (function::button_color_text(" ", pos + SDK::FVector2D(190, 10), SDK::FVector2D(40, 20), L"åˆ é™¤"))
 			{
 				pawn->K2_DestroyActor();
 				flush_entity();
@@ -940,19 +940,19 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 		color::get()->back_col
 	);
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(240, 30), L"Ë¢ĞÂÊµÌåÁĞ±í"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(240, 30), L"åˆ·æ–°å®ä½“åˆ—è¡¨"))
 	{
 		flush_entity();
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(240, 30), L"È¡Ïû¿ØÖÆÊµÌå"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(240, 30), L"å–æ¶ˆæ§åˆ¶å®ä½“"))
 	{
 		entity::get()->unposs();
 	}
 
 	{
 		const int speed = 4000 * gvalue::entity_speed;
-		const std::wstring wstr = L"±»¿ØÊµÌåËÙ¶È£º" + std::to_wstring(speed);
+		const std::wstring wstr = L"è¢«æ§å®ä½“é€Ÿåº¦ï¼š" + std::to_wstring(speed);
 		function::text(SDK::FVector2D(param::size.X + 30, 90), wstr.c_str());
 		function::drag_bar("entity_speed", SDK::FVector2D(param::size.X + 30, 120), SDK::FVector2D(240, 20), SDK::FVector2D(10, 20), &gvalue::entity_speed);
 	}
@@ -1000,7 +1000,7 @@ if (function::button_color_text("", SDK::FVector2D(_x_, _y_), SDK::FVector2D(120
 
 	//line 3
 	ETB_BUTTON(Level0.2, Level07, 380, 20);
-	ETB_BUTTON(ÁãÊ³Îİ, Snackrooms, 380, 60);
+	ETB_BUTTON(é›¶é£Ÿå±‹, Snackrooms, 380, 60);
 	ETB_BUTTON(Level!- !, LevelDash, 380, 100);
 	ETB_BUTTON(Level188, Level188_Expanded, 380, 140);
 	ETB_BUTTON(Level37.2, Poolrooms_Expanded, 380, 180);
@@ -1011,8 +1011,8 @@ if (function::button_color_text("", SDK::FVector2D(_x_, _y_), SDK::FVector2D(120
 
 	//line 4
 	ETB_BUTTON(Level974, Level974, 510, 20);
-	ETB_BUTTON(¹ı¶ÈÉú³¤, GraffitiLevel, 510, 60);
-	ETB_BUTTON(²İÎİ, Grassrooms_Expanded, 510, 100);
+	ETB_BUTTON(è¿‡åº¦ç”Ÿé•¿, GraffitiLevel, 510, 60);
+	ETB_BUTTON(è‰å±‹, Grassrooms_Expanded, 510, 100);
 
 #undef ETB_BUTTON
 }
@@ -1028,12 +1028,12 @@ void menu::misc()
 		color::get()->change();
 	}
 	function::check_box(" ", SDK::FVector2D(120, 60), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::new_year_color);
-	function::text(SDK::FVector2D(150, 61), L"Ê¹ÓÃĞÂÄêÖ÷Ìâ");
+	function::text(SDK::FVector2D(150, 61), L"ä½¿ç”¨æ–°å¹´ä¸»é¢˜");
 
 	{
 		const float calc_buffer = SDK::UKismetMathLibrary::Lerp(0.0f, 4.0f, gvalue::menu_scale_buffer);
 		const float truncated = floor(calc_buffer * 10) / 10.0f;
-		const std::wstring show_name = L"½çÃæ³ß´ç£º" + std::format(L"{:.1f}", truncated) + L"X";
+		const std::wstring show_name = L"ç•Œé¢å°ºå¯¸ï¼š" + std::format(L"{:.1f}", truncated) + L"X";
 		function::text(SDK::FVector2D(120, 91), show_name.c_str());
 		function::drag_bar("menu_scale_buffer", SDK::FVector2D(120, 120), SDK::FVector2D(140, 20), SDK::FVector2D(10, 20), &gvalue::menu_scale_buffer);
 		if (!kismet::is_key_down(VK_LBUTTON))
@@ -1044,58 +1044,58 @@ void menu::misc()
 
 
 	function::pice(SDK::FVector2D(110, 160), SDK::FVector2D(160, 130));
-	if (function::button_color_text(" ", SDK::FVector2D(120, 170), SDK::FVector2D(140, 30), L"±£´æ²ÎÊı"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 170), SDK::FVector2D(140, 30), L"ä¿å­˜å‚æ•°"))
 	{
 		config::get()->save();
 	}
-	if (function::button_color_text(" ", SDK::FVector2D(120, 210), SDK::FVector2D(140, 30), L"¼ÓÔØ²ÎÊı"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 210), SDK::FVector2D(140, 30), L"åŠ è½½å‚æ•°"))
 	{
 		config::get()->load("C:\\LHY1339\\escape_the_backrooms\\config.cheat");
 	}
-	if (function::button_color_text(" ", SDK::FVector2D(120, 250), SDK::FVector2D(140, 30), L"´ò¿ª²ÎÊıÅäÖÃ"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 250), SDK::FVector2D(140, 30), L"æ‰“å¼€å‚æ•°é…ç½®"))
 	{
 		system("start C:/LHY1339/escape_the_backrooms/config.cheat");
 	}
 
 	function::pice(SDK::FVector2D(110, 300), SDK::FVector2D(160, 90));
-	if (function::button_color_text(" ", SDK::FVector2D(120, 310), SDK::FVector2D(140, 30), L"¼ÓÔØ°´¼ü"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 310), SDK::FVector2D(140, 30), L"åŠ è½½æŒ‰é”®"))
 	{
 		config::get()->load("C:\\LHY1339\\escape_the_backrooms\\keybind.cheat");
 	}
-	if (function::button_color_text(" ", SDK::FVector2D(120, 350), SDK::FVector2D(140, 30), L"´ò¿ª°´¼üÅäÖÃ"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 350), SDK::FVector2D(140, 30), L"æ‰“å¼€æŒ‰é”®é…ç½®"))
 	{
 		system("start C:/LHY1339/escape_the_backrooms/keybind.cheat");
 	}
 
 	function::pice(SDK::FVector2D(110, 400), SDK::FVector2D(160, 40));
 	function::check_box(" ", SDK::FVector2D(120, 410), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::draw_lable);
-	function::text(SDK::FVector2D(150, 411), L"ÏÔÊ¾°´¼üÌáÊ¾");
+	function::text(SDK::FVector2D(150, 411), L"æ˜¾ç¤ºæŒ‰é”®æç¤º");
 
 	function::pice(SDK::FVector2D(110, 450), SDK::FVector2D(160, 90));
-	if (function::button_color_text(" ", SDK::FVector2D(120, 460), SDK::FVector2D(140, 30), L"Ô´ÂëÏÂÔØ"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 460), SDK::FVector2D(140, 30), L"æºç ä¸‹è½½"))
 	{
 		system("start https://github.com/LHY1339/cheat_escape_the_backrooms");
 	}
-	if (function::button_color_text(" ", SDK::FVector2D(120, 500), SDK::FVector2D(140, 30), L"ĞÂ°æ±¾ÏÂÔØ"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 500), SDK::FVector2D(140, 30), L"æ–°ç‰ˆæœ¬ä¸‹è½½"))
 	{
 		system("start https://github.com/LHY1339/cheat_escape_the_backrooms/releases/");
 	}
 
 	function::pice(SDK::FVector2D(280, 10), SDK::FVector2D(param::size.X - 290, param::size.Y - 20));
 	{
-		const wchar_t* log = L"ÌÓÀëºóÊÒĞŞ¸ÄÆ÷\n"
+		const wchar_t* log = L"é€ƒç¦»åå®¤ä¿®æ”¹å™¨\n"
 			VERSION_W
 			GAME_VERSION
-			L"×÷Õß£ºLHY1339\n"
-			L"Ô´´úÂë£ºcheat_escape_the_backrooms\n"
-			L"°®·¢µç£ºLHY1339\n"
-			L"½»Á÷Èº£º1071845133\n"
-			L"\n--------ÌØ±ğ¸ĞĞ»--------\n"
+			L"ä½œè€…ï¼šLHY1339\n"
+			L"æºä»£ç ï¼šcheat_escape_the_backrooms\n"
+			L"çˆ±å‘ç”µï¼šLHY1339\n"
+			L"äº¤æµç¾¤ï¼š1071845133\n"
+			L"\n--------ç‰¹åˆ«æ„Ÿè°¢--------\n"
 			THANKS
-			"\n--------ÆäËû--------\n"
-			"×£¸÷Î»ÔÚĞÂµÄÒ»ÄêÀï\n"
-			"¶àÏ²ÀÖ¡¢³¤°²Äş£¬ËùÔ¸½ÔËù³É\n"
-			"ĞÄÓĞËùÔÃ¡¢ÒµÓĞËù³É£¬ÍòÊÂ½Ô¿ÉÆÚ";
+			"\n--------å…¶ä»–--------\n"
+			"ç¥å„ä½åœ¨æ–°çš„ä¸€å¹´é‡Œ\n"
+			"å¤šå–œä¹ã€é•¿å®‰å®ï¼Œæ‰€æ„¿çš†æ‰€æˆ\n"
+			"å¿ƒæœ‰æ‰€æ‚¦ã€ä¸šæœ‰æ‰€æˆï¼Œä¸‡äº‹çš†å¯æœŸ";
 
 		function::text(SDK::FVector2D(290, 20), log);
 	}
