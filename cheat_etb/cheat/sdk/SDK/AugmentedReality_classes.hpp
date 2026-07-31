@@ -16,115 +16,58 @@
 #include "CoreUObject_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
-// Class AugmentedReality.ARTraceResultLibrary
-// 0x0000 (0x0028 - 0x0028)
-class UARTraceResultLibrary final : public UBlueprintFunctionLibrary
+// Class AugmentedReality.ARBaseAsyncTaskBlueprintProxy
+// 0x0020 (0x0050 - 0x0030)
+class UARBaseAsyncTaskBlueprintProxy : public UBlueprintAsyncActionBase
 {
 public:
-	static float GetDistanceFromCamera(const struct FARTraceResult& TraceResult);
-	static struct FTransform GetLocalToTrackingTransform(const struct FARTraceResult& TraceResult);
-	static struct FTransform GetLocalToWorldTransform(const struct FARTraceResult& TraceResult);
-	static struct FTransform GetLocalTransform(const struct FARTraceResult& TraceResult);
-	static EARLineTraceChannels GetTraceChannel(const struct FARTraceResult& TraceResult);
-	static class UARTrackedGeometry* GetTrackedGeometry(const struct FARTraceResult& TraceResult);
+	uint8                                         Pad_30[0x20];                                      // 0x0030(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("ARTraceResultLibrary")
+		STATIC_CLASS_IMPL("ARBaseAsyncTaskBlueprintProxy")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"ARTraceResultLibrary")
+		STATIC_NAME_IMPL(L"ARBaseAsyncTaskBlueprintProxy")
 	}
-	static class UARTraceResultLibrary* GetDefaultObj()
+	static class UARBaseAsyncTaskBlueprintProxy* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UARTraceResultLibrary>();
+		return GetDefaultObjImpl<UARBaseAsyncTaskBlueprintProxy>();
 	}
 };
-DUMPER7_ASSERTS_UARTraceResultLibrary;
+DUMPER7_ASSERTS_UARBaseAsyncTaskBlueprintProxy;
 
-// Class AugmentedReality.ARTrackedGeometry
-// 0x00D8 (0x0100 - 0x0028)
-#pragma pack(push, 0x1)
-class alignas(0x10) UARTrackedGeometry : public UObject
+// Class AugmentedReality.GetGeoLocationAsyncTaskBlueprintProxy
+// 0x0050 (0x00A0 - 0x0050)
+class UGetGeoLocationAsyncTaskBlueprintProxy final : public UARBaseAsyncTaskBlueprintProxy
 {
 public:
-	struct FGuid                                  UniqueId;                                          // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_38[0x8];                                       // 0x0038(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FTransform                             LocalToTrackingTransform;                          // 0x0040(0x0030)(IsPlainOldData, NoDestructor, Protected, NativeAccessSpecifierProtected)
-	struct FTransform                             LocalToAlignedTrackingTransform;                   // 0x0070(0x0030)(IsPlainOldData, NoDestructor, Protected, NativeAccessSpecifierProtected)
-	EARTrackingState                              TrackingState;                                     // 0x00A0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_A1[0xF];                                       // 0x00A1(0x000F)(Fixing Size After Last Property [ Dumper-7 ])
-	class UMRMeshComponent*                       UnderlyingMesh;                                    // 0x00B0(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	EARObjectClassification                       ObjectClassification;                              // 0x00B8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	EARSpatialMeshUsageFlags                      SpatialMeshUsageFlags;                             // 0x00B9(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_BA[0x16];                                      // 0x00BA(0x0016)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         LastUpdateFrameNumber;                             // 0x00D0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_D4[0xC];                                       // 0x00D4(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
-	class FName                                   DebugName;                                         // 0x00E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_E8[0x10];                                      // 0x00E8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(float Longitude, float Latitude, float Altitude, const class FString& Error)> OnSuccess; // 0x0050(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(float Longitude, float Latitude, float Altitude, const class FString& Error)> OnFailed; // 0x0060(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_70[0x30];                                      // 0x0070(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	class UMRMeshComponent* GetUnderlyingMesh();
-
-	class FName GetDebugName() const;
-	int32 GetLastUpdateFrameNumber() const;
-	float GetLastUpdateTimestamp() const;
-	struct FTransform GetLocalToTrackingTransform() const;
-	struct FTransform GetLocalToWorldTransform() const;
-	class FString GetName() const;
-	EARObjectClassification GetObjectClassification() const;
-	EARTrackingState GetTrackingState() const;
-	bool HasSpatialMeshUsageFlag(const EARSpatialMeshUsageFlags InFlag) const;
-	bool IsTracked() const;
+	static class UGetGeoLocationAsyncTaskBlueprintProxy* GetGeoLocationAtWorldPosition(class UObject* WorldContextObject, const struct FVector& WorldPosition);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("ARTrackedGeometry")
+		STATIC_CLASS_IMPL("GetGeoLocationAsyncTaskBlueprintProxy")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"ARTrackedGeometry")
+		STATIC_NAME_IMPL(L"GetGeoLocationAsyncTaskBlueprintProxy")
 	}
-	static class UARTrackedGeometry* GetDefaultObj()
+	static class UGetGeoLocationAsyncTaskBlueprintProxy* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UARTrackedGeometry>();
+		return GetDefaultObjImpl<UGetGeoLocationAsyncTaskBlueprintProxy>();
 	}
 };
-#pragma pack(pop)
-DUMPER7_ASSERTS_UARTrackedGeometry;
-
-// Class AugmentedReality.ARTrackedPose
-// 0x0050 (0x0150 - 0x0100)
-class UARTrackedPose final : public UARTrackedGeometry
-{
-public:
-	struct FARPose3D                              TrackedPose;                                       // 0x00F8(0x0050)(NativeAccessSpecifierPrivate)
-	uint8                                         Pad_148[0x8];                                      // 0x0148(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	const struct FARPose3D GetTrackedPoseData() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARTrackedPose")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARTrackedPose")
-	}
-	static class UARTrackedPose* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARTrackedPose>();
-	}
-};
-DUMPER7_ASSERTS_UARTrackedPose;
+DUMPER7_ASSERTS_UGetGeoLocationAsyncTaskBlueprintProxy;
 
 // Class AugmentedReality.AROriginActor
 // 0x0000 (0x0220 - 0x0220)
@@ -145,6 +88,61 @@ public:
 	}
 };
 DUMPER7_ASSERTS_AAROriginActor;
+
+// Class AugmentedReality.ARTexture
+// 0x0020 (0x01A0 - 0x0180)
+#pragma pack(push, 0x1)
+class SDK_ALIGN(0x10) UARTexture : public UTexture
+{
+public:
+	EARTextureType                                TextureType;                                       // 0x0178(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_179[0x3];                                      // 0x0179(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         timestamp;                                         // 0x017C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FGuid                                  ExternalTextureGuid;                               // 0x0180(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FVector2D                              Size;                                              // 0x0190(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARTexture")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARTexture")
+	}
+	static class UARTexture* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARTexture>();
+	}
+};
+#pragma pack(pop)
+DUMPER7_ASSERTS_UARTexture;
+
+// Class AugmentedReality.ARTextureCameraDepth
+// 0x0000 (0x01A0 - 0x01A0)
+class UARTextureCameraDepth final : public UARTexture
+{
+public:
+	EARDepthQuality                               DepthQuality;                                      // 0x0198(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EARDepthAccuracy                              DepthAccuracy;                                     // 0x0199(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bIsTemporallySmoothed;                             // 0x019A(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_19B[0x5];                                      // 0x019B(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARTextureCameraDepth")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARTextureCameraDepth")
+	}
+	static class UARTextureCameraDepth* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARTextureCameraDepth>();
+	}
+};
+DUMPER7_ASSERTS_UARTextureCameraDepth;
 
 // Class AugmentedReality.ARSessionConfig
 // 0x00E0 (0x0110 - 0x0030)
@@ -255,25 +253,110 @@ public:
 };
 DUMPER7_ASSERTS_UARSessionConfig;
 
-// Class AugmentedReality.ARTypesDummyClass
-// 0x0000 (0x0028 - 0x0028)
-class UARTypesDummyClass final : public UObject
+// Class AugmentedReality.ARActor
+// 0x0000 (0x0220 - 0x0220)
+class AARActor final : public AActor
 {
+public:
+	class UARComponent* AddARComponent(TSubclassOf<class UARComponent> InComponentClass, const struct FGuid& NativeID);
+
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("ARTypesDummyClass")
+		STATIC_CLASS_IMPL("ARActor")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"ARTypesDummyClass")
+		STATIC_NAME_IMPL(L"ARActor")
 	}
-	static class UARTypesDummyClass* GetDefaultObj()
+	static class AARActor* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UARTypesDummyClass>();
+		return GetDefaultObjImpl<AARActor>();
 	}
 };
-DUMPER7_ASSERTS_UARTypesDummyClass;
+DUMPER7_ASSERTS_AARActor;
+
+// Class AugmentedReality.ARTrackedGeometry
+// 0x00D8 (0x0100 - 0x0028)
+#pragma pack(push, 0x1)
+class SDK_ALIGN(0x10) UARTrackedGeometry : public UObject
+{
+public:
+	struct FGuid                                  UniqueId;                                          // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_38[0x8];                                       // 0x0038(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FTransform                             LocalToTrackingTransform;                          // 0x0040(0x0030)(IsPlainOldData, NoDestructor, Protected, NativeAccessSpecifierProtected)
+	struct FTransform                             LocalToAlignedTrackingTransform;                   // 0x0070(0x0030)(IsPlainOldData, NoDestructor, Protected, NativeAccessSpecifierProtected)
+	EARTrackingState                              TrackingState;                                     // 0x00A0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_A1[0xF];                                       // 0x00A1(0x000F)(Fixing Size After Last Property [ Dumper-7 ])
+	class UMRMeshComponent*                       UnderlyingMesh;                                    // 0x00B0(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	EARObjectClassification                       ObjectClassification;                              // 0x00B8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	EARSpatialMeshUsageFlags                      SpatialMeshUsageFlags;                             // 0x00B9(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_BA[0x16];                                      // 0x00BA(0x0016)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         LastUpdateFrameNumber;                             // 0x00D0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_D4[0xC];                                       // 0x00D4(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
+	class FName                                   DebugName;                                         // 0x00E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_E8[0x10];                                      // 0x00E8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	class UMRMeshComponent* GetUnderlyingMesh();
+
+	class FName GetDebugName() const;
+	int32 GetLastUpdateFrameNumber() const;
+	float GetLastUpdateTimestamp() const;
+	struct FTransform GetLocalToTrackingTransform() const;
+	struct FTransform GetLocalToWorldTransform() const;
+	class FString GetName() const;
+	EARObjectClassification GetObjectClassification() const;
+	EARTrackingState GetTrackingState() const;
+	bool HasSpatialMeshUsageFlag(const EARSpatialMeshUsageFlags InFlag) const;
+	bool IsTracked() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARTrackedGeometry")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARTrackedGeometry")
+	}
+	static class UARTrackedGeometry* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARTrackedGeometry>();
+	}
+};
+#pragma pack(pop)
+DUMPER7_ASSERTS_UARTrackedGeometry;
+
+// Class AugmentedReality.AREnvironmentCaptureProbe
+// 0x0010 (0x0110 - 0x0100)
+class UAREnvironmentCaptureProbe final : public UARTrackedGeometry
+{
+public:
+	struct FVector                                Extent;                                            // 0x00F8(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_104[0x4];                                      // 0x0104(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAREnvironmentCaptureProbeTexture*      EnvironmentCaptureTexture;                         // 0x0108(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	class UAREnvironmentCaptureProbeTexture* GetEnvironmentCaptureTexture();
+
+	struct FVector GetExtent() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("AREnvironmentCaptureProbe")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"AREnvironmentCaptureProbe")
+	}
+	static class UAREnvironmentCaptureProbe* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UAREnvironmentCaptureProbe>();
+	}
+};
+DUMPER7_ASSERTS_UAREnvironmentCaptureProbe;
 
 // Class AugmentedReality.ARLightEstimate
 // 0x0000 (0x0028 - 0x0028)
@@ -294,6 +377,120 @@ public:
 	}
 };
 DUMPER7_ASSERTS_UARLightEstimate;
+
+// Class AugmentedReality.CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy
+// 0x0050 (0x00A0 - 0x0050)
+class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy final : public UARBaseAsyncTaskBlueprintProxy
+{
+public:
+	TMulticastInlineDelegate<void(bool bIsAvailable, const class FString& Error)> OnSuccess;         // 0x0050(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(bool bIsAvailable, const class FString& Error)> OnFailed;          // 0x0060(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_70[0x30];                                      // 0x0070(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* CheckGeoTrackingAvailability(class UObject* WorldContextObject);
+	static class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* CheckGeoTrackingAvailabilityAtLocation(class UObject* WorldContextObject, float Longitude, float Latitude);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy")
+	}
+	static class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy>();
+	}
+};
+DUMPER7_ASSERTS_UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy;
+
+// Class AugmentedReality.ARBasicLightEstimate
+// 0x0018 (0x0040 - 0x0028)
+class UARBasicLightEstimate : public UARLightEstimate
+{
+public:
+	float                                         AmbientIntensityLumens;                            // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	float                                         AmbientColorTemperatureKelvin;                     // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FLinearColor                           AmbientColor;                                      // 0x0030(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+
+public:
+	struct FLinearColor GetAmbientColor() const;
+	float GetAmbientColorTemperatureKelvin() const;
+	float GetAmbientIntensityLumens() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARBasicLightEstimate")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARBasicLightEstimate")
+	}
+	static class UARBasicLightEstimate* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARBasicLightEstimate>();
+	}
+};
+DUMPER7_ASSERTS_UARBasicLightEstimate;
+
+// Class AugmentedReality.ARTextureCameraImage
+// 0x0000 (0x01A0 - 0x01A0)
+class UARTextureCameraImage final : public UARTexture
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARTextureCameraImage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARTextureCameraImage")
+	}
+	static class UARTextureCameraImage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARTextureCameraImage>();
+	}
+};
+DUMPER7_ASSERTS_UARTextureCameraImage;
+
+// Class AugmentedReality.ARCandidateImage
+// 0x0028 (0x0058 - 0x0030)
+class UARCandidateImage : public UDataAsset
+{
+public:
+	class UTexture2D*                             CandidateTexture;                                  // 0x0030(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class FString                                 FriendlyName;                                      // 0x0038(0x0010)(Edit, ZeroConstructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         Width;                                             // 0x0048(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         Height;                                            // 0x004C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	EARCandidateImageOrientation                  Orientation;                                       // 0x0050(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	class UTexture2D* GetCandidateTexture() const;
+	class FString GetFriendlyName() const;
+	EARCandidateImageOrientation GetOrientation() const;
+	float GetPhysicalHeight() const;
+	float GetPhysicalWidth() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARCandidateImage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARCandidateImage")
+	}
+	static class UARCandidateImage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARCandidateImage>();
+	}
+};
+DUMPER7_ASSERTS_UARCandidateImage;
 
 // Class AugmentedReality.ARBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -378,178 +575,33 @@ public:
 };
 DUMPER7_ASSERTS_UARBlueprintLibrary;
 
-// Class AugmentedReality.ARTrackedObject
-// 0x0000 (0x0100 - 0x0100)
-class UARTrackedObject final : public UARTrackedGeometry
+// Class AugmentedReality.ARTraceResultLibrary
+// 0x0000 (0x0028 - 0x0028)
+class UARTraceResultLibrary final : public UBlueprintFunctionLibrary
 {
 public:
-	class UARCandidateObject*                     DetectedObject;                                    // 0x00F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-
-public:
-	class UARCandidateObject* GetDetectedObject() const;
+	static float GetDistanceFromCamera(const struct FARTraceResult& TraceResult);
+	static struct FTransform GetLocalToTrackingTransform(const struct FARTraceResult& TraceResult);
+	static struct FTransform GetLocalToWorldTransform(const struct FARTraceResult& TraceResult);
+	static struct FTransform GetLocalTransform(const struct FARTraceResult& TraceResult);
+	static EARLineTraceChannels GetTraceChannel(const struct FARTraceResult& TraceResult);
+	static class UARTrackedGeometry* GetTrackedGeometry(const struct FARTraceResult& TraceResult);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("ARTrackedObject")
+		STATIC_CLASS_IMPL("ARTraceResultLibrary")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"ARTrackedObject")
+		STATIC_NAME_IMPL(L"ARTraceResultLibrary")
 	}
-	static class UARTrackedObject* GetDefaultObj()
+	static class UARTraceResultLibrary* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UARTrackedObject>();
+		return GetDefaultObjImpl<UARTraceResultLibrary>();
 	}
 };
-DUMPER7_ASSERTS_UARTrackedObject;
-
-// Class AugmentedReality.ARBasicLightEstimate
-// 0x0018 (0x0040 - 0x0028)
-class UARBasicLightEstimate : public UARLightEstimate
-{
-public:
-	float                                         AmbientIntensityLumens;                            // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	float                                         AmbientColorTemperatureKelvin;                     // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	struct FLinearColor                           AmbientColor;                                      // 0x0030(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-
-public:
-	struct FLinearColor GetAmbientColor() const;
-	float GetAmbientColorTemperatureKelvin() const;
-	float GetAmbientIntensityLumens() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARBasicLightEstimate")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARBasicLightEstimate")
-	}
-	static class UARBasicLightEstimate* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARBasicLightEstimate>();
-	}
-};
-DUMPER7_ASSERTS_UARBasicLightEstimate;
-
-// Class AugmentedReality.ARPlaneGeometry
-// 0x0030 (0x0130 - 0x0100)
-class UARPlaneGeometry final : public UARTrackedGeometry
-{
-public:
-	EARPlaneOrientation                           Orientation;                                       // 0x00F8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_F9[0x3];                                       // 0x00F9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FVector                                Center;                                            // 0x00FC(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	struct FVector                                Extent;                                            // 0x0108(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_114[0x4];                                      // 0x0114(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FVector>                        BoundaryPolygon;                                   // 0x0118(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
-	class UARPlaneGeometry*                       SubsumedBy;                                        // 0x0128(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-
-public:
-	TArray<struct FVector> GetBoundaryPolygonInLocalSpace() const;
-	struct FVector GetCenter() const;
-	struct FVector GetExtent() const;
-	EARPlaneOrientation GetOrientation() const;
-	class UARPlaneGeometry* GetSubsumedBy() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARPlaneGeometry")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARPlaneGeometry")
-	}
-	static class UARPlaneGeometry* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARPlaneGeometry>();
-	}
-};
-DUMPER7_ASSERTS_UARPlaneGeometry;
-
-// Class AugmentedReality.ARCandidateImage
-// 0x0028 (0x0058 - 0x0030)
-class UARCandidateImage : public UDataAsset
-{
-public:
-	class UTexture2D*                             CandidateTexture;                                  // 0x0030(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class FString                                 FriendlyName;                                      // 0x0038(0x0010)(Edit, ZeroConstructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         Width;                                             // 0x0048(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         Height;                                            // 0x004C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	EARCandidateImageOrientation                  Orientation;                                       // 0x0050(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	class UTexture2D* GetCandidateTexture() const;
-	class FString GetFriendlyName() const;
-	EARCandidateImageOrientation GetOrientation() const;
-	float GetPhysicalHeight() const;
-	float GetPhysicalWidth() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARCandidateImage")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARCandidateImage")
-	}
-	static class UARCandidateImage* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARCandidateImage>();
-	}
-};
-DUMPER7_ASSERTS_UARCandidateImage;
-
-// Class AugmentedReality.ARActor
-// 0x0000 (0x0220 - 0x0220)
-class AARActor final : public AActor
-{
-public:
-	class UARComponent* AddARComponent(TSubclassOf<class UARComponent> InComponentClass, const struct FGuid& NativeID);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARActor")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARActor")
-	}
-	static class AARActor* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<AARActor>();
-	}
-};
-DUMPER7_ASSERTS_AARActor;
-
-// Class AugmentedReality.ARBaseAsyncTaskBlueprintProxy
-// 0x0020 (0x0050 - 0x0030)
-class UARBaseAsyncTaskBlueprintProxy : public UBlueprintAsyncActionBase
-{
-public:
-	uint8                                         Pad_30[0x20];                                      // 0x0030(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARBaseAsyncTaskBlueprintProxy")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARBaseAsyncTaskBlueprintProxy")
-	}
-	static class UARBaseAsyncTaskBlueprintProxy* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARBaseAsyncTaskBlueprintProxy>();
-	}
-};
-DUMPER7_ASSERTS_UARBaseAsyncTaskBlueprintProxy;
+DUMPER7_ASSERTS_UARTraceResultLibrary;
 
 // Class AugmentedReality.ARSaveWorldAsyncTaskBlueprintProxy
 // 0x0030 (0x0080 - 0x0050)
@@ -610,7 +662,7 @@ DUMPER7_ASSERTS_UARGetCandidateObjectAsyncTaskBlueprintProxy;
 // Class AugmentedReality.ARComponent
 // 0x0080 (0x0280 - 0x0200)
 #pragma pack(push, 0x1)
-class alignas(0x10) UARComponent : public USceneComponent
+class SDK_ALIGN(0x10) UARComponent : public USceneComponent
 {
 public:
 	struct FGuid                                  NativeID;                                          // 0x01F8(0x0010)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -1013,63 +1065,6 @@ public:
 };
 DUMPER7_ASSERTS_UARGeoTrackingSupport;
 
-// Class AugmentedReality.CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy
-// 0x0050 (0x00A0 - 0x0050)
-class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy final : public UARBaseAsyncTaskBlueprintProxy
-{
-public:
-	TMulticastInlineDelegate<void(bool bIsAvailable, const class FString& Error)> OnSuccess;         // 0x0050(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(bool bIsAvailable, const class FString& Error)> OnFailed;          // 0x0060(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_70[0x30];                                      // 0x0070(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* CheckGeoTrackingAvailability(class UObject* WorldContextObject);
-	static class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* CheckGeoTrackingAvailabilityAtLocation(class UObject* WorldContextObject, float Longitude, float Latitude);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy")
-	}
-	static class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy>();
-	}
-};
-DUMPER7_ASSERTS_UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy;
-
-// Class AugmentedReality.GetGeoLocationAsyncTaskBlueprintProxy
-// 0x0050 (0x00A0 - 0x0050)
-class UGetGeoLocationAsyncTaskBlueprintProxy final : public UARBaseAsyncTaskBlueprintProxy
-{
-public:
-	TMulticastInlineDelegate<void(float Longitude, float Latitude, float Altitude, const class FString& Error)> OnSuccess; // 0x0050(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(float Longitude, float Latitude, float Altitude, const class FString& Error)> OnFailed; // 0x0060(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_70[0x30];                                      // 0x0070(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UGetGeoLocationAsyncTaskBlueprintProxy* GetGeoLocationAtWorldPosition(class UObject* WorldContextObject, const struct FVector& WorldPosition);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("GetGeoLocationAsyncTaskBlueprintProxy")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"GetGeoLocationAsyncTaskBlueprintProxy")
-	}
-	static class UGetGeoLocationAsyncTaskBlueprintProxy* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UGetGeoLocationAsyncTaskBlueprintProxy>();
-	}
-};
-DUMPER7_ASSERTS_UGetGeoLocationAsyncTaskBlueprintProxy;
-
 // Class AugmentedReality.ARLifeCycleComponent
 // 0x0030 (0x0230 - 0x0200)
 class UARLifeCycleComponent final : public USceneComponent
@@ -1258,81 +1253,6 @@ public:
 };
 DUMPER7_ASSERTS_AARSkyLight;
 
-// Class AugmentedReality.ARTexture
-// 0x0020 (0x01A0 - 0x0180)
-#pragma pack(push, 0x1)
-class alignas(0x10) UARTexture : public UTexture
-{
-public:
-	EARTextureType                                TextureType;                                       // 0x0178(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_179[0x3];                                      // 0x0179(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         timestamp;                                         // 0x017C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FGuid                                  ExternalTextureGuid;                               // 0x0180(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FVector2D                              Size;                                              // 0x0190(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARTexture")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARTexture")
-	}
-	static class UARTexture* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARTexture>();
-	}
-};
-#pragma pack(pop)
-DUMPER7_ASSERTS_UARTexture;
-
-// Class AugmentedReality.ARTextureCameraImage
-// 0x0000 (0x01A0 - 0x01A0)
-class UARTextureCameraImage final : public UARTexture
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARTextureCameraImage")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARTextureCameraImage")
-	}
-	static class UARTextureCameraImage* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARTextureCameraImage>();
-	}
-};
-DUMPER7_ASSERTS_UARTextureCameraImage;
-
-// Class AugmentedReality.ARTextureCameraDepth
-// 0x0000 (0x01A0 - 0x01A0)
-class UARTextureCameraDepth final : public UARTexture
-{
-public:
-	EARDepthQuality                               DepthQuality;                                      // 0x0198(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EARDepthAccuracy                              DepthAccuracy;                                     // 0x0199(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bIsTemporallySmoothed;                             // 0x019A(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_19B[0x5];                                      // 0x019B(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ARTextureCameraDepth")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ARTextureCameraDepth")
-	}
-	static class UARTextureCameraDepth* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UARTextureCameraDepth>();
-	}
-};
-DUMPER7_ASSERTS_UARTextureCameraDepth;
-
 // Class AugmentedReality.AREnvironmentCaptureProbeTexture
 // 0x0020 (0x01F0 - 0x01D0)
 class UAREnvironmentCaptureProbeTexture final : public UTextureCube
@@ -1380,6 +1300,42 @@ public:
 };
 DUMPER7_ASSERTS_UARTraceResultDummy;
 
+// Class AugmentedReality.ARPlaneGeometry
+// 0x0030 (0x0130 - 0x0100)
+class UARPlaneGeometry final : public UARTrackedGeometry
+{
+public:
+	EARPlaneOrientation                           Orientation;                                       // 0x00F8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_F9[0x3];                                       // 0x00F9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FVector                                Center;                                            // 0x00FC(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FVector                                Extent;                                            // 0x0108(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_114[0x4];                                      // 0x0114(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FVector>                        BoundaryPolygon;                                   // 0x0118(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
+	class UARPlaneGeometry*                       SubsumedBy;                                        // 0x0128(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+
+public:
+	TArray<struct FVector> GetBoundaryPolygonInLocalSpace() const;
+	struct FVector GetCenter() const;
+	struct FVector GetExtent() const;
+	EARPlaneOrientation GetOrientation() const;
+	class UARPlaneGeometry* GetSubsumedBy() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARPlaneGeometry")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARPlaneGeometry")
+	}
+	static class UARPlaneGeometry* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARPlaneGeometry>();
+	}
+};
+DUMPER7_ASSERTS_UARPlaneGeometry;
+
 // Class AugmentedReality.ARTrackedPoint
 // 0x0000 (0x0100 - 0x0100)
 class UARTrackedPoint final : public UARTrackedGeometry
@@ -1403,7 +1359,7 @@ DUMPER7_ASSERTS_UARTrackedPoint;
 // Class AugmentedReality.ARTrackedImage
 // 0x0010 (0x0110 - 0x0100)
 #pragma pack(push, 0x1)
-class alignas(0x10) UARTrackedImage : public UARTrackedGeometry
+class SDK_ALIGN(0x10) UARTrackedImage : public UARTrackedGeometry
 {
 public:
 	class UARCandidateImage*                      DetectedImage;                                     // 0x00F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -1491,35 +1447,58 @@ public:
 };
 DUMPER7_ASSERTS_UARFaceGeometry;
 
-// Class AugmentedReality.AREnvironmentCaptureProbe
-// 0x0010 (0x0110 - 0x0100)
-class UAREnvironmentCaptureProbe final : public UARTrackedGeometry
+// Class AugmentedReality.ARTrackedObject
+// 0x0000 (0x0100 - 0x0100)
+class UARTrackedObject final : public UARTrackedGeometry
 {
 public:
-	struct FVector                                Extent;                                            // 0x00F8(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_104[0x4];                                      // 0x0104(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAREnvironmentCaptureProbeTexture*      EnvironmentCaptureTexture;                         // 0x0108(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UARCandidateObject*                     DetectedObject;                                    // 0x00F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 
 public:
-	class UAREnvironmentCaptureProbeTexture* GetEnvironmentCaptureTexture();
-
-	struct FVector GetExtent() const;
+	class UARCandidateObject* GetDetectedObject() const;
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("AREnvironmentCaptureProbe")
+		STATIC_CLASS_IMPL("ARTrackedObject")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"AREnvironmentCaptureProbe")
+		STATIC_NAME_IMPL(L"ARTrackedObject")
 	}
-	static class UAREnvironmentCaptureProbe* GetDefaultObj()
+	static class UARTrackedObject* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UAREnvironmentCaptureProbe>();
+		return GetDefaultObjImpl<UARTrackedObject>();
 	}
 };
-DUMPER7_ASSERTS_UAREnvironmentCaptureProbe;
+DUMPER7_ASSERTS_UARTrackedObject;
+
+// Class AugmentedReality.ARTrackedPose
+// 0x0050 (0x0150 - 0x0100)
+class UARTrackedPose final : public UARTrackedGeometry
+{
+public:
+	struct FARPose3D                              TrackedPose;                                       // 0x00F8(0x0050)(NativeAccessSpecifierPrivate)
+	uint8                                         Pad_148[0x8];                                      // 0x0148(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	const struct FARPose3D GetTrackedPoseData() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARTrackedPose")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARTrackedPose")
+	}
+	static class UARTrackedPose* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARTrackedPose>();
+	}
+};
+DUMPER7_ASSERTS_UARTrackedPose;
 
 // Class AugmentedReality.ARMeshGeometry
 // 0x0000 (0x0100 - 0x0100)
@@ -1616,6 +1595,26 @@ public:
 };
 DUMPER7_ASSERTS_UARTrackableNotifyComponent;
 
+// Class AugmentedReality.ARTypesDummyClass
+// 0x0000 (0x0028 - 0x0028)
+class UARTypesDummyClass final : public UObject
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ARTypesDummyClass")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ARTypesDummyClass")
+	}
+	static class UARTypesDummyClass* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UARTypesDummyClass>();
+	}
+};
+DUMPER7_ASSERTS_UARTypesDummyClass;
+
 // Class AugmentedReality.ARCandidateObject
 // 0x0040 (0x0070 - 0x0030)
 class UARCandidateObject final : public UDataAsset
@@ -1651,5 +1650,4 @@ public:
 };
 DUMPER7_ASSERTS_UARCandidateObject;
 
-}
-
+SDK_NAMESPACE_END

@@ -10,33 +10,41 @@
 
 #include "Basic.hpp"
 
+#include "Engine_structs.hpp"
 
-namespace SDK::Params
-{
+
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function GM_MainMenu.GM_MainMenu_C.ExecuteUbergraph_GM_MainMenu
-// 0x0048 (0x0048 - 0x0000)
+// 0x0068 (0x0068 - 0x0000)
 struct GM_MainMenu_C_ExecuteUbergraph_GM_MainMenu final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<class UW_MainMenu_C*>                  CallFunc_GetAllWidgetsOfClass_FoundWidgets;        // 0x0008(0x0010)(ReferenceParm, ContainsInstancedReference)
-	class UW_MainMenu_C*                          CallFunc_Array_Get_Item;                           // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class FText                                   K2Node_Event_Message;                              // 0x0020(0x0018)(ConstParm)
-	class UWidget*                                K2Node_Event_PreviousFocusedWidget;                // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class APlayerController*                      CallFunc_GetPlayerController_ReturnValue;          // 0x0040(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UWidget*                                K2Node_Event_PreviousFocusedWidget;                // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UW_MainMenu_C*                          CallFunc_Array_Get_Item;                           // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_CheckVisibilityRecursive_IsVisible;       // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_2A[0x6];                                       // 0x002A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   K2Node_Event_Message;                              // 0x0030(0x0018)(ConstParm)
+	class APlayerController*                      CallFunc_GetLocalPlayerController_ReturnValue;     // 0x0048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class APlayerController*                      CallFunc_GetLocalPlayerController_ReturnValue_1;   // 0x0050(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UWB_SimpleNonModalMessageQueueDisplay_C* CallFunc_Create_ReturnValue;                      // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EEndPlayReason                                K2Node_Event_EndPlayReason;                        // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 DUMPER7_ASSERTS_GM_MainMenu_C_ExecuteUbergraph_GM_MainMenu;
 
-// Function GM_MainMenu.GM_MainMenu_C.ResetInputModeToDefault
-// 0x0008 (0x0008 - 0x0000)
-struct GM_MainMenu_C_ResetInputModeToDefault final
+// Function GM_MainMenu.GM_MainMenu_C.ReceiveEndPlay
+// 0x0001 (0x0001 - 0x0000)
+struct GM_MainMenu_C_ReceiveEndPlay final
 {
 public:
-	class UWidget*                                PreviousFocusedWidget;                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EEndPlayReason                                EndPlayReason;                                     // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_GM_MainMenu_C_ResetInputModeToDefault;
+DUMPER7_ASSERTS_GM_MainMenu_C_ReceiveEndPlay;
 
 // Function GM_MainMenu.GM_MainMenu_C.ShowNonModalMessage
 // 0x0018 (0x0018 - 0x0000)
@@ -47,5 +55,14 @@ public:
 };
 DUMPER7_ASSERTS_GM_MainMenu_C_ShowNonModalMessage;
 
-}
+// Function GM_MainMenu.GM_MainMenu_C.ResetInputModeToDefault
+// 0x0008 (0x0008 - 0x0000)
+struct GM_MainMenu_C_ResetInputModeToDefault final
+{
+public:
+	class UWidget*                                PreviousFocusedWidget;                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+DUMPER7_ASSERTS_GM_MainMenu_C_ResetInputModeToDefault;
 
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

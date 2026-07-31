@@ -14,8 +14,7 @@
 #include "Backrooms_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Menu_Computer.BP_Menu_Computer_C
 // 0x0078 (0x0380 - 0x0308)
@@ -73,5 +72,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_Menu_Computer_C;
 
-}
-
+SDK_NAMESPACE_END

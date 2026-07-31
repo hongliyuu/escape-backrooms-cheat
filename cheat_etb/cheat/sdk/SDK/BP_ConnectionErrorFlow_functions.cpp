@@ -14,8 +14,7 @@
 #include "BP_ConnectionErrorFlow_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_ConnectionErrorFlow.BP_ConnectionErrorFlow_C.ExecuteUbergraph_BP_ConnectionErrorFlow
 // (Final, UbergraphFunction, HasDefaults)
@@ -50,5 +49,5 @@ void UBP_ConnectionErrorFlow_C::Run()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

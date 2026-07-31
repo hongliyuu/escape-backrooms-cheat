@@ -14,8 +14,7 @@
 #include "BP_SkinStealer_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_SkinStealer.BP_SkinStealer_C.ExecuteUbergraph_BP_SkinStealer
 // (Final, UbergraphFunction, HasDefaults)
@@ -462,5 +461,5 @@ void ABP_SkinStealer_C::OnRep_Player_Costume()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

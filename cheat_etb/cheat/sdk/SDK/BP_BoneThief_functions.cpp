@@ -14,8 +14,7 @@
 #include "BP_BoneThief_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_BoneThief.BP_BoneThief_C.ExecuteUbergraph_BP_BoneThief
 // (Final, UbergraphFunction, HasDefaults)
@@ -604,5 +603,5 @@ void ABP_BoneThief_C::OnRep_TargetPlayer()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

@@ -14,8 +14,7 @@
 #include "W_Intro_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function W_Intro.W_Intro_C.ExecuteUbergraph_W_Intro
 // (Final, UbergraphFunction, HasDefaults)
@@ -52,26 +51,6 @@ void UW_Intro_C::HandleOnStartCostumeSelect(class UUserWidget* CostumeWidget)
 	Params::W_Intro_C_HandleOnStartCostumeSelect Parms{};
 
 	Parms.CostumeWidget = CostumeWidget;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function W_Intro.W_Intro_C.OnActiveUserChanged
-// (BlueprintCallable, BlueprintEvent)
-// Parameters:
-// bool                                    bIsSameUser                                            (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-
-void UW_Intro_C::OnActiveUserChanged(bool bIsSameUser)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("W_Intro_C", "OnActiveUserChanged");
-
-	Params::W_Intro_C_OnActiveUserChanged Parms{};
-
-	Parms.bIsSameUser = bIsSameUser;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -128,20 +107,6 @@ void UW_Intro_C::CreateMainMenuWidget()
 
 	if (Func == nullptr)
 		Func = Class->GetFunction("W_Intro_C", "CreateMainMenuWidget");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function W_Intro.W_Intro_C.OnInitialized
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-
-void UW_Intro_C::OnInitialized()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("W_Intro_C", "OnInitialized");
 
 	UObject::ProcessEvent(Func, nullptr);
 }
@@ -302,20 +267,6 @@ struct FEventReply UW_Intro_C::OnMouseButtonDown(const struct FGeometry& MyGeome
 }
 
 
-// Function W_Intro.W_Intro_C.CheckFont
-// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
-
-void UW_Intro_C::CheckFont()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("W_Intro_C", "CheckFont");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
 // Function W_Intro.W_Intro_C.Get_TextBlock_Skip_1_Visibility_0
 // (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
@@ -405,5 +356,5 @@ ESlateVisibility UW_Intro_C::Get_ChineseHealthWarning_Visibility()
 	return Parms.ReturnValue;
 }
 
-}
 
+SDK_NAMESPACE_END

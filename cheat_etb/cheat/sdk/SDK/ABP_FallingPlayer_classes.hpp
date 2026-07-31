@@ -10,13 +10,12 @@
 
 #include "Basic.hpp"
 
+#include "AnimGraphRuntime_structs.hpp"
 #include "Engine_structs.hpp"
 #include "Engine_classes.hpp"
-#include "AnimGraphRuntime_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // AnimBlueprintGeneratedClass ABP_FallingPlayer.ABP_FallingPlayer_C
 // 0x01E0 (0x04A0 - 0x02C0)
@@ -52,5 +51,4 @@ public:
 };
 DUMPER7_ASSERTS_UABP_FallingPlayer_C;
 
-}
-
+SDK_NAMESPACE_END

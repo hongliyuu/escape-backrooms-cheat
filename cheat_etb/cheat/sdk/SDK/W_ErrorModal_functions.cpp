@@ -14,8 +14,7 @@
 #include "W_ErrorModal_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function W_ErrorModal.W_ErrorModal_C.ExecuteUbergraph_W_ErrorModal
 // (Final, UbergraphFunction, HasDefaults)
@@ -276,5 +275,5 @@ struct FEventReply UW_ErrorModal_C::OnPreviewKeyDown(const struct FGeometry& MyG
 	return Parms.ReturnValue;
 }
 
-}
 
+SDK_NAMESPACE_END

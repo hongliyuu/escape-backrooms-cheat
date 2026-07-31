@@ -14,8 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function BP_BoneThief.BP_BoneThief_C.ExecuteUbergraph_BP_BoneThief
 // 0x0830 (0x0830 - 0x0000)
@@ -275,5 +275,5 @@ public:
 };
 DUMPER7_ASSERTS_BP_BoneThief_C_FindClosestPlayer;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

@@ -14,8 +14,7 @@
 #include "WB_Button_Confirmation_Theme2_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function WB_Button_Confirmation_Theme2.WB_Button_Confirmation_Theme2_C.ExecuteUbergraph_WB_Button_Confirmation_Theme2
 // (Final, UbergraphFunction)
@@ -162,5 +161,5 @@ void UWB_Button_Confirmation_Theme2_C::Get_SlateBrush(class UTexture2D* Image, s
 		*SlateBrush = std::move(Parms.SlateBrush);
 }
 
-}
 
+SDK_NAMESPACE_END

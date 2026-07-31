@@ -12,12 +12,12 @@
 
 #include "Engine_structs.hpp"
 #include "OnlineSubsystemUtils_structs.hpp"
+#include "AdvancedSessions_structs.hpp"
 #include "Backrooms_structs.hpp"
 #include "Backrooms_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_AttemptToEnterLobby_Flow.BP_AttemptToEnterLobby_Flow_C
 // 0x0128 (0x01D0 - 0x00A8)
@@ -35,6 +35,7 @@ public:
 
 public:
 	void ExecuteUbergraph_BP_AttemptToEnterLobby_Flow(int32 EntryPoint);
+	void HandleCrossplayPrivilegeCheckComplete(bool bSuccess_0);
 	void Run();
 	void OnSuccess_A06C510E4D9B000C1DADD78D0EB0A162();
 	void OnFailure_A06C510E4D9B000C1DADD78D0EB0A162();
@@ -44,6 +45,7 @@ public:
 	void OnFailure_1ADC80B6492FC6B5A0960B9340AF9E0E(EOnJoinSessionCompleteFancyResult Result);
 	void OnSuccess_1AF601CC4208579E90FF82B097455828(const bool SessionInfo);
 	void OnFailure_1AF601CC4208579E90FF82B097455828(const bool SessionInfo);
+	void CompleteAndReturnFocus();
 
 public:
 	static class UClass* StaticClass()
@@ -61,5 +63,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_AttemptToEnterLobby_Flow_C;
 
-}
-
+SDK_NAMESPACE_END

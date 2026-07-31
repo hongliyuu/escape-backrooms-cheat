@@ -14,8 +14,7 @@
 #include "Backrooms_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ConnectionErrorFlow.BP_ConnectionErrorFlow_C
 // 0x0010 (0x00B8 - 0x00A8)
@@ -45,5 +44,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_ConnectionErrorFlow_C;
 
-}
-
+SDK_NAMESPACE_END

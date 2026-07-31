@@ -14,8 +14,7 @@
 #include "W_CostumeSelector_CostumeListItem_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function W_CostumeSelector_CostumeListItem.W_CostumeSelector_CostumeListItem_C.ExecuteUbergraph_W_CostumeSelector_CostumeListItem
 // (Final, UbergraphFunction, HasDefaults)
@@ -180,5 +179,5 @@ void UW_CostumeSelector_CostumeListItem_C::RefreshSelectionState()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

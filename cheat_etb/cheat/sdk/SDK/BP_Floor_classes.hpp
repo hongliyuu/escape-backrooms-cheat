@@ -10,14 +10,13 @@
 
 #include "Basic.hpp"
 
-#include "E_Floors_structs.hpp"
-#include "E_Ceiling_6x6_broken_structs.hpp"
-#include "E_Ceiling_3x3_broken_structs.hpp"
 #include "Engine_classes.hpp"
+#include "E_Floors_structs.hpp"
+#include "E_Ceiling_3x3_broken_structs.hpp"
+#include "E_Ceiling_6x6_broken_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Floor.BP_Floor_C
 // 0x0040 (0x0260 - 0x0220)
@@ -57,5 +56,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_Floor_C;
 
-}
-
+SDK_NAMESPACE_END

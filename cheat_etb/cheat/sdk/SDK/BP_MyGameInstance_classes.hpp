@@ -10,20 +10,20 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
-#include "E_GameMode_structs.hpp"
-#include "E_Difficulty_structs.hpp"
-#include "AdvancedSessions_structs.hpp"
-#include "E_HeadsetType_structs.hpp"
 #include "Backrooms_structs.hpp"
 #include "Backrooms_classes.hpp"
+#include "AdvancedSessions_structs.hpp"
+#include "E_HeadsetType_structs.hpp"
+#include "Engine_structs.hpp"
+#include "CoreUObject_structs.hpp"
+#include "E_Difficulty_structs.hpp"
+#include "E_GameMode_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_MyGameInstance.BP_MyGameInstance_C
-// 0x01A0 (0x0418 - 0x0278)
+// 0x01F0 (0x0468 - 0x0278)
 class UBP_MyGameInstance_C final : public UFancyGameInstance
 {
 public:
@@ -61,31 +61,57 @@ public:
 	bool                                          IsPrivateGame;                                     // 0x03D0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_3D1[0x3];                                      // 0x03D1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         MaxPlayers;                                        // 0x03D4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          HasLostConnection;                                 // 0x03D8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_3D9[0x7];                                      // 0x03D9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<class FName>                           AchievementQueue;                                  // 0x03E0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	bool                                          IsCurrentlyUnlockingAchievement;                   // 0x03F0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          HasPremium;                                        // 0x03F1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          PremiumDialogCompleted;                            // 0x03F2(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_3F3[0x5];                                      // 0x03F3(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(int32 PlayerNum, EBPLoginStatus PreviousStatus, EBPLoginStatus NewStatus, const struct FBPUniqueNetId& NewPlayerUniqueNetID)> OnPlayerLoginStatusChange; // 0x03F8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
-	bool                                          InitialPremiumCheckDone;                           // 0x0408(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_409[0x7];                                      // 0x0409(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UW_ErrorModal_C*                        ErrorModal;                                        // 0x0410(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<class FName>                           AchievementQueue;                                  // 0x03D8(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
+	bool                                          IsCurrentlyUnlockingAchievement;                   // 0x03E8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          HasPremium;                                        // 0x03E9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          PremiumDialogCompleted;                            // 0x03EA(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_3EB[0x5];                                      // 0x03EB(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(int32 PlayerNum, EBPLoginStatus PreviousStatus, EBPLoginStatus NewStatus, const struct FBPUniqueNetId& NewPlayerUniqueNetID)> OnPlayerLoginStatusChange; // 0x03F0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	bool                                          InitialPremiumCheckDone;                           // 0x0400(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_401[0x7];                                      // 0x0401(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UW_ErrorModal_C*                        ErrorModal;                                        // 0x0408(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FString                                 LobbyCode;                                         // 0x0410(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, HasGetValueTypeHash)
+	bool                                          HasCommRestrictedDialogDisplayed;                  // 0x0420(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bHasSeenCrossplayWarning;                          // 0x0421(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          CanPlayOnline;                                     // 0x0422(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          CanCrossplay;                                      // 0x0423(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          CanCommunicateOnline;                              // 0x0424(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_425[0x3];                                      // 0x0425(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(bool JustGotPremium)> OnCheckPremiumStateDone;                     // 0x0428(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	TMulticastInlineDelegate<void(bool Success)>  OnInlineLoginDone;                                 // 0x0438(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	bool                                          bEOSLoginCallbackBound;                            // 0x0448(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bHasSeenAutosaveModal;                             // 0x0449(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bIsGameChatActive;                                 // 0x044A(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bIsInCinematic;                                    // 0x044B(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_44C[0x4];                                      // 0x044C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDateTime                              LastPrivCheckTime;                                 // 0x0450(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, NoDestructor, HasGetValueTypeHash)
+	TMulticastInlineDelegate<void(bool bSuccess)> OnCheckCrossplayPrivilegeComplete;                 // 0x0458(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 
 public:
 	void ExecuteUbergraph_BP_MyGameInstance(int32 EntryPoint);
-	void HandleConnectionStatusChanged(EOnlineStatus OldConnectionStatus, EOnlineStatus NewConnectionStatus);
+	void RefreshPlayerCommPrivileges();
+	void _CheckCanCrossplayPrivilege_Internal(bool bForceAttemptToResolve);
+	void ShowLoadingScreen(class APlayerController* PlayerController, const class FText& Message);
+	void OnSessionInviteAccepted(bool bWasSuccessful, int32 LocalPlayerNum, const struct FBPUniqueNetId& PersonInvited, const struct FBlueprintSessionResult& SessionToJoin);
+	void SageGameChatActive(bool bActive);
+	void OnPlayerLoginChanged(int32 PlayerNum);
+	void CreateServer(class APlayerController* PlayerController, class UWidget* WidgetRef, class UWidget* ParentRef, class FName LevelName, int32 MaxPlayer, bool IsPrivate);
+	void OnCheckPremiumStateDone_Login(bool JustGotPremium);
+	void OnEOSLoginDone(bool bSuccess);
+	void InlineLogin();
+	void CheckCanCommunicateOnlinePrivilege();
+	void CheckCanPlayOnlinePrivilege();
+	void BindOnControllerDisconnect();
+	void OnControllerDisconnected();
+	void HandleConnectionStatusChanged(bool NewConnectionStatus);
 	void HandleNetworkError(ENetworkFailure FailureType, bool bIsServer);
 	void HideLoadingScreen();
-	void ShowLoadingScreen(class APlayerController* PlayerController, const class FText& Message);
-	void OnFindInviteSessionFailure();
-	void OnUserChanged(bool bIsSameUser);
 	void OnPlayerLoginStatusChanged(int32 PlayerNum, EBPLoginStatus PreviousStatus, EBPLoginStatus NewStatus, const struct FBPUniqueNetId& NewPlayerUniqueNetID);
 	void ReturnToMainMenu();
 	void OnApplicationDeactivate();
 	void OnApplicationReactivate();
 	void InitializeUserHandlingEvents();
+	void JoinServerSession(const struct FBlueprintSessionResult& Session, class APlayerController* PlayerController, class UWidget* ParentRef, bool ShowLoadingScreen);
 	void CheckPremiumState();
 	void ShowPremiumAccountUpgradeDialog();
 	void StartAchievementCheckTimer();
@@ -94,28 +120,37 @@ public:
 	void FramePacingOnXSS();
 	void UpdateMissionTime(float DeltaSeconds);
 	void OnInputDeviceChangedEvent(const EFancyInputDevice NewInputDevice);
-	void CreateServer(class APlayerController* PlayerController, class UWidget* WidgetRef, class UWidget* ParentRef, class FName LevelName, int32 MaxPlayer, bool IsPrivate);
+	void Initialize_AudioSettings();
 	void ReceiveShutdown();
 	void OnSteamOverlayIsActive(bool isOverlayActive);
-	void JoinServerSession(const struct FBlueprintSessionResult& Session, class APlayerController* PlayerController, class UWidget* ParentRef, bool ShowLoadingScreen);
+	void ReceiveInit();
 	void ResetAfterErrorFocus(class APlayerController* PlayerController, class UWidget* Widget);
 	void UnlockAchievement(class FName AchievementName, class APlayerController* PlayerController);
 	void OnPlayerTalkingStateChanged(const struct FBPUniqueNetId& PlayerId, bool bIsTalking);
-	void OnSessionInviteAccepted(int32 LocalPlayerNum, const struct FBPUniqueNetId& PersonInvited, const struct FBlueprintSessionResult& SessionToJoin);
-	void ReceiveInit();
-	void Initialize_AudioSettings();
-	void OnSuccess_DA31791B43CC9383FE2FAAA3489B551C();
-	void OnFailure_DA31791B43CC9383FE2FAAA3489B551C();
+	void OnSuccess_738E87BA453FC78726BB63BF27C708EE();
+	void OnFailure_738E87BA453FC78726BB63BF27C708EE();
+	void OnSuccess_36EA07F14906798B445565A0E68A0CAB(const bool SessionInfo);
+	void OnFailure_36EA07F14906798B445565A0E68A0CAB(const bool SessionInfo);
+	void OnSuccess_00167D3340D34B282413138479CDBF85();
+	void OnFailure_00167D3340D34B282413138479CDBF85();
+	void OnSuccess_108456A74123143EAC64CCBE7FEC6A51(const bool SessionInfo);
+	void OnFailure_108456A74123143EAC64CCBE7FEC6A51(const bool SessionInfo);
+	void OnSuccess_5D2C7C2D42FC55C47765C8BB8F07226A(const bool SessionInfo);
+	void OnFailure_5D2C7C2D42FC55C47765C8BB8F07226A(const bool SessionInfo);
+	void OnSuccess_230A28C84B39D41BC65D169688F5D581(const bool SessionInfo);
+	void OnFailure_230A28C84B39D41BC65D169688F5D581(const bool SessionInfo);
+	void OnSuccess_4DF97576439008BC743F0C8D8DD6B7AE(const bool SessionInfo);
+	void OnFailure_4DF97576439008BC743F0C8D8DD6B7AE(const bool SessionInfo);
 	void OnSuccess_8D32C966478C31E18DECF896A41FD4CE(const bool SessionInfo);
 	void OnFailure_8D32C966478C31E18DECF896A41FD4CE(const bool SessionInfo);
 	void OnSuccess_C5B79B204D20B91A7829848F8D941EA8(const bool SessionInfo);
 	void OnFailure_C5B79B204D20B91A7829848F8D941EA8(const bool SessionInfo);
+	void OnSuccess_D7E8A28A46B4BD5B7318A6A66AFD14E2();
+	void OnFailure_D7E8A28A46B4BD5B7318A6A66AFD14E2();
 	void OnSuccess_4A8E1BF4489B644EBB46CCB5CE87A8FB();
 	void OnFailure_4A8E1BF4489B644EBB46CCB5CE87A8FB();
 	void OnSuccess_F6A1C64C4BF407E4C67D4F8266759C0F(class FName WrittenAchievementName, float WrittenProgress, int32 WrittenUserTag);
 	void OnFailure_F6A1C64C4BF407E4C67D4F8266759C0F(class FName WrittenAchievementName, float WrittenProgress, int32 WrittenUserTag);
-	void OnSuccess_D7E8A28A46B4BD5B7318A6A66AFD14E2();
-	void OnFailure_D7E8A28A46B4BD5B7318A6A66AFD14E2();
 	void GenerateCode();
 	void CheckCodeUnique(const struct FSessionsSearchSetting& Code_0);
 	void ResetInput();
@@ -124,7 +159,11 @@ public:
 	bool IsPremiumAvailable();
 	void PatchInputIni();
 	bool IsOnline();
-	void Fix_Resolution_On_Steam_Deck();
+	void CreateSessionSettings(bool IsPrivate, class APlayerController* InPlayerController, TArray<struct FSessionPropertyKeyPair>* Array);
+	void FixResolutionOnSteamDeck();
+	void BindEOSLoginCallback();
+	void UnBindEOSLoginCallback();
+	void CheckCanCrossplayPrivilege(bool bForceAttemptToResolve, const TDelegate<void(bool bSuccess)>& Event);
 
 public:
 	static class UClass* StaticClass()
@@ -142,5 +181,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_MyGameInstance_C;
 
-}
-
+SDK_NAMESPACE_END

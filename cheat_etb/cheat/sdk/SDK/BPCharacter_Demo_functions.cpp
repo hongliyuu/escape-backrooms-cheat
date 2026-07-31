@@ -14,8 +14,7 @@
 #include "BPCharacter_Demo_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BPCharacter_Demo.BPCharacter_Demo_C.ExecuteUbergraph_BPCharacter_Demo
 // (Final, UbergraphFunction, HasDefaults)
@@ -34,6 +33,40 @@ void ABPCharacter_Demo_C::ExecuteUbergraph_BPCharacter_Demo(int32 EntryPoint)
 	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BPCharacter_Demo.BPCharacter_Demo_C.ReceiveEndPlay
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// EEndPlayReason                          EndPlayReason                                          (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void ABPCharacter_Demo_C::ReceiveEndPlay(EEndPlayReason EndPlayReason)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BPCharacter_Demo_C", "ReceiveEndPlay");
+
+	Params::BPCharacter_Demo_C_ReceiveEndPlay Parms{};
+
+	Parms.EndPlayReason = EndPlayReason;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BPCharacter_Demo.BPCharacter_Demo_C.SpawnCard
+// (Net, NetReliable, NetServer, BlueprintCallable, BlueprintEvent)
+
+void ABPCharacter_Demo_C::SpawnCard()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BPCharacter_Demo_C", "SpawnCard");
+
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 
@@ -6351,5 +6384,39 @@ void ABPCharacter_Demo_C::ClampMovement(float In, float* Clamped)
 		*Clamped = Parms.Clamped;
 }
 
+
+// Function BPCharacter_Demo.BPCharacter_Demo_C.OnRep_Card
+// (BlueprintCallable, BlueprintEvent)
+
+void ABPCharacter_Demo_C::OnRep_Card()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BPCharacter_Demo_C", "OnRep_Card");
+
+	UObject::ProcessEvent(Func, nullptr);
 }
 
+
+// Function BPCharacter_Demo.BPCharacter_Demo_C.Toggle Render Clarity Boost
+// (Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// bool                                    bEnable                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void ABPCharacter_Demo_C::Toggle_Render_Clarity_Boost(bool bEnable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BPCharacter_Demo_C", "Toggle Render Clarity Boost");
+
+	Params::BPCharacter_Demo_C_Toggle_Render_Clarity_Boost Parms{};
+
+	Parms.bEnable = bEnable;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+SDK_NAMESPACE_END

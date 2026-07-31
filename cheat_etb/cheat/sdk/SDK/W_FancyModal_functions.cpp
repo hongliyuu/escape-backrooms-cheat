@@ -14,8 +14,7 @@
 #include "W_FancyModal_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function W_FancyModal.W_FancyModal_C.ExecuteUbergraph_W_FancyModal
 // (Final, UbergraphFunction, HasDefaults)
@@ -147,5 +146,5 @@ struct FEventReply UW_FancyModal_C::OnFocusReceived(const struct FGeometry& MyGe
 	return Parms.ReturnValue;
 }
 
-}
 
+SDK_NAMESPACE_END

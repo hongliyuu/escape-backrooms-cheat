@@ -14,8 +14,7 @@
 #include "BP_MenuFlickering_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_MenuFlickering.BP_MenuFlickering_C.ExecuteUbergraph_BP_MenuFlickering
 // (Final, UbergraphFunction)
@@ -78,5 +77,5 @@ void ABP_MenuFlickering_C::Flicker__FinishedFunc()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

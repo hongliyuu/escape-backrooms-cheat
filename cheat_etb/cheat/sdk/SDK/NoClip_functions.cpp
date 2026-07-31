@@ -14,8 +14,7 @@
 #include "NoClip_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function NoClip.SequenceDirector_C.ExecuteUbergraph_SequenceDirector
 // (Final, UbergraphFunction)
@@ -64,5 +63,5 @@ void NoClip::USequenceDirector_C::SequenceEvent__ENTRYPOINTSequenceDirector_0()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

@@ -15,8 +15,7 @@
 #include "Backrooms_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ChunkActor.BP_ChunkActor_C
 // 0x0040 (0x0260 - 0x0220)
@@ -53,5 +52,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_ChunkActor_C;
 
-}
-
+SDK_NAMESPACE_END

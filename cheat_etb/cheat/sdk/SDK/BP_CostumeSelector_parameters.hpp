@@ -14,28 +14,29 @@
 #include "Engine_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function BP_CostumeSelector.BP_CostumeSelector_C.ExecuteUbergraph_BP_CostumeSelector
-// 0x0120 (0x0120 - 0x0000)
+// 0x0130 (0x0130 - 0x0000)
 struct BP_CostumeSelector_C_ExecuteUbergraph_BP_CostumeSelector final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_SwitchEnum_CmpSuccess;                      // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	TDelegate<void()>                             K2Node_Event_FeedbackCompleteCallback_2;           // 0x0008(0x0010)(ConstParm, ZeroConstructor, NoDestructor)
-	TDelegate<void()>                             K2Node_Event_FeedbackCompleteCallback_1;           // 0x0018(0x0010)(ConstParm, ZeroConstructor, NoDestructor)
-	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FTransform                             CallFunc_TLerp_ReturnValue;                        // 0x0030(0x0030)(IsPlainOldData, NoDestructor)
-	struct FHitResult                             CallFunc_K2_SetWorldTransform_SweepHitResult;      // 0x0060(0x0088)(IsPlainOldData, NoDestructor, ContainsInstancedReference)
-	class ABP_MenuActor_C*                        CallFunc_GetActorOfClass_ReturnValue;              // 0x00E8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class ABP_MenuActor_C*                        CallFunc_GetActorOfClass_ReturnValue_1;            // 0x00F0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class AActor*                                 K2Node_Event_TransitionToViewTarget;               // 0x00F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TDelegate<void()>                             K2Node_Event_FeedbackCompleteCallback;             // 0x0100(0x0010)(ConstParm, ZeroConstructor, NoDestructor)
-	class APlayerController*                      CallFunc_GetPlayerController_ReturnValue;          // 0x0110(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class APlayerController*                      CallFunc_GetPlayerController_ReturnValue_1;        // 0x0118(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class APlayerController*                      CallFunc_GetLocalPlayerController_ReturnValue;     // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_SwitchEnum_CmpSuccess;                      // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	TDelegate<void()>                             K2Node_Event_FeedbackCompleteCallback_2;           // 0x0014(0x0010)(ConstParm, ZeroConstructor, NoDestructor)
+	TDelegate<void()>                             K2Node_Event_FeedbackCompleteCallback_1;           // 0x0024(0x0010)(ConstParm, ZeroConstructor, NoDestructor)
+	uint8                                         Pad_34[0xC];                                       // 0x0034(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FTransform                             CallFunc_TLerp_ReturnValue;                        // 0x0040(0x0030)(IsPlainOldData, NoDestructor)
+	struct FHitResult                             CallFunc_K2_SetWorldTransform_SweepHitResult;      // 0x0070(0x0088)(IsPlainOldData, NoDestructor, ContainsInstancedReference)
+	class ABP_MenuActor_C*                        CallFunc_GetActorOfClass_ReturnValue;              // 0x00F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ABP_MenuActor_C*                        CallFunc_GetActorOfClass_ReturnValue_1;            // 0x0100(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class AActor*                                 K2Node_Event_TransitionToViewTarget;               // 0x0108(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TDelegate<void()>                             K2Node_Event_FeedbackCompleteCallback;             // 0x0110(0x0010)(ConstParm, ZeroConstructor, NoDestructor)
+	class APlayerController*                      CallFunc_GetLocalPlayerController_ReturnValue_1;   // 0x0120(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 DUMPER7_ASSERTS_BP_CostumeSelector_C_ExecuteUbergraph_BP_CostumeSelector;
 
@@ -67,5 +68,5 @@ public:
 };
 DUMPER7_ASSERTS_BP_CostumeSelector_C_ShowLoadedFeedback;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

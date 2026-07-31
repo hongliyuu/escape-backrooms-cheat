@@ -15,8 +15,7 @@
 #include "E_TemplateGraphic_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass MainMenuMap.MainMenuMap_C
 // 0x0028 (0x0250 - 0x0228)
@@ -56,5 +55,4 @@ public:
 };
 DUMPER7_ASSERTS_AMainMenuMap_C;
 
-}
-
+SDK_NAMESPACE_END

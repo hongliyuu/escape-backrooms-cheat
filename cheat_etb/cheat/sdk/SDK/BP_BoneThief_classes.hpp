@@ -10,13 +10,12 @@
 
 #include "Basic.hpp"
 
+#include "CoreUObject_structs.hpp"
 #include "Engine_structs.hpp"
 #include "Engine_classes.hpp"
-#include "CoreUObject_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_BoneThief.BP_BoneThief_C
 // 0x0130 (0x03B0 - 0x0280)
@@ -117,5 +116,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_BoneThief_C;
 
-}
-
+SDK_NAMESPACE_END

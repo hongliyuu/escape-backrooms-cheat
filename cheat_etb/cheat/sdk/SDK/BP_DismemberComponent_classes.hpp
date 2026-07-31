@@ -15,8 +15,7 @@
 #include "Backrooms_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_DismemberComponent.BP_DismemberComponent_C
 // 0x0068 (0x0118 - 0x00B0)
@@ -67,5 +66,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_DismemberComponent_C;
 
-}
-
+SDK_NAMESPACE_END

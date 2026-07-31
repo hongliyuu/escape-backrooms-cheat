@@ -10,12 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "CoreUObject_structs.hpp"
 #include "FluidForceDynamic_structs.hpp"
+#include "CoreUObject_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // UserDefinedStruct FluidForceDynamicPerInstanceData.FluidForceDynamicPerInstanceData
 // 0x0130 (0x0130 - 0x0000)
@@ -32,5 +31,4 @@ public:
 };
 DUMPER7_ASSERTS_FFluidForceDynamicPerInstanceData;
 
-}
-
+SDK_NAMESPACE_END

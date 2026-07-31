@@ -14,8 +14,7 @@
 #include "Lobby_PlayerList_Item_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function Lobby_PlayerList_Item.Lobby_PlayerList_Item_C.ExecuteUbergraph_Lobby_PlayerList_Item
 // (Final, UbergraphFunction)
@@ -196,5 +195,5 @@ void ULobby_PlayerList_Item_C::Set_Speaking(bool IsSpeaking)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
-}
 
+SDK_NAMESPACE_END

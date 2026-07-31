@@ -11,13 +11,13 @@
 #include "Basic.hpp"
 
 #include "CoreUObject_structs.hpp"
-#include "HE_LookAtLocation_structs.hpp"
 #include "Engine_structs.hpp"
 #include "HE_LookAtLocationSeq_structs.hpp"
+#include "HE_LookAtLocation_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function BP_SkinStealer.BP_SkinStealer_C.ExecuteUbergraph_BP_SkinStealer
 // 0x02C8 (0x02C8 - 0x0000)
@@ -277,5 +277,5 @@ public:
 };
 DUMPER7_ASSERTS_BP_SkinStealer_C_SetPlayerMaterials;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

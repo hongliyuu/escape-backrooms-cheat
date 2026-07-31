@@ -10,16 +10,55 @@
 
 #include "Basic.hpp"
 
+#include "MovieSceneTracks_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
 #include "MovieScene_structs.hpp"
 #include "MovieScene_classes.hpp"
 #include "Engine_structs.hpp"
-#include "MovieSceneTracks_structs.hpp"
 
 
-namespace SDK
+SDK_NAMESPACE_START
+
+// Class MovieSceneTracks.MovieSceneCameraShakeEvaluator
+// 0x0000 (0x0028 - 0x0028)
+class UMovieSceneCameraShakeEvaluator : public UObject
 {
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("MovieSceneCameraShakeEvaluator")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"MovieSceneCameraShakeEvaluator")
+	}
+	static class UMovieSceneCameraShakeEvaluator* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UMovieSceneCameraShakeEvaluator>();
+	}
+};
+DUMPER7_ASSERTS_UMovieSceneCameraShakeEvaluator;
+
+// Class MovieSceneTracks.FloatChannelEvaluatorSystem
+// 0x0000 (0x0040 - 0x0040)
+class UFloatChannelEvaluatorSystem final : public UMovieSceneEntitySystem
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("FloatChannelEvaluatorSystem")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"FloatChannelEvaluatorSystem")
+	}
+	static class UFloatChannelEvaluatorSystem* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UFloatChannelEvaluatorSystem>();
+	}
+};
+DUMPER7_ASSERTS_UFloatChannelEvaluatorSystem;
 
 // Class MovieSceneTracks.MovieScene3DConstraintSection
 // 0x0028 (0x0110 - 0x00E8)
@@ -76,91 +115,25 @@ public:
 };
 DUMPER7_ASSERTS_UMovieScenePropertyTrack;
 
-// Class MovieSceneTracks.MovieSceneBoolTrack
-// 0x0008 (0x00C8 - 0x00C0)
-class UMovieSceneBoolTrack : public UMovieScenePropertyTrack
-{
-public:
-	uint8                                         Pad_C0[0x8];                                       // 0x00C0(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("MovieSceneBoolTrack")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"MovieSceneBoolTrack")
-	}
-	static class UMovieSceneBoolTrack* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UMovieSceneBoolTrack>();
-	}
-};
-DUMPER7_ASSERTS_UMovieSceneBoolTrack;
-
-// Class MovieSceneTracks.MovieSceneCameraShakeEvaluator
-// 0x0000 (0x0028 - 0x0028)
-class UMovieSceneCameraShakeEvaluator : public UObject
+// Class MovieSceneTracks.MovieSceneFloatTrack
+// 0x0000 (0x00C0 - 0x00C0)
+class UMovieSceneFloatTrack : public UMovieScenePropertyTrack
 {
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("MovieSceneCameraShakeEvaluator")
+		STATIC_CLASS_IMPL("MovieSceneFloatTrack")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"MovieSceneCameraShakeEvaluator")
+		STATIC_NAME_IMPL(L"MovieSceneFloatTrack")
 	}
-	static class UMovieSceneCameraShakeEvaluator* GetDefaultObj()
+	static class UMovieSceneFloatTrack* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UMovieSceneCameraShakeEvaluator>();
+		return GetDefaultObjImpl<UMovieSceneFloatTrack>();
 	}
 };
-DUMPER7_ASSERTS_UMovieSceneCameraShakeEvaluator;
-
-// Class MovieSceneTracks.MovieSceneEventSystem
-// 0x0050 (0x0090 - 0x0040)
-class UMovieSceneEventSystem : public UMovieSceneEntitySystem
-{
-public:
-	uint8                                         Pad_40[0x50];                                      // 0x0040(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("MovieSceneEventSystem")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"MovieSceneEventSystem")
-	}
-	static class UMovieSceneEventSystem* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UMovieSceneEventSystem>();
-	}
-};
-DUMPER7_ASSERTS_UMovieSceneEventSystem;
-
-// Class MovieSceneTracks.MovieScenePreSpawnEventSystem
-// 0x0000 (0x0090 - 0x0090)
-class UMovieScenePreSpawnEventSystem final : public UMovieSceneEventSystem
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("MovieScenePreSpawnEventSystem")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"MovieScenePreSpawnEventSystem")
-	}
-	static class UMovieScenePreSpawnEventSystem* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UMovieScenePreSpawnEventSystem>();
-	}
-};
-DUMPER7_ASSERTS_UMovieScenePreSpawnEventSystem;
+DUMPER7_ASSERTS_UMovieSceneFloatTrack;
 
 // Class MovieSceneTracks.ByteChannelEvaluatorSystem
 // 0x0000 (0x0040 - 0x0040)
@@ -181,26 +154,6 @@ public:
 	}
 };
 DUMPER7_ASSERTS_UByteChannelEvaluatorSystem;
-
-// Class MovieSceneTracks.FloatChannelEvaluatorSystem
-// 0x0000 (0x0040 - 0x0040)
-class UFloatChannelEvaluatorSystem final : public UMovieSceneEntitySystem
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("FloatChannelEvaluatorSystem")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"FloatChannelEvaluatorSystem")
-	}
-	static class UFloatChannelEvaluatorSystem* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UFloatChannelEvaluatorSystem>();
-	}
-};
-DUMPER7_ASSERTS_UFloatChannelEvaluatorSystem;
 
 // Class MovieSceneTracks.MovieSceneTransformOrigin
 // 0x0000 (0x0000 - 0x0000)
@@ -636,6 +589,29 @@ public:
 	}
 };
 DUMPER7_ASSERTS_UMovieSceneBoolPropertySystem;
+
+// Class MovieSceneTracks.MovieSceneBoolTrack
+// 0x0008 (0x00C8 - 0x00C0)
+class UMovieSceneBoolTrack : public UMovieScenePropertyTrack
+{
+public:
+	uint8                                         Pad_C0[0x8];                                       // 0x00C0(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("MovieSceneBoolTrack")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"MovieSceneBoolTrack")
+	}
+	static class UMovieSceneBoolTrack* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UMovieSceneBoolTrack>();
+	}
+};
+DUMPER7_ASSERTS_UMovieSceneBoolTrack;
 
 // Class MovieSceneTracks.MovieSceneBytePropertySystem
 // 0x0000 (0x0058 - 0x0058)
@@ -1393,6 +1369,49 @@ public:
 };
 DUMPER7_ASSERTS_UMovieSceneEventSection;
 
+// Class MovieSceneTracks.MovieSceneEventSystem
+// 0x0050 (0x0090 - 0x0040)
+class UMovieSceneEventSystem : public UMovieSceneEntitySystem
+{
+public:
+	uint8                                         Pad_40[0x50];                                      // 0x0040(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("MovieSceneEventSystem")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"MovieSceneEventSystem")
+	}
+	static class UMovieSceneEventSystem* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UMovieSceneEventSystem>();
+	}
+};
+DUMPER7_ASSERTS_UMovieSceneEventSystem;
+
+// Class MovieSceneTracks.MovieScenePreSpawnEventSystem
+// 0x0000 (0x0090 - 0x0090)
+class UMovieScenePreSpawnEventSystem final : public UMovieSceneEventSystem
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("MovieScenePreSpawnEventSystem")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"MovieScenePreSpawnEventSystem")
+	}
+	static class UMovieScenePreSpawnEventSystem* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UMovieScenePreSpawnEventSystem>();
+	}
+};
+DUMPER7_ASSERTS_UMovieScenePreSpawnEventSystem;
+
 // Class MovieSceneTracks.MovieScenePostSpawnEventSystem
 // 0x0000 (0x0090 - 0x0090)
 class UMovieScenePostSpawnEventSystem final : public UMovieSceneEventSystem
@@ -1511,26 +1530,6 @@ public:
 	}
 };
 DUMPER7_ASSERTS_UMovieSceneFadeSection;
-
-// Class MovieSceneTracks.MovieSceneFloatTrack
-// 0x0000 (0x00C0 - 0x00C0)
-class UMovieSceneFloatTrack : public UMovieScenePropertyTrack
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("MovieSceneFloatTrack")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"MovieSceneFloatTrack")
-	}
-	static class UMovieSceneFloatTrack* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UMovieSceneFloatTrack>();
-	}
-};
-DUMPER7_ASSERTS_UMovieSceneFloatTrack;
 
 // Class MovieSceneTracks.MovieSceneFadeTrack
 // 0x0008 (0x00C8 - 0x00C0)
@@ -2612,5 +2611,4 @@ public:
 };
 DUMPER7_ASSERTS_UWeightAndEasingEvaluatorSystem;
 
-}
-
+SDK_NAMESPACE_END

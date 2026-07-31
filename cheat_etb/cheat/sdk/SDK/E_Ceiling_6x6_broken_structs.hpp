@@ -11,8 +11,7 @@
 #include "Basic.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // UserDefinedEnum E_Ceiling_6x6_broken.E_Ceiling_6x6_broken
 // NumValues: 0x0003
@@ -23,5 +22,4 @@ enum class E_Ceiling_6x6_broken : uint8
 	E_Ceiling_6x6_MAX                        = 2,
 };
 
-}
-
+SDK_NAMESPACE_END

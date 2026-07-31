@@ -14,11 +14,10 @@
 #include "BP_ServerConnectionErrorFlow_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_ServerConnectionErrorFlow.BP_ServerConnectionErrorFlow_C.ExecuteUbergraph_BP_ServerConnectionErrorFlow
-// (Final, UbergraphFunction, HasDefaults)
+// (Final, UbergraphFunction)
 // Parameters:
 // int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
@@ -50,5 +49,5 @@ void UBP_ServerConnectionErrorFlow_C::Run()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

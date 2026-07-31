@@ -10,13 +10,12 @@
 
 #include "Basic.hpp"
 
+#include "AnimationSharing_structs.hpp"
 #include "Engine_classes.hpp"
 #include "CoreUObject_classes.hpp"
-#include "AnimationSharing_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Class AnimationSharing.AnimSharingStateInstance
 // 0x0020 (0x02E0 - 0x02C0)
@@ -218,5 +217,4 @@ public:
 };
 DUMPER7_ASSERTS_UAnimationSharingStateProcessor;
 
-}
-
+SDK_NAMESPACE_END

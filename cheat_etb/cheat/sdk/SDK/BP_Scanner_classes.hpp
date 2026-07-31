@@ -11,13 +11,12 @@
 #include "Basic.hpp"
 
 #include "CoreUObject_structs.hpp"
+#include "BP_Item_classes.hpp"
 #include "Engine_structs.hpp"
 #include "Backrooms_structs.hpp"
-#include "BP_Item_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Scanner.BP_Scanner_C
 // 0x0138 (0x0390 - 0x0258)
@@ -124,5 +123,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_Scanner_C;
 
-}
-
+SDK_NAMESPACE_END

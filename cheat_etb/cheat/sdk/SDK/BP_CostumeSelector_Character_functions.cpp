@@ -14,8 +14,7 @@
 #include "BP_CostumeSelector_Character_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_CostumeSelector_Character.BP_CostumeSelector_Character_C.ExecuteUbergraph_BP_CostumeSelector_Character
 // (Final, UbergraphFunction)
@@ -56,5 +55,5 @@ void ABP_CostumeSelector_Character_C::ApplyCostume(class UCostume* Costume)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
-}
 
+SDK_NAMESPACE_END

@@ -13,8 +13,8 @@
 #include "SlateCore_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function Lobby_DifficultySwitcher.Lobby_DifficultySwitcher_C.ExecuteUbergraph_Lobby_DifficultySwitcher
 // 0x0008 (0x0008 - 0x0000)
@@ -91,5 +91,5 @@ public:
 };
 DUMPER7_ASSERTS_Lobby_DifficultySwitcher_C_Set_OptionButtons_Visibility;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

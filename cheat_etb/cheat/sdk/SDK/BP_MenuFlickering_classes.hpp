@@ -14,8 +14,7 @@
 #include "Engine_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_MenuFlickering.BP_MenuFlickering_C
 // 0x0018 (0x0250 - 0x0238)
@@ -50,5 +49,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_MenuFlickering_C;
 
-}
-
+SDK_NAMESPACE_END

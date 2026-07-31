@@ -15,8 +15,7 @@
 #include "S_VineSpline_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass VineGrow_BP.VineGrow_BP_C
 // 0x0098 (0x02B8 - 0x0220)
@@ -73,5 +72,4 @@ public:
 };
 DUMPER7_ASSERTS_AVineGrow_BP_C;
 
-}
-
+SDK_NAMESPACE_END

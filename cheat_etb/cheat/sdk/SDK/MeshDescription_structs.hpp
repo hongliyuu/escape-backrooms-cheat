@@ -11,8 +11,7 @@
 #include "Basic.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Enum MeshDescription.EComputeNTBsOptions
 // NumValues: 0x0005
@@ -34,6 +33,13 @@ public:
 };
 DUMPER7_ASSERTS_FElementID;
 
+// ScriptStruct MeshDescription.EdgeID
+// 0x0000 (0x0004 - 0x0004)
+struct FEdgeID final : public FElementID
+{
+};
+DUMPER7_ASSERTS_FEdgeID;
+
 // ScriptStruct MeshDescription.VertexID
 // 0x0000 (0x0004 - 0x0004)
 struct FVertexID final : public FElementID
@@ -47,13 +53,6 @@ struct FPolygonGroupID final : public FElementID
 {
 };
 DUMPER7_ASSERTS_FPolygonGroupID;
-
-// ScriptStruct MeshDescription.TriangleID
-// 0x0000 (0x0004 - 0x0004)
-struct FTriangleID final : public FElementID
-{
-};
-DUMPER7_ASSERTS_FTriangleID;
 
 // ScriptStruct MeshDescription.PolygonID
 // 0x0000 (0x0004 - 0x0004)
@@ -69,12 +68,11 @@ struct FVertexInstanceID final : public FElementID
 };
 DUMPER7_ASSERTS_FVertexInstanceID;
 
-// ScriptStruct MeshDescription.EdgeID
+// ScriptStruct MeshDescription.TriangleID
 // 0x0000 (0x0004 - 0x0004)
-struct FEdgeID final : public FElementID
+struct FTriangleID final : public FElementID
 {
 };
-DUMPER7_ASSERTS_FEdgeID;
+DUMPER7_ASSERTS_FTriangleID;
 
-}
-
+SDK_NAMESPACE_END

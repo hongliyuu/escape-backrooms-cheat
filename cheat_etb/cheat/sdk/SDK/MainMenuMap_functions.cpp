@@ -14,8 +14,7 @@
 #include "MainMenuMap_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function MainMenuMap.MainMenuMap_C.ExecuteUbergraph_MainMenuMap
 // (Final, UbergraphFunction, HasDefaults)
@@ -132,5 +131,5 @@ void AMainMenuMap_C::ReceiveBeginPlay()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

@@ -14,8 +14,7 @@
 #include "Backrooms_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_KickedFlow.BP_KickedFlow_C
 // 0x0018 (0x00C0 - 0x00A8)
@@ -48,5 +47,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_KickedFlow_C;
 
-}
-
+SDK_NAMESPACE_END

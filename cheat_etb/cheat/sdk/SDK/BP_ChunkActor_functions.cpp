@@ -14,8 +14,7 @@
 #include "BP_ChunkActor_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_ChunkActor.BP_ChunkActor_C.ExecuteUbergraph_BP_ChunkActor
 // (Final, UbergraphFunction)
@@ -50,5 +49,5 @@ void ABP_ChunkActor_C::ReceiveBeginPlay()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

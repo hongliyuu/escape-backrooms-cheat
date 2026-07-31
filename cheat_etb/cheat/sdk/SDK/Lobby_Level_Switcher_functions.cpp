@@ -14,8 +14,7 @@
 #include "Lobby_Level_Switcher_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function Lobby_Level_Switcher.Lobby_Level_Switcher_C.ExecuteUbergraph_Lobby_Level_Switcher
 // (Final, UbergraphFunction)
@@ -247,5 +246,5 @@ void ULobby_Level_Switcher_C::RoundedTime(float Time, class FString* RoundedTime
 		*RoundedTime_0 = std::move(Parms.RoundedTime_0);
 }
 
-}
 
+SDK_NAMESPACE_END

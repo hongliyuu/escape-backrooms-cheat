@@ -13,8 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function BP_Floor.BP_Floor_C.UserConstructionScript
 // 0x00D8 (0x00D8 - 0x0000)
@@ -53,5 +53,5 @@ public:
 };
 DUMPER7_ASSERTS_BP_Floor_C_UserConstructionScript;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

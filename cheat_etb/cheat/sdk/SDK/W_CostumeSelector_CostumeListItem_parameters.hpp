@@ -11,12 +11,12 @@
 #include "Basic.hpp"
 
 #include "Backrooms_structs.hpp"
-#include "SlateCore_structs.hpp"
 #include "UMG_structs.hpp"
+#include "SlateCore_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function W_CostumeSelector_CostumeListItem.W_CostumeSelector_CostumeListItem_C.ExecuteUbergraph_W_CostumeSelector_CostumeListItem
 // 0x0550 (0x0550 - 0x0000)
@@ -105,5 +105,5 @@ public:
 };
 DUMPER7_ASSERTS_W_CostumeSelector_CostumeListItem_C_RefreshSelectionState;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

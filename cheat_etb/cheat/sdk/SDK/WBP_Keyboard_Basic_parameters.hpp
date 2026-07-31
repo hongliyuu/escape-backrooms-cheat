@@ -13,8 +13,8 @@
 #include "EModifierKeys_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function WBP_Keyboard_Basic.WBP_Keyboard_Basic_C.ExecuteUbergraph_WBP_Keyboard_Basic
 // 0x0078 (0x0078 - 0x0000)
@@ -24,7 +24,7 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         Temp_int_Loop_Counter_Variable;                    // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TDelegate<void(class FText ButtonText, EModifierKeys Modifier)> K2Node_CreateDelegate_OutputDelegate; // 0x000C(0x0010)(ZeroConstructor, NoDestructor)
+	TDelegate<void(class FText ButtonText_0, EModifierKeys Modifier)> K2Node_CreateDelegate_OutputDelegate; // 0x000C(0x0010)(ZeroConstructor, NoDestructor)
 	int32                                         Temp_int_Array_Index_Variable;                     // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FText                                   K2Node_CustomEvent_ButtonTextToUse;                // 0x0020(0x0018)()
 	EModifierKeys                                 K2Node_CustomEvent_ModifierKeyToUse;               // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
@@ -139,5 +139,5 @@ public:
 };
 DUMPER7_ASSERTS_WBP_Keyboard_Basic_C_SetButtonArray;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

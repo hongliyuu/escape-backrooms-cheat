@@ -11,8 +11,7 @@
 #include "Basic.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // UserDefinedStruct S_InputIcon.S_InputIcon
 // 0x00F8 (0x00F8 - 0x0000)
@@ -29,5 +28,4 @@ public:
 };
 DUMPER7_ASSERTS_FS_InputIcon;
 
-}
-
+SDK_NAMESPACE_END

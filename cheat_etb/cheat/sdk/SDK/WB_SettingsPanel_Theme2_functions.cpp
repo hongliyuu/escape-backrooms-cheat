@@ -14,8 +14,7 @@
 #include "WB_SettingsPanel_Theme2_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.ExecuteUbergraph_WB_SettingsPanel_Theme2
 // (Final, UbergraphFunction, HasDefaults)
@@ -32,6 +31,116 @@ void UWB_SettingsPanel_Theme2_C::ExecuteUbergraph_WB_SettingsPanel_Theme2(int32 
 	Params::WB_SettingsPanel_Theme2_C_ExecuteUbergraph_WB_SettingsPanel_Theme2 Parms{};
 
 	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.BndEvt__WB_SettingsPanel_Theme2_InviteButton_K2Node_ComponentBoundEvent_78_OnClick__DelegateSignature
+// (BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::BndEvt__WB_SettingsPanel_Theme2_InviteButton_K2Node_ComponentBoundEvent_78_OnClick__DelegateSignature()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "BndEvt__WB_SettingsPanel_Theme2_InviteButton_K2Node_ComponentBoundEvent_78_OnClick__DelegateSignature");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.ForcePressRestoreDefaultsButton
+// (BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::ForcePressRestoreDefaultsButton()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "ForcePressRestoreDefaultsButton");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.EnqueueRefreshLobbyFocus
+// (BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::EnqueueRefreshLobbyFocus()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "EnqueueRefreshLobbyFocus");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.OnInitialized
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::OnInitialized()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "OnInitialized");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.BndEvt__WB_SettingsPanel_Theme2_WB_Button_Sidebar_Theme2_Lobby_K2Node_ComponentBoundEvent_71_OnClicked__DelegateSignature
+// (BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::BndEvt__WB_SettingsPanel_Theme2_WB_Button_Sidebar_Theme2_Lobby_K2Node_ComponentBoundEvent_71_OnClicked__DelegateSignature()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "BndEvt__WB_SettingsPanel_Theme2_WB_Button_Sidebar_Theme2_Lobby_K2Node_ComponentBoundEvent_71_OnClicked__DelegateSignature");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.HandleLobbyDataChanged
+// (BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::HandleLobbyDataChanged()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "HandleLobbyDataChanged");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.BndEvt__WB_SettingsPanel_Theme2_WB_OptionSwitcher_Crossplay_K2Node_ComponentBoundEvent_19_OnOptionSwitched__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// int32                                   SelectedOption                                         (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// int32                                   PreviousOption                                         (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// class UWB_OptionSwitcher_Theme2_C*      OptionSwitcher                                         (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool                                    IsInitialSetup                                         (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWB_SettingsPanel_Theme2_C::BndEvt__WB_SettingsPanel_Theme2_WB_OptionSwitcher_Crossplay_K2Node_ComponentBoundEvent_19_OnOptionSwitched__DelegateSignature(int32 SelectedOption, int32 PreviousOption, class UWB_OptionSwitcher_Theme2_C* OptionSwitcher, bool IsInitialSetup)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "BndEvt__WB_SettingsPanel_Theme2_WB_OptionSwitcher_Crossplay_K2Node_ComponentBoundEvent_19_OnOptionSwitched__DelegateSignature");
+
+	Params::WB_SettingsPanel_Theme2_C_BndEvt__WB_SettingsPanel_Theme2_WB_OptionSwitcher_Crossplay_K2Node_ComponentBoundEvent_19_OnOptionSwitched__DelegateSignature Parms{};
+
+	Parms.SelectedOption = SelectedOption;
+	Parms.PreviousOption = PreviousOption;
+	Parms.OptionSwitcher = OptionSwitcher;
+	Parms.IsInitialSetup = IsInitialSetup;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -1862,7 +1971,7 @@ void UWB_SettingsPanel_Theme2_C::interpret_GraphicQuality(int32 OptionNumber, in
 
 
 // Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.interpret_WindowMode
-// (Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent)
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
 // Parameters:
 // int32                                   Option                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 // class UGameUserSettings**               GameUserSettings                                       (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
@@ -1890,7 +1999,7 @@ void UWB_SettingsPanel_Theme2_C::interpret_WindowMode(int32 Option, class UGameU
 
 
 // Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.interpret_Resolution
-// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
+// (Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent)
 // Parameters:
 // int32                                   Option                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 // class UGameUserSettings**               GameUserSettings                                       (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
@@ -2727,9 +2836,9 @@ void UWB_SettingsPanel_Theme2_C::interpret_CameraShake(int32 Option)
 // Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.interpret_ShowEventContent
 // (Public, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// const class FString&                    Option                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
+// int32                                   Option                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWB_SettingsPanel_Theme2_C::interpret_ShowEventContent(const class FString& Option)
+void UWB_SettingsPanel_Theme2_C::interpret_ShowEventContent(int32 Option)
 {
 	static class UFunction* Func = nullptr;
 
@@ -2738,7 +2847,7 @@ void UWB_SettingsPanel_Theme2_C::interpret_ShowEventContent(const class FString&
 
 	Params::WB_SettingsPanel_Theme2_C_interpret_ShowEventContent Parms{};
 
-	Parms.Option = std::move(Option);
+	Parms.Option = Option;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -2992,5 +3101,259 @@ void UWB_SettingsPanel_Theme2_C::Update_Gamepad_Key_Widgets()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.Interpret_EnableCrossplay
+// (Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// int32                                   Option                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWB_SettingsPanel_Theme2_C::Interpret_EnableCrossplay(int32 Option)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "Interpret_EnableCrossplay");
+
+	Params::WB_SettingsPanel_Theme2_C_Interpret_EnableCrossplay Parms{};
+
+	Parms.Option = Option;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.RefreshLobby
+// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::RefreshLobby()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "RefreshLobby");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.SwitchActiveTabToDefault
+// (Public, BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::SwitchActiveTabToDefault()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "SwitchActiveTabToDefault");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.ResolutionIsEnabled
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
+
+bool UWB_SettingsPanel_Theme2_C::ResolutionIsEnabled()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "ResolutionIsEnabled");
+
+	Params::WB_SettingsPanel_Theme2_C_ResolutionIsEnabled Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.RefreshResolutions
+// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::RefreshResolutions()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "RefreshResolutions");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.UpdateResolutionFromWindowMode
+// (Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// class UGameUserSettings*                GameUserSettings                                       (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWB_SettingsPanel_Theme2_C::UpdateResolutionFromWindowMode(class UGameUserSettings* GameUserSettings)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "UpdateResolutionFromWindowMode");
+
+	Params::WB_SettingsPanel_Theme2_C_UpdateResolutionFromWindowMode Parms{};
+
+	Parms.GameUserSettings = GameUserSettings;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C._SetSelectedResolution
+// (Private, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// const struct FIntPoint&                 Resolution                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWB_SettingsPanel_Theme2_C::_SetSelectedResolution(const struct FIntPoint& Resolution)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "_SetSelectedResolution");
+
+	Params::WB_SettingsPanel_Theme2_C__SetSelectedResolution Parms{};
+
+	Parms.Resolution = std::move(Resolution);
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.IsCrossplayEnabled
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
+// Parameters:
+// ESlateVisibility                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+ESlateVisibility UWB_SettingsPanel_Theme2_C::IsCrossplayEnabled()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "IsCrossplayEnabled");
+
+	Params::WB_SettingsPanel_Theme2_C_IsCrossplayEnabled Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.CheckVisibilyRecursive
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
+// Parameters:
+// class UWidget*                          Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool*                                   bIsVisible                                             (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWB_SettingsPanel_Theme2_C::CheckVisibilyRecursive(class UWidget* Widget, bool* bIsVisible)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "CheckVisibilyRecursive");
+
+	Params::WB_SettingsPanel_Theme2_C_CheckVisibilyRecursive Parms{};
+
+	Parms.Widget = Widget;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	if (bIsVisible != nullptr)
+		*bIsVisible = Parms.bIsVisible;
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.Get_OverallAudio_Quality
+// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// class UGameUserSettings*                GameUserSettings                                       (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWB_SettingsPanel_Theme2_C::Get_OverallAudio_Quality(class UGameUserSettings* GameUserSettings)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "Get_OverallAudio_Quality");
+
+	Params::WB_SettingsPanel_Theme2_C_Get_OverallAudio_Quality Parms{};
+
+	Parms.GameUserSettings = GameUserSettings;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.Switch 2 Specific Settings
+// (Public, BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::Switch_2_Specific_Settings()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "Switch 2 Specific Settings");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.CollapseVisibilityOnConsolesAndWinGDK
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
+// Parameters:
+// ESlateVisibility                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+ESlateVisibility UWB_SettingsPanel_Theme2_C::CollapseVisibilityOnConsolesAndWinGDK()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "CollapseVisibilityOnConsolesAndWinGDK");
+
+	Params::WB_SettingsPanel_Theme2_C_CollapseVisibilityOnConsolesAndWinGDK Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.PlaystationSpecificSettings
+// (Public, BlueprintCallable, BlueprintEvent)
+
+void UWB_SettingsPanel_Theme2_C::PlaystationSpecificSettings()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "PlaystationSpecificSettings");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WB_SettingsPanel_Theme2.WB_SettingsPanel_Theme2_C.Get_InviteButton_Visibility_0
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
+// Parameters:
+// ESlateVisibility                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+ESlateVisibility UWB_SettingsPanel_Theme2_C::Get_InviteButton_Visibility_0()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WB_SettingsPanel_Theme2_C", "Get_InviteButton_Visibility_0");
+
+	Params::WB_SettingsPanel_Theme2_C_Get_InviteButton_Visibility_0 Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+SDK_NAMESPACE_END

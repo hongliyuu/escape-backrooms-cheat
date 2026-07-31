@@ -14,8 +14,7 @@
 #include "GrabKeySequence_TPP_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function GrabKeySequence_TPP.SequenceDirector_C.ExecuteUbergraph_SequenceDirector
 // (Final, UbergraphFunction)
@@ -176,5 +175,5 @@ void GrabKeySequence_TPP::USequenceDirector_C::SequenceEvent__ENTRYPOINTSequence
 	UObject::ProcessEvent(Func, &Parms);
 }
 
-}
 
+SDK_NAMESPACE_END

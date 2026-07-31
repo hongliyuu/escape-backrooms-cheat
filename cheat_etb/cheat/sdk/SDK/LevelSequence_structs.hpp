@@ -15,8 +15,7 @@
 #include "MovieScene_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // ScriptStruct LevelSequence.LevelSequenceCameraSettings
 // 0x0002 (0x0002 - 0x0000)
@@ -28,14 +27,14 @@ public:
 };
 DUMPER7_ASSERTS_FLevelSequenceCameraSettings;
 
-// ScriptStruct LevelSequence.LevelSequenceLegacyObjectReference
-// 0x0020 (0x0020 - 0x0000)
-struct alignas(0x08) FLevelSequenceLegacyObjectReference final
+// ScriptStruct LevelSequence.BoundActorProxy
+// 0x0001 (0x0001 - 0x0000)
+struct FBoundActorProxy final
 {
 public:
-	uint8                                         Pad_0[0x20];                                       // 0x0000(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
-DUMPER7_ASSERTS_FLevelSequenceLegacyObjectReference;
+DUMPER7_ASSERTS_FBoundActorProxy;
 
 // ScriptStruct LevelSequence.LevelSequenceAnimSequenceLinkItem
 // 0x0030 (0x0030 - 0x0000)
@@ -50,15 +49,6 @@ public:
 	uint8                                         Pad_2B[0x5];                                       // 0x002B(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 DUMPER7_ASSERTS_FLevelSequenceAnimSequenceLinkItem;
-
-// ScriptStruct LevelSequence.BoundActorProxy
-// 0x0001 (0x0001 - 0x0000)
-struct FBoundActorProxy final
-{
-public:
-	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-DUMPER7_ASSERTS_FBoundActorProxy;
 
 // ScriptStruct LevelSequence.LevelSequenceBindingReference
 // 0x0038 (0x0038 - 0x0000)
@@ -98,6 +88,15 @@ public:
 	uint8                                         Pad_0[0x50];                                       // 0x0000(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 DUMPER7_ASSERTS_FLevelSequenceObjectReferenceMap;
+
+// ScriptStruct LevelSequence.LevelSequenceLegacyObjectReference
+// 0x0020 (0x0020 - 0x0000)
+struct alignas(0x08) FLevelSequenceLegacyObjectReference final
+{
+public:
+	uint8                                         Pad_0[0x20];                                       // 0x0000(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+DUMPER7_ASSERTS_FLevelSequenceLegacyObjectReference;
 
 // ScriptStruct LevelSequence.LevelSequenceObject
 // 0x0038 (0x0038 - 0x0000)
@@ -143,5 +142,4 @@ public:
 };
 DUMPER7_ASSERTS_FLevelSequencePlayerSnapshot;
 
-}
-
+SDK_NAMESPACE_END

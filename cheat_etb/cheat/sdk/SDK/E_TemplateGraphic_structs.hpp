@@ -11,8 +11,7 @@
 #include "Basic.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // UserDefinedEnum E_TemplateGraphic.E_TemplateGraphic
 // NumValues: 0x0013
@@ -39,5 +38,4 @@ enum class E_TemplateGraphic : uint8
 	E_MAX                                    = 18,
 };
 
-}
-
+SDK_NAMESPACE_END

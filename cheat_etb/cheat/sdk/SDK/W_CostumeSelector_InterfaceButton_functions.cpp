@@ -14,8 +14,7 @@
 #include "W_CostumeSelector_InterfaceButton_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function W_CostumeSelector_InterfaceButton.W_CostumeSelector_InterfaceButton_C.ExecuteUbergraph_W_CostumeSelector_InterfaceButton
 // (Final, UbergraphFunction)
@@ -84,5 +83,5 @@ void UW_CostumeSelector_InterfaceButton_C::PreConstruct(bool IsDesignTime)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
-}
 
+SDK_NAMESPACE_END

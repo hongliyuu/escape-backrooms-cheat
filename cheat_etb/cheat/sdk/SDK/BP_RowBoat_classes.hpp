@@ -12,13 +12,12 @@
 
 #include "AIModule_structs.hpp"
 #include "Engine_structs.hpp"
+#include "E_CameraSetting_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "Backrooms_classes.hpp"
-#include "E_CameraSetting_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_RowBoat.BP_RowBoat_C
 // 0x0100 (0x0428 - 0x0328)
@@ -135,5 +134,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_RowBoat_C;
 
-}
-
+SDK_NAMESPACE_END

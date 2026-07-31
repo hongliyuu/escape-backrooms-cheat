@@ -14,8 +14,7 @@
 #include "GM_MainMenu_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function GM_MainMenu.GM_MainMenu_C.ExecuteUbergraph_GM_MainMenu
 // (Final, UbergraphFunction, HasDefaults)
@@ -32,6 +31,46 @@ void AGM_MainMenu_C::ExecuteUbergraph_GM_MainMenu(int32 EntryPoint)
 	Params::GM_MainMenu_C_ExecuteUbergraph_GM_MainMenu Parms{};
 
 	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GM_MainMenu.GM_MainMenu_C.ReceiveEndPlay
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// EEndPlayReason                          EndPlayReason                                          (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void AGM_MainMenu_C::ReceiveEndPlay(EEndPlayReason EndPlayReason)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("GM_MainMenu_C", "ReceiveEndPlay");
+
+	Params::GM_MainMenu_C_ReceiveEndPlay Parms{};
+
+	Parms.EndPlayReason = EndPlayReason;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GM_MainMenu.GM_MainMenu_C.ShowNonModalMessage
+// (Event, Public, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FText&                      Message                                                (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
+
+void AGM_MainMenu_C::ShowNonModalMessage(const class FText& Message)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("GM_MainMenu_C", "ShowNonModalMessage");
+
+	Params::GM_MainMenu_C_ShowNonModalMessage Parms{};
+
+	Parms.Message = std::move(Message);
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -57,24 +96,18 @@ void AGM_MainMenu_C::ResetInputModeToDefault(class UWidget* PreviousFocusedWidge
 }
 
 
-// Function GM_MainMenu.GM_MainMenu_C.ShowNonModalMessage
-// (Event, Public, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FText&                      Message                                                (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
+// Function GM_MainMenu.GM_MainMenu_C.ReceiveBeginPlay
+// (Event, Protected, BlueprintEvent)
 
-void AGM_MainMenu_C::ShowNonModalMessage(const class FText& Message)
+void AGM_MainMenu_C::ReceiveBeginPlay()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("GM_MainMenu_C", "ShowNonModalMessage");
+		Func = Class->GetFunction("GM_MainMenu_C", "ReceiveBeginPlay");
 
-	Params::GM_MainMenu_C_ShowNonModalMessage Parms{};
-
-	Parms.Message = std::move(Message);
-
-	UObject::ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

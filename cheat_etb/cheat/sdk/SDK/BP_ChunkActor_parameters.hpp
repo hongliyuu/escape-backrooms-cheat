@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function BP_ChunkActor.BP_ChunkActor_C.ExecuteUbergraph_BP_ChunkActor
 // 0x0008 (0x0008 - 0x0000)
@@ -27,5 +27,5 @@ public:
 };
 DUMPER7_ASSERTS_BP_ChunkActor_C_ExecuteUbergraph_BP_ChunkActor;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

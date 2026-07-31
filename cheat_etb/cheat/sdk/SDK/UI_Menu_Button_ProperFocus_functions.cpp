@@ -14,8 +14,7 @@
 #include "UI_Menu_Button_ProperFocus_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function UI_Menu_Button_ProperFocus.UI_Menu_Button_ProperFocus_C.ExecuteUbergraph_UI_Menu_Button_ProperFocus
 // (Final, UbergraphFunction, HasDefaults)
@@ -312,5 +311,5 @@ void UUI_Menu_Button_ProperFocus_C::OnFocusLost(const struct FFocusEvent& InFocu
 	UObject::ProcessEvent(Func, &Parms);
 }
 
-}
 
+SDK_NAMESPACE_END

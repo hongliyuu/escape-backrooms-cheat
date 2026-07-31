@@ -10,13 +10,12 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "Engine_structs.hpp"
 #include "Backrooms_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_CostumeSelector.BP_CostumeSelector_C
 // 0x00B0 (0x03D0 - 0x0320)
@@ -63,5 +62,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_CostumeSelector_C;
 
-}
-
+SDK_NAMESPACE_END

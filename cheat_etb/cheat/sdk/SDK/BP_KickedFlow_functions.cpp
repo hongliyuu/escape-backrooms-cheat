@@ -14,8 +14,7 @@
 #include "BP_KickedFlow_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_KickedFlow.BP_KickedFlow_C.ExecuteUbergraph_BP_KickedFlow
 // (Final, UbergraphFunction)
@@ -78,5 +77,5 @@ void UBP_KickedFlow_C::OnFailure_FBDAD5C446F1373DD18C038593EB13E1()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

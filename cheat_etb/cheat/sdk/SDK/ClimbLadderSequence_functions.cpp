@@ -14,8 +14,7 @@
 #include "ClimbLadderSequence_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function ClimbLadderSequence.SequenceDirector_C.ExecuteUbergraph_SequenceDirector
 // (Final, UbergraphFunction)
@@ -64,5 +63,5 @@ void ClimbLadderSequence::USequenceDirector_C::SequenceEvent__ENTRYPOINTSequence
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

@@ -10,13 +10,12 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "BP_Item_classes.hpp"
+#include "Engine_structs.hpp"
 #include "Backrooms_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_MothJelly.BP_MothJelly_C
 // 0x0018 (0x0270 - 0x0258)
@@ -60,5 +59,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_MothJelly_C;
 
-}
-
+SDK_NAMESPACE_END

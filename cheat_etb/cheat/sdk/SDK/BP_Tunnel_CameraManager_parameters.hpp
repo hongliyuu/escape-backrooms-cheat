@@ -15,8 +15,8 @@
 #include "S_CameraTarget_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function BP_Tunnel_CameraManager.BP_Tunnel_CameraManager_C.ExecuteUbergraph_BP_Tunnel_CameraManager
 // 0x0128 (0x0128 - 0x0000)
@@ -180,5 +180,5 @@ public:
 };
 DUMPER7_ASSERTS_BP_Tunnel_CameraManager_C_CheckTargets;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

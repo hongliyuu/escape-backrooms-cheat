@@ -11,8 +11,7 @@
 #include "Basic.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // UserDefinedEnum E_Ceiling_3x3_broken.E_Ceiling_3x3_broken
 // NumValues: 0x0004
@@ -24,5 +23,4 @@ enum class E_Ceiling_3x3_broken : uint8
 	E_Ceiling_3x3_MAX                        = 3,
 };
 
-}
-
+SDK_NAMESPACE_END

@@ -13,8 +13,7 @@
 #include "CoreUObject_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Enum ChaosSolverEngine.EClusterConnectionTypeEnum
 // NumValues: 0x0007
@@ -28,6 +27,17 @@ enum class EClusterConnectionTypeEnum : uint8
 	Chaos_EClsuterCreationParameters_Max     = 5,
 	Chaos_MAX                                = 6,
 };
+
+// ScriptStruct ChaosSolverEngine.ChaosDebugSubstepControl
+// 0x0003 (0x0003 - 0x0000)
+struct FChaosDebugSubstepControl final
+{
+public:
+	bool                                          bPause;                                            // 0x0000(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSubstep;                                          // 0x0001(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bStep;                                             // 0x0002(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+DUMPER7_ASSERTS_FChaosDebugSubstepControl;
 
 // ScriptStruct ChaosSolverEngine.ChaosPhysicsCollisionInfo
 // 0x0070 (0x0070 - 0x0000)
@@ -81,16 +91,4 @@ public:
 };
 DUMPER7_ASSERTS_FBreakEventCallbackWrapper;
 
-// ScriptStruct ChaosSolverEngine.ChaosDebugSubstepControl
-// 0x0003 (0x0003 - 0x0000)
-struct FChaosDebugSubstepControl final
-{
-public:
-	bool                                          bPause;                                            // 0x0000(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSubstep;                                          // 0x0001(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bStep;                                             // 0x0002(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-DUMPER7_ASSERTS_FChaosDebugSubstepControl;
-
-}
-
+SDK_NAMESPACE_END

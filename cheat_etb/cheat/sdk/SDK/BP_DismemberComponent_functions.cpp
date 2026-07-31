@@ -14,8 +14,7 @@
 #include "BP_DismemberComponent_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_DismemberComponent.BP_DismemberComponent_C.ExecuteUbergraph_BP_DismemberComponent
 // (Final, UbergraphFunction, HasDefaults)
@@ -248,5 +247,5 @@ void UBP_DismemberComponent_C::GetBoneAsDismembermentPart(ECostumeDismembermentP
 		*DismembermentPart = Parms.DismembermentPart;
 }
 
-}
 
+SDK_NAMESPACE_END

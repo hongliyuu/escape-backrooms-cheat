@@ -10,21 +10,24 @@
 
 #include "Basic.hpp"
 
+#include "Slate_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "Backrooms_structs.hpp"
 #include "UMG_structs.hpp"
-#include "SlateCore_structs.hpp"
+#include "CoreUObject_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function W_FancyModal.W_FancyModal_C.ExecuteUbergraph_W_FancyModal
-// 0x0100 (0x0100 - 0x0000)
+// 0x0168 (0x0168 - 0x0000)
 struct W_FancyModal_C_ExecuteUbergraph_W_FancyModal final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          Temp_bool_Variable;                                // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FText                                   K2Node_Event_Message_1;                            // 0x0008(0x0018)(ConstParm)
 	class FText                                   K2Node_Event_Title_1;                              // 0x0020(0x0018)(ConstParm)
 	class FText                                   K2Node_Event_Header_1;                             // 0x0038(0x0018)(ConstParm)
@@ -36,6 +39,18 @@ public:
 	class FText                                   K2Node_Event_Button1Label;                         // 0x00C0(0x0018)(ConstParm)
 	class FText                                   K2Node_Event_Button2Label;                         // 0x00D8(0x0018)(ConstParm)
 	TDelegate<void(EFancyModalButton ClickedButton)> K2Node_Event_OnButtonPressed;                   // 0x00F0(0x0010)(ConstParm, ZeroConstructor, NoDestructor)
+	class UPanelWidget*                           CallFunc_GetParent_ReturnValue;                    // 0x0100(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UCanvasPanelSlot*                       CallFunc_SlotAsCanvasSlot_ReturnValue;             // 0x0108(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FAnchors                               CallFunc_GetAnchors_ReturnValue;                   // 0x0110(0x0010)(NoDestructor)
+	class FText                                   CallFunc_GetText_ReturnValue;                      // 0x0120(0x0018)()
+	bool                                          CallFunc_TextIsEmpty_ReturnValue;                  // 0x0138(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_139[0x3];                                      // 0x0139(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         CallFunc_BreakVector2D_X;                          // 0x013C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         CallFunc_BreakVector2D_Y;                          // 0x0140(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         CallFunc_SelectFloat_ReturnValue;                  // 0x0144(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector2D                              CallFunc_MakeVector2D_ReturnValue;                 // 0x0148(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FAnchors                               K2Node_MakeStruct_Anchors;                         // 0x0150(0x0010)(NoDestructor)
+	ESlateVisibility                              K2Node_Select_Default;                             // 0x0160(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 DUMPER7_ASSERTS_W_FancyModal_C_ExecuteUbergraph_W_FancyModal;
 
@@ -79,5 +94,5 @@ public:
 };
 DUMPER7_ASSERTS_W_FancyModal_C_OnFocusReceived;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

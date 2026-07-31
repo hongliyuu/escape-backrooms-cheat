@@ -10,12 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "CoreUObject_structs.hpp"
 #include "Engine_structs.hpp"
+#include "CoreUObject_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // ScriptStruct XShip.RepXShipMovement
 // 0x0030 (0x0030 - 0x0000)
@@ -54,5 +53,4 @@ public:
 };
 DUMPER7_ASSERTS_FXShipFloater;
 
-}
-
+SDK_NAMESPACE_END

@@ -14,11 +14,10 @@
 #include "WB_Dropdown_Theme2_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function WB_Dropdown_Theme2.WB_Dropdown_Theme2_C.ExecuteUbergraph_WB_Dropdown_Theme2
-// (Final, UbergraphFunction, HasDefaults)
+// (Final, UbergraphFunction)
 // Parameters:
 // int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
@@ -154,7 +153,7 @@ void UWB_Dropdown_Theme2_C::ToggleHover(bool IsHovered_0)
 
 
 // Function WB_Dropdown_Theme2.WB_Dropdown_Theme2_C.Set_SelectedOption
-// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
+// (Public, BlueprintCallable, BlueprintEvent)
 // Parameters:
 // int32                                   Option                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
@@ -230,5 +229,5 @@ void UWB_Dropdown_Theme2_C::Set_Combo_Box_Selection(bool bSelected)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
-}
 
+SDK_NAMESPACE_END

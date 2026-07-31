@@ -10,13 +10,12 @@
 
 #include "Basic.hpp"
 
+#include "AnimGraphRuntime_structs.hpp"
 #include "Engine_structs.hpp"
 #include "Engine_classes.hpp"
-#include "AnimGraphRuntime_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // AnimBlueprintGeneratedClass ABP_Explorer.ABP_Explorer_C
 // 0x0530 (0x07F0 - 0x02C0)
@@ -67,5 +66,4 @@ public:
 };
 DUMPER7_ASSERTS_UABP_Explorer_C;
 
-}
-
+SDK_NAMESPACE_END

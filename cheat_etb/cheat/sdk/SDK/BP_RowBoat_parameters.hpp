@@ -10,16 +10,16 @@
 
 #include "Basic.hpp"
 
+#include "E_CameraSetting_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "AIModule_structs.hpp"
 #include "Engine_structs.hpp"
 #include "InputCore_structs.hpp"
 #include "MovieScene_structs.hpp"
-#include "E_CameraSetting_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function BP_RowBoat.BP_RowBoat_C.ExecuteUbergraph_BP_RowBoat
 // 0x0D20 (0x0D20 - 0x0000)
@@ -507,5 +507,5 @@ public:
 };
 DUMPER7_ASSERTS_BP_RowBoat_C_UpdateWaterLevel;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

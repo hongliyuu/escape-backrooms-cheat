@@ -14,16 +14,17 @@
 #include "Backrooms_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ServerConnectionErrorFlow.BP_ServerConnectionErrorFlow_C
-// 0x0010 (0x00B8 - 0x00A8)
+// 0x0018 (0x00C0 - 0x00A8)
 class UBP_ServerConnectionErrorFlow_C final : public UFancyUserFlow
 {
 public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x00A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 	bool                                          bOnline;                                           // 0x00B0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, ExposeOnSpawn)
+	uint8                                         Pad_B1[0x7];                                       // 0x00B1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidget*                                PreviousFocus;                                     // 0x00B8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_ServerConnectionErrorFlow(int32 EntryPoint);
@@ -45,5 +46,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_ServerConnectionErrorFlow_C;
 
-}
-
+SDK_NAMESPACE_END

@@ -14,8 +14,7 @@
 #include "Engine_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_CostumeSelector_Character.BP_CostumeSelector_Character_C
 // 0x0010 (0x04D0 - 0x04C0)
@@ -45,5 +44,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_CostumeSelector_Character_C;
 
-}
-
+SDK_NAMESPACE_END

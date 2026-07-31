@@ -14,8 +14,7 @@
 #include "Lobby_HUD_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function Lobby_HUD.Lobby_HUD_C.ExecuteUbergraph_Lobby_HUD
 // (Final, UbergraphFunction, HasDefaults)
@@ -270,5 +269,5 @@ void ULobby_HUD_C::HideMicIcon(const struct FBPUniqueNetId& UniqueId)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
-}
 
+SDK_NAMESPACE_END

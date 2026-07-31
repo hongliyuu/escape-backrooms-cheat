@@ -14,8 +14,7 @@
 #include "Engine_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ragdoll.BP_Ragdoll_C
 // 0x0020 (0x0240 - 0x0220)
@@ -52,5 +51,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_Ragdoll_C;
 
-}
-
+SDK_NAMESPACE_END

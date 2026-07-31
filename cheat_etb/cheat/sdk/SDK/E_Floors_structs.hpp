@@ -11,8 +11,7 @@
 #include "Basic.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // UserDefinedEnum E_Floors.E_Floors
 // NumValues: 0x000C
@@ -32,5 +31,4 @@ enum class E_Floors : uint8
 	E_MAX                                    = 11,
 };
 
-}
-
+SDK_NAMESPACE_END

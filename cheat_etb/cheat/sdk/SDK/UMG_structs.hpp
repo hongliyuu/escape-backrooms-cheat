@@ -10,16 +10,15 @@
 
 #include "Basic.hpp"
 
+#include "MovieSceneTracks_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "Slate_structs.hpp"
 #include "SlateCore_structs.hpp"
 #include "PropertyPath_structs.hpp"
-#include "MovieSceneTracks_structs.hpp"
 #include "Engine_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Enum UMG.ESlateAccessibleBehavior
 // NumValues: 0x0006
@@ -212,15 +211,6 @@ enum class EWidgetInteractionSource : uint8
 	EWidgetInteractionSource_MAX             = 4,
 };
 
-// ScriptStruct UMG.RichTextStyleRow
-// 0x0270 (0x0278 - 0x0008)
-struct FRichTextStyleRow final : public FTableRowBase
-{
-public:
-	struct FTextBlockStyle                        TextStyle;                                         // 0x0008(0x0270)(Edit, NativeAccessSpecifierPublic)
-};
-DUMPER7_ASSERTS_FRichTextStyleRow;
-
 // ScriptStruct UMG.ShapedTextOptions
 // 0x0003 (0x0003 - 0x0000)
 struct FShapedTextOptions final
@@ -232,6 +222,15 @@ public:
 	ETextFlowDirection                            TextFlowDirection;                                 // 0x0002(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 DUMPER7_ASSERTS_FShapedTextOptions;
+
+// ScriptStruct UMG.MovieScene2DTransformMask
+// 0x0004 (0x0004 - 0x0000)
+struct FMovieScene2DTransformMask final
+{
+public:
+	uint32                                        mask;                                              // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+};
+DUMPER7_ASSERTS_FMovieScene2DTransformMask;
 
 // ScriptStruct UMG.PaintContext
 // 0x0030 (0x0030 - 0x0000)
@@ -250,15 +249,6 @@ public:
 	uint8                                         Pad_0[0xB8];                                       // 0x0000(0x00B8)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 DUMPER7_ASSERTS_FEventReply;
-
-// ScriptStruct UMG.MovieScene2DTransformMask
-// 0x0004 (0x0004 - 0x0000)
-struct FMovieScene2DTransformMask final
-{
-public:
-	uint32                                        mask;                                              // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-};
-DUMPER7_ASSERTS_FMovieScene2DTransformMask;
 
 // ScriptStruct UMG.WidgetTransform
 // 0x001C (0x001C - 0x0000)
@@ -311,6 +301,15 @@ public:
 	float                                         SectorCentralAngle;                                // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 DUMPER7_ASSERTS_FRadialBoxSettings;
+
+// ScriptStruct UMG.RichTextStyleRow
+// 0x0270 (0x0278 - 0x0008)
+struct FRichTextStyleRow final : public FTableRowBase
+{
+public:
+	struct FTextBlockStyle                        TextStyle;                                         // 0x0008(0x0270)(Edit, NativeAccessSpecifierPublic)
+};
+DUMPER7_ASSERTS_FRichTextStyleRow;
 
 // ScriptStruct UMG.RichImageRow
 // 0x0088 (0x0090 - 0x0008)
@@ -445,5 +444,4 @@ public:
 };
 DUMPER7_ASSERTS_FWidgetNavigationData;
 
-}
-
+SDK_NAMESPACE_END

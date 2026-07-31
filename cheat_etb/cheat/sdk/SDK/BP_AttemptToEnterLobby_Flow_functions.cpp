@@ -14,8 +14,7 @@
 #include "BP_AttemptToEnterLobby_Flow_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_AttemptToEnterLobby_Flow.BP_AttemptToEnterLobby_Flow_C.ExecuteUbergraph_BP_AttemptToEnterLobby_Flow
 // (Final, UbergraphFunction, HasDefaults)
@@ -32,6 +31,26 @@ void UBP_AttemptToEnterLobby_Flow_C::ExecuteUbergraph_BP_AttemptToEnterLobby_Flo
 	Params::BP_AttemptToEnterLobby_Flow_C_ExecuteUbergraph_BP_AttemptToEnterLobby_Flow Parms{};
 
 	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_AttemptToEnterLobby_Flow.BP_AttemptToEnterLobby_Flow_C.HandleCrossplayPrivilegeCheckComplete
+// (BlueprintCallable, BlueprintEvent)
+// Parameters:
+// bool                                    bSuccess_0                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UBP_AttemptToEnterLobby_Flow_C::HandleCrossplayPrivilegeCheckComplete(bool bSuccess_0)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_AttemptToEnterLobby_Flow_C", "HandleCrossplayPrivilegeCheckComplete");
+
+	Params::BP_AttemptToEnterLobby_Flow_C_HandleCrossplayPrivilegeCheckComplete Parms{};
+
+	Parms.bSuccess_0 = bSuccess_0;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -186,5 +205,19 @@ void UBP_AttemptToEnterLobby_Flow_C::OnFailure_1AF601CC4208579E90FF82B097455828(
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+
+// Function BP_AttemptToEnterLobby_Flow.BP_AttemptToEnterLobby_Flow_C.CompleteAndReturnFocus
+// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
+
+void UBP_AttemptToEnterLobby_Flow_C::CompleteAndReturnFocus()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_AttemptToEnterLobby_Flow_C", "CompleteAndReturnFocus");
+
+	UObject::ProcessEvent(Func, nullptr);
 }
 
+
+SDK_NAMESPACE_END

@@ -14,8 +14,7 @@
 #include "E_CameraSetting_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_FL_GameSettings.BP_FL_GameSettings_C
 // 0x0000 (0x0028 - 0x0028)
@@ -43,5 +42,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_FL_GameSettings_C;
 
-}
-
+SDK_NAMESPACE_END

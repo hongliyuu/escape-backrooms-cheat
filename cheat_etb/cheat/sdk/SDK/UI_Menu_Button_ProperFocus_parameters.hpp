@@ -10,18 +10,18 @@
 
 #include "Basic.hpp"
 
+#include "SlateCore_structs.hpp"
 #include "Backrooms_structs.hpp"
 #include "UMG_structs.hpp"
-#include "SlateCore_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "Engine_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function UI_Menu_Button_ProperFocus.UI_Menu_Button_ProperFocus_C.ExecuteUbergraph_UI_Menu_Button_ProperFocus
-// 0x0370 (0x0370 - 0x0000)
+// 0x0318 (0x0318 - 0x0000)
 struct UI_Menu_Button_ProperFocus_C_ExecuteUbergraph_UI_Menu_Button_ProperFocus final
 {
 public:
@@ -63,17 +63,16 @@ public:
 	struct FSlateColor                            K2Node_MakeStruct_SlateColor;                      // 0x01C0(0x0028)()
 	class FText                                   K2Node_Select_Default_4;                           // 0x01E8(0x0018)()
 	class FText                                   K2Node_Select_Default_5;                           // 0x0200(0x0018)()
-	struct FSlateFontInfo                         CallFunc_Get_Font_Culture_Checked_OutFont;         // 0x0218(0x0058)(HasGetValueTypeHash)
-	struct FSlateFontInfo                         K2Node_MakeStruct_SlateFontInfo;                   // 0x0270(0x0058)(HasGetValueTypeHash)
-	EFancyInputDevice                             CallFunc_GetCurrentInputDevice_ReturnValue;        // 0x02C8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_2C9[0x7];                                      // 0x02C9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDataTableRowHandle                    K2Node_MakeStruct_DataTableRowHandle;              // 0x02D0(0x0010)(NoDestructor)
-	bool                                          K2Node_Event_IsFocused;                            // 0x02E0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_2E1[0x7];                                      // 0x02E1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDataTableRowHandle                    K2Node_Select_Default_6;                           // 0x02E8(0x0010)(NoDestructor)
-	struct FSlateColor                            K2Node_MakeStruct_SlateColor_1;                    // 0x02F8(0x0028)()
-	struct FSlateColor                            K2Node_MakeStruct_SlateColor_2;                    // 0x0320(0x0028)()
-	struct FSlateColor                            K2Node_Select_Default_7;                           // 0x0348(0x0028)()
+	struct FSlateFontInfo                         K2Node_MakeStruct_SlateFontInfo;                   // 0x0218(0x0058)(HasGetValueTypeHash)
+	EFancyInputDevice                             CallFunc_GetCurrentInputDevice_ReturnValue;        // 0x0270(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_271[0x7];                                      // 0x0271(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDataTableRowHandle                    K2Node_MakeStruct_DataTableRowHandle;              // 0x0278(0x0010)(NoDestructor)
+	bool                                          K2Node_Event_IsFocused;                            // 0x0288(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_289[0x7];                                      // 0x0289(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDataTableRowHandle                    K2Node_Select_Default_6;                           // 0x0290(0x0010)(NoDestructor)
+	struct FSlateColor                            K2Node_MakeStruct_SlateColor_1;                    // 0x02A0(0x0028)()
+	struct FSlateColor                            K2Node_MakeStruct_SlateColor_2;                    // 0x02C8(0x0028)()
+	struct FSlateColor                            K2Node_Select_Default_7;                           // 0x02F0(0x0028)()
 };
 DUMPER7_ASSERTS_UI_Menu_Button_ProperFocus_C_ExecuteUbergraph_UI_Menu_Button_ProperFocus;
 
@@ -209,5 +208,5 @@ public:
 };
 DUMPER7_ASSERTS_UI_Menu_Button_ProperFocus_C_OnFocusLost;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

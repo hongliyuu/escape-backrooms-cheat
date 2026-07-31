@@ -14,8 +14,7 @@
 #include "BP_SimpleFancyError_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_SimpleFancyError.BP_SimpleFancyError_C.ExecuteUbergraph_BP_SimpleFancyError
 // (Final, UbergraphFunction)
@@ -50,5 +49,5 @@ void UBP_SimpleFancyError_C::Run()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

@@ -14,8 +14,7 @@
 #include "BP_SkinStealer_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_SkinStealer_Level07.BP_SkinStealer_Level07_C
 // 0x0020 (0x0580 - 0x0560)
@@ -55,5 +54,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_SkinStealer_Level07_C;
 
-}
-
+SDK_NAMESPACE_END

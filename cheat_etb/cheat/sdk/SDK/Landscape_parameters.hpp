@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function Landscape.LandscapeProxy.ChangeComponentScreenSizeToUseSubSections
 // 0x0004 (0x0004 - 0x0000)
@@ -134,15 +134,6 @@ public:
 };
 DUMPER7_ASSERTS_LandscapeProxy_SetLandscapeMaterialVectorParameterValue;
 
-// Function Landscape.LandscapeHeightfieldCollisionComponent.GetRenderComponent
-// 0x0008 (0x0008 - 0x0000)
-struct LandscapeHeightfieldCollisionComponent_GetRenderComponent final
-{
-public:
-	class ULandscapeComponent*                    ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-DUMPER7_ASSERTS_LandscapeHeightfieldCollisionComponent_GetRenderComponent;
-
 // Function Landscape.LandscapeBlueprintBrushBase.GetBlueprintRenderDependencies
 // 0x0010 (0x0010 - 0x0000)
 struct LandscapeBlueprintBrushBase_GetBlueprintRenderDependencies final
@@ -211,6 +202,15 @@ public:
 };
 DUMPER7_ASSERTS_LandscapeComponent_GetMaterialInstanceDynamic;
 
+// Function Landscape.LandscapeHeightfieldCollisionComponent.GetRenderComponent
+// 0x0008 (0x0008 - 0x0000)
+struct LandscapeHeightfieldCollisionComponent_GetRenderComponent final
+{
+public:
+	class ULandscapeComponent*                    ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+DUMPER7_ASSERTS_LandscapeHeightfieldCollisionComponent_GetRenderComponent;
+
 // Function Landscape.LandscapeSplinesComponent.GetSplineMeshComponents
 // 0x0010 (0x0010 - 0x0000)
 struct LandscapeSplinesComponent_GetSplineMeshComponents final
@@ -220,5 +220,5 @@ public:
 };
 DUMPER7_ASSERTS_LandscapeSplinesComponent_GetSplineMeshComponents;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

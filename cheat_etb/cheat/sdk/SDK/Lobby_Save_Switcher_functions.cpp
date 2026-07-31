@@ -14,8 +14,7 @@
 #include "Lobby_Save_Switcher_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function Lobby_Save_Switcher.Lobby_Save_Switcher_C.ExecuteUbergraph_Lobby_Save_Switcher
 // (Final, UbergraphFunction)
@@ -210,5 +209,5 @@ void ULobby_Save_Switcher_C::TitleCase(const class FString& In, class FString* O
 		*Out = std::move(Parms.Out);
 }
 
-}
 
+SDK_NAMESPACE_END

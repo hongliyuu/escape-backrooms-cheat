@@ -10,12 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "BP_Item_classes.hpp"
+#include "Engine_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Item_Chainsaw.BP_Item_Chainsaw_C
 // 0x0058 (0x02B0 - 0x0258)
@@ -74,5 +73,4 @@ public:
 };
 DUMPER7_ASSERTS_ABP_Item_Chainsaw_C;
 
-}
-
+SDK_NAMESPACE_END

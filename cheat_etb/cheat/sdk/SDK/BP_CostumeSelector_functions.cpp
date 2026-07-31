@@ -14,8 +14,7 @@
 #include "BP_CostumeSelector_parameters.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // Function BP_CostumeSelector.BP_CostumeSelector_C.ExecuteUbergraph_BP_CostumeSelector
 // (Final, UbergraphFunction, HasDefaults)
@@ -182,5 +181,5 @@ void ABP_CostumeSelector_C::MoveBack__FinishedFunc()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
-}
 
+SDK_NAMESPACE_END

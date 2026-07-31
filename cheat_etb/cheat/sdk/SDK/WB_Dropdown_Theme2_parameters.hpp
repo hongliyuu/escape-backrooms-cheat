@@ -10,15 +10,15 @@
 
 #include "Basic.hpp"
 
-#include "Backrooms_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "Backrooms_structs.hpp"
 
 
-namespace SDK::Params
-{
+SDK_NAMESPACE_START
+SDK_PARAM_NAMESPACE_START
 
 // Function WB_Dropdown_Theme2.WB_Dropdown_Theme2_C.ExecuteUbergraph_WB_Dropdown_Theme2
-// 0x0090 (0x0090 - 0x0000)
+// 0x0038 (0x0038 - 0x0000)
 struct WB_Dropdown_Theme2_C_ExecuteUbergraph_WB_Dropdown_Theme2 final
 {
 public:
@@ -36,10 +36,8 @@ public:
 	class APlayerController*                      CallFunc_GetOwningPlayer_ReturnValue;              // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsOpen_ReturnValue;                       // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EFancyInputDevice                             CallFunc_GetCurrentInputDevice_ReturnValue;        // 0x0031(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_SwitchEnum_CmpSuccess_1;                    // 0x0032(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          K2Node_Event_IsHovered;                            // 0x0033(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FSlateFontInfo                         CallFunc_Get_Font_Culture_Checked_OutFont;         // 0x0038(0x0058)(HasGetValueTypeHash)
+	bool                                          K2Node_Event_IsHovered;                            // 0x0032(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          K2Node_SwitchEnum_CmpSuccess_1;                    // 0x0033(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
 DUMPER7_ASSERTS_WB_Dropdown_Theme2_C_ExecuteUbergraph_WB_Dropdown_Theme2;
 
@@ -90,14 +88,11 @@ public:
 DUMPER7_ASSERTS_WB_Dropdown_Theme2_C_ToggleHover;
 
 // Function WB_Dropdown_Theme2.WB_Dropdown_Theme2_C.Set_SelectedOption
-// 0x0030 (0x0030 - 0x0000)
+// 0x0004 (0x0004 - 0x0000)
 struct WB_Dropdown_Theme2_C_Set_SelectedOption final
 {
 public:
 	int32                                         Option;                                            // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   CallFunc_Array_Get_Item;                           // 0x0008(0x0018)()
-	class FString                                 CallFunc_Conv_TextToString_ReturnValue;            // 0x0020(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
 DUMPER7_ASSERTS_WB_Dropdown_Theme2_C_Set_SelectedOption;
 
@@ -163,5 +158,5 @@ public:
 };
 DUMPER7_ASSERTS_WB_Dropdown_Theme2_C_Set_Combo_Box_Selection;
 
-}
-
+SDK_PARAM_NAMESPACE_END
+SDK_NAMESPACE_END

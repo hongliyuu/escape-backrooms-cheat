@@ -14,8 +14,7 @@
 #include "Backrooms_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_SimpleFancyError.BP_SimpleFancyError_C
 // 0x0070 (0x0118 - 0x00A8)
@@ -49,5 +48,4 @@ public:
 };
 DUMPER7_ASSERTS_UBP_SimpleFancyError_C;
 
-}
-
+SDK_NAMESPACE_END

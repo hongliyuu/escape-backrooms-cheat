@@ -11,45 +11,43 @@
 #include "Basic.hpp"
 
 #include "Engine_structs.hpp"
+#include "BP_BasePlayerController_classes.hpp"
 #include "S_ConnectedPlayer_structs.hpp"
 #include "UMG_structs.hpp"
-#include "BP_BasePlayerController_classes.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass Lobby_PlayerController.Lobby_PlayerController_C
-// 0x0090 (0x0618 - 0x0588)
+// 0x0090 (0x06A0 - 0x0610)
 class ALobby_PlayerController_C final : public ABP_BasePlayerController_C
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame_Lobby_PlayerController_C;           // 0x0588(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UChatComponent_C*                       ChatComponent;                                     // 0x0590(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
-	class ULobby_HUD_C*                           LobbyHUD_Ref;                                      // 0x0598(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class ULobby_Menu_C*                          LobbyMenu_Ref;                                     // 0x05A0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UWB_SettingsPanel_Theme2_C*             SettingsUI_Ref;                                    // 0x05A8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TArray<struct FS_ConnectedPlayer>             ConnectedPlayers;                                  // 0x05B0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance, ContainsInstancedReference)
-	bool                                          IsLaunchingGame;                                   // 0x05C0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_5C1[0x3];                                      // 0x05C1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class FName                                   CurrentGameMode;                                   // 0x05C4(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   ReadyUpButton_Text;                                // 0x05D0(0x0018)(Edit, BlueprintVisible, DisableEditOnInstance)
-	bool                                          Warning_State_;                                    // 0x05E8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          Hide_Button_;                                      // 0x05E9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          ReadyUpButton_Initialized_;                        // 0x05EA(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          LockButton_;                                       // 0x05EB(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_5EC[0x4];                                      // 0x05EC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   ServerName;                                        // 0x05F0(0x0018)(Edit, BlueprintVisible, DisableEditOnInstance)
-	class UW_VOIPHUD_C*                           VOIP_HUD_Ref;                                      // 0x0608(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CanTalk;                                           // 0x0610(0x0001)(Edit, BlueprintVisible, Net, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, RepNotify, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame_Lobby_PlayerController_C;           // 0x0610(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UChatComponent_C*                       ChatComponent;                                     // 0x0618(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class ULobby_HUD_C*                           LobbyHUD_Ref;                                      // 0x0620(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ULobby_Menu_C*                          LobbyMenu_Ref;                                     // 0x0628(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UWB_SettingsPanel_Theme2_C*             SettingsUI_Ref;                                    // 0x0630(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<struct FS_ConnectedPlayer>             ConnectedPlayers;                                  // 0x0638(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance, ContainsInstancedReference)
+	bool                                          IsLaunchingGame;                                   // 0x0648(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_649[0x3];                                      // 0x0649(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class FName                                   CurrentGameMode;                                   // 0x064C(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_654[0x4];                                      // 0x0654(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   ReadyUpButton_Text;                                // 0x0658(0x0018)(Edit, BlueprintVisible, DisableEditOnInstance)
+	bool                                          Warning_State_;                                    // 0x0670(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          Hide_Button_;                                      // 0x0671(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          ReadyUpButton_Initialized_;                        // 0x0672(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          LockButton_;                                       // 0x0673(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_674[0x4];                                      // 0x0674(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   ServerName;                                        // 0x0678(0x0018)(Edit, BlueprintVisible, DisableEditOnInstance)
+	class UW_VOIPHUD_C*                           VOIP_HUD_Ref;                                      // 0x0690(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CanTalk;                                           // 0x0698(0x0001)(Edit, BlueprintVisible, Net, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, RepNotify, NoDestructor)
 
 public:
 	void ExecuteUbergraph_Lobby_PlayerController(int32 EntryPoint);
 	void StartVoice();
 	void OC_Create_MapTravel_Loadingscreen(class FName Map);
 	void OC_KickedFromLobby();
-	void ReceiveEndPlay(EEndPlayReason EndPlayReason);
 	void OC_Update_ConnectedPlayersList(const TArray<struct FS_ConnectedPlayer>& ConnectedPlayers_0);
 	void OC_Update_ServerName(const class FText& ServerName_0);
 	void OC_Launchevent(bool IsLaunchingGame_0);
@@ -77,6 +75,7 @@ public:
 	void CreateLoadingScreen(const class FText& LoadingScreen_FeedbackText, class UTexture2D* LoadingScreen_Image);
 	void Update_PlayerSpeaking(bool IsSpeaking, const struct FBPUniqueNetId& UniqueId);
 	void OnRep_CanTalk();
+	void ReceiveEndPlay(EEndPlayReason EndPlayReason);
 
 public:
 	static class UClass* StaticClass()
@@ -94,5 +93,4 @@ public:
 };
 DUMPER7_ASSERTS_ALobby_PlayerController_C;
 
-}
-
+SDK_NAMESPACE_END

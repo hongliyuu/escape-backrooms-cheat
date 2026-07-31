@@ -15,8 +15,7 @@
 #include "AdvancedSessions_structs.hpp"
 
 
-namespace SDK
-{
+SDK_NAMESPACE_START
 
 // UserDefinedStruct S_ConnectedPlayer.S_ConnectedPlayer
 // 0x0058 (0x0058 - 0x0000)
@@ -32,5 +31,4 @@ public:
 };
 DUMPER7_ASSERTS_FS_ConnectedPlayer;
 
-}
-
+SDK_NAMESPACE_END
