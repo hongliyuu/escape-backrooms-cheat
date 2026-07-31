@@ -9,6 +9,8 @@
 
 #include "resource.h"
 
+#include "../cheat/gdefine.h"
+
 loader* loader::get()
 {
     static loader inst;
@@ -53,8 +55,8 @@ void set_console_color(WORD color)
 
 int loader::main()
 {
-    init_file("C:\\LHY1339\\escape_the_backrooms\\");
-    unzip_dll(MAKEINTRESOURCE(IDR_DLL1), "C:\\LHY1339\\escape_the_backrooms\\cheat.dll");
+    init_file((paths::data_dir() + "\\").c_str());
+    unzip_dll(MAKEINTRESOURCE(IDR_DLL1), paths::data_file("cheat.dll").c_str());
 
     SetConsoleTitle(L"[LHY1339] 修改器");
 
@@ -75,7 +77,7 @@ int loader::main()
         {
             continue;
         }
-        std::wstring dll_path = get_abs_path(L"C:\\LHY1339\\escape_the_backrooms\\cheat.dll");
+        std::wstring dll_path = get_abs_path(paths::data_file_w("cheat.dll"));
         if (is_load(pid, L"cheat.dll"))
         {
             set_console_color(FOREGROUND_RED | FOREGROUND_GREEN);

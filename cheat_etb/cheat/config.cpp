@@ -7,6 +7,7 @@
 
 #include "gvalue.h"
 #include "command.h"
+#include "gdefine.h"
 
 config* config::get()
 {
@@ -18,7 +19,7 @@ void config::save()
 {
     std::vector<std::string> cmd = command::get()->value_to_cmd();
 
-    std::filesystem::path file_path = "C:\\LHY1339\\escape_the_backrooms\\config.cheat";
+    std::filesystem::path file_path = paths::data_file("config.cheat");
 
     std::ofstream file(file_path, std::ios::out | std::ios::trunc);
     if (!file.is_open())

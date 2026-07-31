@@ -54,7 +54,7 @@ void cheat::init()
         Sleep(100);
     }
 
-    std::filesystem::path folder_path = "C:\\LHY1339\\escape_the_backrooms";
+    std::filesystem::path folder_path = paths::data_dir();
     if (!std::filesystem::exists(folder_path))
     {
         std::filesystem::create_directories(folder_path);
@@ -68,8 +68,8 @@ void cheat::init()
     network::get()->init();
     quick::get()->init();
 
-    config::get()->load("C:\\LHY1339\\escape_the_backrooms\\config.cheat");
-    config::get()->load("C:\\LHY1339\\escape_the_backrooms\\keybind.cheat");
+    config::get()->load(paths::data_file("config.cheat"));
+    config::get()->load(paths::data_file("keybind.cheat"));
     color::get()->load();
 }
 //

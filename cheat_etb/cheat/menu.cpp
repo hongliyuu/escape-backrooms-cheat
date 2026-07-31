@@ -198,11 +198,11 @@ void unzip_png(const LPCWSTR& name, const char* file_path)
 
 void menu::init()
 {
-	unzip_png(MAKEINTRESOURCE(IDB_PNG1), "C:\\LHY1339\\escape_the_backrooms\\visual.png");
-	unzip_png(MAKEINTRESOURCE(IDB_PNG2), "C:\\LHY1339\\escape_the_backrooms\\visual_newyear.png");
+	unzip_png(MAKEINTRESOURCE(IDB_PNG1), paths::data_file("visual.png").c_str());
+	unzip_png(MAKEINTRESOURCE(IDB_PNG2), paths::data_file("visual_newyear.png").c_str());
 
-	param::t_visual = SDK::UKismetRenderingLibrary::ImportFileAsTexture2D(gvalue::world, L"C:/LHY1339/escape_the_backrooms/visual.png");
-	param::t_visual_newyear = SDK::UKismetRenderingLibrary::ImportFileAsTexture2D(gvalue::world, L"C:/LHY1339/escape_the_backrooms/visual_newyear.png");
+	param::t_visual = SDK::UKismetRenderingLibrary::ImportFileAsTexture2D(gvalue::world, paths::data_file_w("visual.png").c_str());
+	param::t_visual_newyear = SDK::UKismetRenderingLibrary::ImportFileAsTexture2D(gvalue::world, paths::data_file_w("visual_newyear.png").c_str());
 }
 
 void menu::main()
@@ -1050,21 +1050,21 @@ void menu::misc()
 	}
 	if (function::button_color_text(" ", SDK::FVector2D(120, 210), SDK::FVector2D(140, 30), L"加载参数"))
 	{
-		config::get()->load("C:\\LHY1339\\escape_the_backrooms\\config.cheat");
+		config::get()->load(paths::data_file("config.cheat"));
 	}
 	if (function::button_color_text(" ", SDK::FVector2D(120, 250), SDK::FVector2D(140, 30), L"打开参数配置"))
 	{
-		system("start C:/LHY1339/escape_the_backrooms/config.cheat");
+		system(("start " + paths::data_file("config.cheat")).c_str());
 	}
 
 	function::pice(SDK::FVector2D(110, 300), SDK::FVector2D(160, 90));
 	if (function::button_color_text(" ", SDK::FVector2D(120, 310), SDK::FVector2D(140, 30), L"加载按键"))
 	{
-		config::get()->load("C:\\LHY1339\\escape_the_backrooms\\keybind.cheat");
+		config::get()->load(paths::data_file("keybind.cheat"));
 	}
 	if (function::button_color_text(" ", SDK::FVector2D(120, 350), SDK::FVector2D(140, 30), L"打开按键配置"))
 	{
-		system("start C:/LHY1339/escape_the_backrooms/keybind.cheat");
+		system(("start " + paths::data_file("keybind.cheat")).c_str());
 	}
 
 	function::pice(SDK::FVector2D(110, 400), SDK::FVector2D(160, 40));
