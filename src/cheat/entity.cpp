@@ -6,6 +6,7 @@
 
 SDK::APawn* last_pawn = nullptr;
 SDK::APawn* control_entity = nullptr;
+SDK::ACameraActor* tpp_camera = nullptr;
 
 // 已冻结实体集合（用指针地址跟踪，避免依赖 SDK 内部状态查询）
 static std::set<SDK::ACharacter*> frozen_entities;
@@ -225,7 +226,6 @@ void entity::poss(SDK::APawn* pawn)
 	control_entity = pawn;
 
 	// 切换第三人称视角
-	static SDK::ACameraActor* tpp_camera = nullptr;
 	if (!tpp_camera)
 	{
 		SDK::FTransform trans;
@@ -311,7 +311,6 @@ void entity::domain()
 	gvalue::x_offset = 0.0f;
 
 	// 第三人称摄像机跟随
-	static SDK::ACameraActor* tpp_camera = nullptr;
 	if (!tpp_camera)
 	{
 		SDK::FTransform trans;
