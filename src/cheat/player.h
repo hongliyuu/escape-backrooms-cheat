@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 
@@ -19,6 +19,7 @@ private:
 	void get_player();
 
 	void domain();
+	void domain_team();
 
 	void draw_extent(SDK::AActor* actor, const SDK::FLinearColor& color, const std::wstring& name);
 };

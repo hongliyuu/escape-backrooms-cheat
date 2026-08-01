@@ -93,6 +93,13 @@ namespace gvalue
 	inline bool t_pos = false;
 	inline bool rb_move = false;
 
+	// 全队开关（仅房主有效，对所有队友应用对应效果）
+	inline bool inf_energy_team = false;
+	inline bool inf_san_team = false;
+	inline bool inf_health_team = false;
+	inline bool inf_jump_team = false;
+	inline bool speed_team = false;       // 速度总开关：行走/跑步/全局/跳跃全部应用
+
 	inline float entity_speed = 0.1f;
 
 	// 联机大厅扩展（仅 host）

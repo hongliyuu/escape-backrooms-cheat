@@ -1,4 +1,4 @@
-#include "command.h"
+﻿#include "command.h"
 
 #include "gvalue.h"
 
@@ -113,6 +113,12 @@ void command::init()
 	VALUE_INIT(spin_speed, float);
 	VALUE_INIT(t_pos, bool);
 	VALUE_INIT(rb_move, bool);
+
+	VALUE_INIT(inf_energy_team, bool);
+	VALUE_INIT(inf_san_team, bool);
+	VALUE_INIT(inf_health_team, bool);
+	VALUE_INIT(inf_jump_team, bool);
+	VALUE_INIT(speed_team, bool);
 
 	VALUE_INIT(entity_speed, float);
 

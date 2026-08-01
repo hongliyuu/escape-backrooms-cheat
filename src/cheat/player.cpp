@@ -1,4 +1,4 @@
-#include "player.h"
+﻿#include "player.h"
 
 #include "gvalue.h"
 #include "_sdk.h"
@@ -66,29 +66,30 @@ void player::get_player()
 		def_sensitivity = my_player->MouseSensitivity;
 	}
 	domain();
+	domain_team();
 }
 
 void player::domain()
 {
-	//��������
+	//无限耐力
 	if (gvalue::inf_energy)
 	{
 		my_player->Stamina = 45.0f;
 	}
 
-	//�Զ�ƽ��
+	//自动平衡
 	if (gvalue::auto_balance)
 	{
 		my_player->BalanceTimeline->TheTimeline.Position = 0.0f;
 	}
 
-	//����sanֵ
+	//无限san值
 	if (gvalue::inf_san)
 	{
 		my_state->Sanity = my_state->MaxSanity;
 	}
 
-	//������Ծ
+	//无限跳跃
 	if (gvalue::inf_jump)
 	{
 		my_player->JumpCurrentCount = 0;
@@ -99,35 +100,35 @@ void player::domain()
 		my_player->JumpMaxCount = 1;
 	}
 
-	//�ܲ��ٶ�
+	//跑步速度
 	if (my_player->SprintSpeed != gvalue::run_speed * 5500)
 	{
 		my_player->SprintSpeed = gvalue::run_speed * 5500;
 		my_player->SetSprintSpeedServer(gvalue::run_speed * 5500);
 	}
-	//��·�ٶ�
+	//走路速度
 	if (my_player->WalkSpeed != gvalue::walk_speed * 2750)
 	{
 		my_player->WalkSpeed = gvalue::walk_speed * 2750;
 		my_player->SetWalkSpeedServer(gvalue::walk_speed * 2750);
 	}
 
-	//ͨ�ü���
+	//通用加速
 	my_player->CustomTimeDilation = gvalue::global_speed * 10;
 	my_player->MouseSensitivity = def_sensitivity / (gvalue::global_speed * 10);
 
-	//��Ծ�ٶ�
+	//跳跃速度
 	my_player->CharacterMovement->JumpZVelocity = gvalue::jump_speed * 4000;
 	my_player->CharacterMovement->AirControl = gvalue::air_control * 5;
 
-	//������
+	//灵魂出窍
 	my_player->SetReplicateMovement(!gvalue::ghost_mode);
 
 	if (fly_location == SDK::FVector(-114514, -114514, -114514))
 	{
 		fly_location = my_player->K2_GetActorLocation();
 	}
-	//����ģʽ
+	//飞行模式
 	if (gvalue::fly_mode)
 	{
 		const SDK::FRotator con_rot = my_player->GetControlRotation();
@@ -164,7 +165,7 @@ void player::domain()
 		fly_location = my_player->K2_GetActorLocation();
 	}
 
-	//X��ɾ��
+	//X键删除
 	if (gvalue::x_delete)
 	{
 		SDK::FVector trace_start = gvalue::controller->PlayerCameraManager->GetCameraLocation();
@@ -190,7 +191,7 @@ void player::domain()
 		SDK::AActor* del_actor = nullptr;
 		if (result.bBlockingHit)
 		{
-			draw_extent(result.Actor.Get(), SDK::FLinearColor(1.0f, 0.2f, 0.0f, 1.0f), L"[X��] ɾ�� " + SDK::UKismetStringLibrary::Conv_NameToString(result.Actor.Get()->Name).ToWString());
+			draw_extent(result.Actor.Get(), SDK::FLinearColor(1.0f, 0.2f, 0.0f, 1.0f), L"[X键] 删除 " + SDK::UKismetStringLibrary::Conv_NameToString(result.Actor.Get()->Name).ToWString());
 			del_actor = result.Actor.Get();
 		}
 
@@ -212,7 +213,7 @@ void player::domain()
 		}
 	}
 
-	//�޵�ģʽ
+	//无敌模式
 	if (gvalue::inf_health)
 	{
 		my_player->CanKill = false;
@@ -224,7 +225,7 @@ void player::domain()
 		//my_player->CapsuleComponent->SetCollisionResponseToChannel(SDK::ECollisionChannel::ECC_WorldDynamic, SDK::ECollisionResponse::ECR_Block);
 	}
 	
-	//��ת
+	//旋转
 	if (gvalue::spin)
 	{
 		SDK::FRotator rot = my_player->Mesh->RelativeRotation + SDK::FRotator(0.0f, (gvalue::spin_speed * 10000 * gvalue::delta_time), 0.0f);
@@ -245,7 +246,7 @@ void player::domain()
 		my_player->Mesh->SetAnimClass(SDK::UPlayer_AnimBP_C::StaticClass());
 	}
 
-	//�Ҽ��ƶ�
+	//右键移动
 	if (gvalue::rb_move)
 	{
 		SDK::FVector trace_start = gvalue::controller->PlayerCameraManager->GetCameraLocation();
@@ -269,7 +270,7 @@ void player::domain()
 		);
 		draw_extent(take_actor ? take_actor : (result.bBlockingHit ? result.Actor.Get() : nullptr), 
 			SDK::FLinearColor(0.0f, 1.0f, 0.2f, 1.0f), 
-			L"[�Ҽ�] �ƶ� " + SDK::UKismetStringLibrary::Conv_NameToString(result.Actor.Get()->Name).ToWString()
+			L"[右键] 移动 " + SDK::UKismetStringLibrary::Conv_NameToString(result.Actor.Get()->Name).ToWString()
 		);
 
 		static bool rb_down = false;
@@ -317,6 +318,82 @@ void player::domain()
 			);
 
 			take_actor->K2_SetActorLocation(result.TraceEnd, true, nullptr, true);
+		}
+	}
+}
+
+void player::domain_team()
+{
+	// 检查是否有任何全队开关开启
+	if (!gvalue::inf_energy_team && !gvalue::inf_san_team &&
+		!gvalue::inf_health_team && !gvalue::inf_jump_team &&
+		!gvalue::speed_team)
+		return;
+
+	if (!gvalue::world || !my_player)
+		return;
+
+	// 获取所有玩家
+	SDK::TArray<SDK::AActor*> actor_list;
+	SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ABPCharacter_Demo_C::StaticClass(), &actor_list);
+
+	for (SDK::AActor* actor : actor_list)
+	{
+		if (!actor || actor == my_player)
+			continue;
+
+		SDK::ABPCharacter_Demo_C* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
+		if (!pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+			continue;
+
+		// 无限耐力
+		if (gvalue::inf_energy_team)
+		{
+			pawn->Stamina = 45.0f;
+		}
+
+		// 无限跳跃
+		if (gvalue::inf_jump_team)
+		{
+			pawn->JumpCurrentCount = 0;
+			pawn->JumpMaxCount = 2;
+		}
+
+		// 无敌
+		if (gvalue::inf_health_team)
+		{
+			pawn->CanKill = false;
+		}
+
+		// 速度总开关
+		if (gvalue::speed_team)
+		{
+			// 跑步速度
+			if (pawn->SprintSpeed != gvalue::run_speed * 5500)
+			{
+				pawn->SprintSpeed = gvalue::run_speed * 5500;
+				pawn->SetSprintSpeedServer(gvalue::run_speed * 5500);
+			}
+			// 走路速度
+			if (pawn->WalkSpeed != gvalue::walk_speed * 2750)
+			{
+				pawn->WalkSpeed = gvalue::walk_speed * 2750;
+				pawn->SetWalkSpeedServer(gvalue::walk_speed * 2750);
+			}
+			// 通用加速
+			pawn->CustomTimeDilation = gvalue::global_speed * 10;
+			// 跳跃速度
+			pawn->CharacterMovement->JumpZVelocity = gvalue::jump_speed * 4000;
+		}
+
+		// 无限san值
+		if (gvalue::inf_san_team)
+		{
+			if (pawn->PlayerState && pawn->PlayerState->IsA(SDK::AMP_PS_C::StaticClass()))
+			{
+				SDK::AMP_PS_C* ps = static_cast<SDK::AMP_PS_C*>(pawn->PlayerState);
+				ps->Sanity = ps->MaxSanity;
+			}
 		}
 	}
 }

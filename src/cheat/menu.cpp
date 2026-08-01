@@ -604,13 +604,21 @@ void menu::player()
 	function::text(SDK::FVector2D(150, _y_), L#_name_); \
 }
 
-	ETB_CHECK(20, 无限耐力, inf_energy);
-	ETB_CHECK(50, 无限SAN值[房主], inf_san);
-	ETB_CHECK(80, 无敌模式[房主], inf_health);
-	ETB_CHECK(110, 灵魂出窍[成员], ghost_mode);
+#define ETB_CHECK_TEAM(_y_,_name_,_param_,_team_param_) \
+{ \
+	function::check_box(" ", SDK::FVector2D(120, _y_), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::_param_); \
+	function::text(SDK::FVector2D(150, _y_), L#_name_); \
+	function::check_box(" ", SDK::FVector2D(250, _y_), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::_team_param_); \
+	function::text(SDK::FVector2D(273, _y_), L"队"); \
+}
+
+	ETB_CHECK_TEAM(20, 无限耐力, inf_energy, inf_energy_team);
+	ETB_CHECK_TEAM(50, 无限SAN值, inf_san, inf_san_team);
+	ETB_CHECK_TEAM(80, 无敌模式, inf_health, inf_health_team);
+	ETB_CHECK(110, 灵魂出窍, ghost_mode);
 	ETB_CHECK(140, 自动平衡, auto_balance);
-	ETB_CHECK(170, 无限跳跃[房主], inf_jump);
-	ETB_CHECK(200, 飞天遁地[房主], fly_mode);
+	ETB_CHECK_TEAM(170, 无限跳跃, inf_jump, inf_jump_team);
+	ETB_CHECK(200, 飞天遁地, fly_mode);
 
 	{
 		const int speed = 100 * gvalue::fly_speed;
@@ -619,10 +627,15 @@ void menu::player()
 		function::drag_bar("fly_speed", SDK::FVector2D(120, 260), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::fly_speed);
 	}
 
-	ETB_CHECK(290, X键删除[房主], x_delete);
-	ETB_CHECK(320, 右键移动[房主], rb_move);
+	ETB_CHECK(290, X键删除, x_delete);
+	ETB_CHECK(320, 右键移动, rb_move);
 
 #undef ETB_CHECK
+#undef ETB_CHECK_TEAM
+
+	// 速度区全队总开关（在面板内顶部）
+	function::check_box(" ", SDK::FVector2D(330, 20), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::speed_team);
+	function::text(SDK::FVector2D(360, 20), L"全队加速");
 
 #define ETB_DRAG(_y_,_max_,_text_,_param_) \
 { \
@@ -632,26 +645,25 @@ void menu::player()
 	function::drag_bar(#_param_, SDK::FVector2D(460, _y_), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::_param_); \
 }
 
-	ETB_DRAG(20, 2750, 行走速度：, walk_speed);
-	ETB_DRAG(50, 5500, 跑步速度：, run_speed);
+	ETB_DRAG(50, 2750, 行走速度：, walk_speed);
+	ETB_DRAG(80, 5500, 跑步速度：, run_speed);
 
 	{
-		const float speed = 10 * gvalue::global_speed;
 		const std::wstring wstr = L"全局加速：" + std::format(L"{:.2f}", gvalue::global_speed * 10);
-		function::text(SDK::FVector2D(330, 80), wstr.c_str());
-		function::drag_bar("global_speed", SDK::FVector2D(460, 80), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::global_speed);
+		function::text(SDK::FVector2D(330, 110), wstr.c_str());
+		function::drag_bar("global_speed", SDK::FVector2D(460, 110), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::global_speed);
 	}
 
-	ETB_DRAG(110, 4000, 跳跃速度：, jump_speed);
+	ETB_DRAG(140, 4000, 跳跃速度：, jump_speed);
 
 	{
 		const std::wstring wstr = L"空中控制：" + std::format(L"{:.2f}", gvalue::air_control * 5);
-		function::text(SDK::FVector2D(330, 140), wstr.c_str());
-		function::drag_bar("air_control", SDK::FVector2D(460, 140), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::air_control);
+		function::text(SDK::FVector2D(330, 170), wstr.c_str());
+		function::drag_bar("air_control", SDK::FVector2D(460, 170), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::air_control);
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(330, 170), SDK::FVector2D(250, 30), L"重置速度"))
+		if (function::button_color_text(" ", SDK::FVector2D(330, 200), SDK::FVector2D(250, 30), L"重置速度"))
 		{
 			gvalue::run_speed = 0.1f;
 			gvalue::walk_speed = 0.1f;
@@ -661,15 +673,22 @@ void menu::player()
 		}
 	}
 
-	function::check_box(" ", SDK::FVector2D(330, 230), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::spin);
-	function::text(SDK::FVector2D(360, 230), L"反瞄准[整活]");
-
-	ETB_DRAG(260, 100, 旋转速度：, spin_speed);
-
 #undef ETB_DRAG
 
-	function::check_box(" ", SDK::FVector2D(330, 290), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::t_pos);
-	function::text(SDK::FVector2D(360, 290), L"T字姿势[整活]");
+	// 整活区
+	function::pice(SDK::FVector2D(320, 240), SDK::FVector2D(270, param::size.Y - 250));
+	function::check_box(" ", SDK::FVector2D(330, 250), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::spin);
+	function::text(SDK::FVector2D(360, 250), L"反瞄准[整活]");
+
+	{
+		const int speed = 100 * gvalue::spin_speed;
+		const std::wstring wstr = L"旋转速度：" + std::to_wstring(speed);
+		function::text(SDK::FVector2D(330, 280), wstr.c_str());
+		function::drag_bar("spin_speed", SDK::FVector2D(460, 280), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::spin_speed);
+	}
+
+	function::check_box(" ", SDK::FVector2D(330, 310), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::t_pos);
+	function::text(SDK::FVector2D(360, 310), L"T字姿势[整活]");
 
 	auto flush_player = [&]()
 		{
