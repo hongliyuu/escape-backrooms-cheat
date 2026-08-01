@@ -828,6 +828,7 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 void menu::entity()
 {
 	param::size.X = 560;
+	param::size.Y = 480;
 
 	function::pice(SDK::FVector2D(110, 10), SDK::FVector2D(160, param::size.Y - 20));
 	function::pice(SDK::FVector2D(280, 10), SDK::FVector2D(270, param::size.Y - 20));
@@ -837,36 +838,35 @@ void menu::entity()
 		entity::get()->kill_all();
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 60), SDK::FVector2D(140, 30), L"删除细菌"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 55), SDK::FVector2D(140, 30), L"删除细菌"))
 	{
 		entity::get()->kill("Bacteria_Roaming_BP_C");
 		entity::get()->kill("Bacteria_BP_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 100), SDK::FVector2D(140, 30), L"删除笑魇"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 90), SDK::FVector2D(140, 30), L"删除笑魇"))
 	{
 		entity::get()->kill("Smiler_BP2_C");
 		entity::get()->kill("BP_Roaming_Smiler_C");
 		entity::get()->kill("BP_Smiler_Dash_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 140), SDK::FVector2D(140, 30), L"删除派对客"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 125), SDK::FVector2D(140, 30), L"删除派对客"))
 	{
 		entity::get()->kill("BP_RoamingPartygoer_Idle_C");
 		entity::get()->kill("BP_RoamingPartygoer_C");
 		entity::get()->kill("BP_RoamingPartygoer_Slow_C");
-		entity::get()->kill("Smiler_BP2_C");
 		entity::get()->kill("BP_DarkPartyGoer_C");
 		entity::get()->kill("BP_HidingPartyGoer_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 180), SDK::FVector2D(140, 30), L"删除死亡飞蛾"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 160), SDK::FVector2D(140, 30), L"删除死亡飞蛾"))
 	{
 		entity::get()->kill("BP_Moth_C");
 		entity::get()->kill("BP_Cave_Moth_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 220), SDK::FVector2D(140, 30), L"删除窃皮者"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 195), SDK::FVector2D(140, 30), L"删除窃皮者"))
 	{
 		entity::get()->kill("BP_SkinStealer_C");
 		entity::get()->kill("BP_SkinStealer_Cave_C");
@@ -874,16 +874,27 @@ void menu::entity()
 		entity::get()->kill("BP_SkinStealer_Hotel_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 260), SDK::FVector2D(140, 30), L"删除猎犬"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 230), SDK::FVector2D(140, 30), L"删除猎犬"))
 	{
 		entity::get()->kill("BP_Hound_C");
 		entity::get()->kill("BP_Hound_Hotel_C");
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(120, 300), SDK::FVector2D(140, 30), L"删除悲尸"))
+	if (function::button_color_text(" ", SDK::FVector2D(120, 265), SDK::FVector2D(140, 30), L"删除悲尸"))
 	{
 		entity::get()->kill("BP_Wretch_C");
 		entity::get()->kill("BP_Wretch_House_C");
+	}
+
+	if (function::button_color_text(" ", SDK::FVector2D(120, 300), SDK::FVector2D(140, 30), L"删除偷骨者"))
+	{
+		entity::get()->kill("BP_BoneThief_C");
+	}
+
+	if (function::button_color_text(" ", SDK::FVector2D(120, 335), SDK::FVector2D(140, 30), L"删除鱼"))
+	{
+		entity::get()->kill("BP_Fish_C");
+		entity::get()->kill("BP_Fish_Scare_C");
 	}
 
 #define ETB_BUTTON(_name_,_class_,_x_,_y_) \
@@ -893,13 +904,16 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 }
 
 	ETB_BUTTON(细菌1, ABacteria_BP_C, 290, 20);
-	ETB_BUTTON(细菌2, ABacteria_Roaming_BP_C, 290, 60);
-	ETB_BUTTON(窃皮者1, ABP_SkinStealer_C, 290, 100);
-	ETB_BUTTON(窃皮者2, ABP_SkinStealer_Level07_C, 290, 140);
-	ETB_BUTTON(笑魇, ABP_Roaming_Smiler_C, 420, 20);
-	ETB_BUTTON(动画, ABP_Animation_C, 420, 60);
-	ETB_BUTTON(死亡飞蛾, ABP_Moth_C, 420, 100);
-	ETB_BUTTON(猎犬, ABP_Hound_C, 420, 140);
+	ETB_BUTTON(细菌2, ABacteria_Roaming_BP_C, 290, 55);
+	ETB_BUTTON(窃皮者1, ABP_SkinStealer_C, 290, 90);
+	ETB_BUTTON(窃皮者2, ABP_SkinStealer_Level07_C, 290, 125);
+	ETB_BUTTON(偷骨者, ABP_BoneThief_C, 290, 160);
+	ETB_BUTTON(笑魇, ABP_Roaming_Smiler_C, 290, 195);
+	ETB_BUTTON(动画, ABP_Animation_C, 420, 20);
+	ETB_BUTTON(死亡飞蛾, ABP_Moth_C, 420, 55);
+	ETB_BUTTON(猎犬, ABP_Hound_C, 420, 90);
+	ETB_BUTTON(鱼, ABP_Fish_C, 420, 125);
+	ETB_BUTTON(惊吓鱼, ABP_Fish_Scare_C, 420, 160);
 
 #undef ETB_BUTTON
 
@@ -909,16 +923,16 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 	entity::get()->spawn(SDK::UObject::FindClassFast(#_class_)); \
 }
 
-	ETB_BUTTON(Kitty[限定], BP_Entity974_C, 290, 180);
-	ETB_BUTTON(派对客1[限定], BP_RoamingPartygoer_Idle_C, 290, 220);
-	ETB_BUTTON(派对客2[限定], BP_RoamingPartygoer_C, 290, 260);
-	ETB_BUTTON(派对客3[限定], BP_DarkPartyGoer_C, 290, 300);
-	ETB_BUTTON(派对客4[限定], BP_HidingPartyGoer_C, 290, 340);
-	ETB_BUTTON(大眼怪[限定], BP_NPC_Type01_C, 420, 180);
-	ETB_BUTTON(池核肢团[限定], BP_Clump_Poolrooms_C, 420, 220);
-	ETB_BUTTON(悲尸[限定], BP_Wretch_House_C, 420, 260);
-	ETB_BUTTON(无面灵[限定], BP_Faceling_C, 420, 300);
-	ETB_BUTTON(蜘蛛怪[限定], BP_Membri_C, 420, 340);
+	ETB_BUTTON(Kitty, BP_Entity974_C, 290, 230);
+	ETB_BUTTON(派对客1, BP_RoamingPartygoer_Idle_C, 290, 265);
+	ETB_BUTTON(派对客2, BP_RoamingPartygoer_C, 290, 300);
+	ETB_BUTTON(派对客3, BP_DarkPartyGoer_C, 290, 335);
+	ETB_BUTTON(派对客4, BP_HidingPartyGoer_C, 290, 370);
+	ETB_BUTTON(大眼怪, BP_NPC_Type01_C, 420, 195);
+	ETB_BUTTON(池核肢团, BP_Clump_Poolrooms_C, 420, 230);
+	ETB_BUTTON(悲尸, BP_Wretch_House_C, 420, 265);
+	ETB_BUTTON(无面灵, BP_Faceling_C, 420, 300);
+	ETB_BUTTON(蜘蛛怪, BP_Membri_C, 420, 335);
 
 #undef ETB_BUTTON
 
