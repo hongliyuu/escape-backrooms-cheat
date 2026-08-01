@@ -763,12 +763,12 @@ void menu::player()
 		color::get()->back_col
 	);
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(470, 30), L"刷新玩家列表"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(200, 30), L"刷新玩家列表"))
 	{
 		flush_player();
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(470, 30), L"将所有人传送到我"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(200, 30), L"将所有人传送到我"))
 	{
 		for (int i = 0; i < param::player_list.size(); i++)
 		{
