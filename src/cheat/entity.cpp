@@ -85,6 +85,7 @@ void entity::spawn(SDK::TSubclassOf<SDK::AActor> cls)
 
 	SDK::FVector location = result.bBlockingHit ? result.Location : result.TraceEnd;
 	SDK::FTransform trans;
+	trans.Rotation = SDK::FQuat(0.0f, 0.0f, 0.0f, 1.0f);
 	trans.Translation = location;
 	trans.Scale3D = SDK::FVector(1.0f, 1.0f, 1.0f);
 
@@ -98,6 +99,12 @@ void entity::spawn(SDK::TSubclassOf<SDK::AActor> cls)
 	if (new_actor)
 	{
 		SDK::UGameplayStatics::FinishSpawningActor(new_actor, trans);
+
+		if (new_actor->IsA(SDK::APawn::StaticClass()))
+		{
+			SDK::APawn* pawn = static_cast<SDK::APawn*>(new_actor);
+			pawn->SpawnDefaultController();
+		}
 	}
 }
 
