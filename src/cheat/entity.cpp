@@ -223,6 +223,29 @@ void entity::poss(SDK::APawn* pawn)
 	}
 	gvalue::controller->Possess(pawn);
 	control_entity = pawn;
+
+	// 切换第三人称视角
+	static SDK::ACameraActor* tpp_camera = nullptr;
+	if (!tpp_camera)
+	{
+		SDK::FTransform trans;
+		SDK::AActor* new_camera = SDK::UGameplayStatics::BeginDeferredActorSpawnFromClass(
+			gvalue::world,
+			SDK::ACameraActor::StaticClass(),
+			trans,
+			SDK::ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
+			nullptr
+		);
+		SDK::UGameplayStatics::FinishSpawningActor(new_camera, trans);
+		tpp_camera = static_cast<SDK::ACameraActor*>(new_camera);
+	}
+	gvalue::controller->SetViewTargetWithBlend(
+		tpp_camera,
+		0.3f,
+		SDK::EViewTargetBlendFunction::VTBlend_EaseInOut,
+		2.0f,
+		false
+	);
 }
 
 void entity::unposs()
@@ -234,6 +257,15 @@ void entity::unposs()
 	gvalue::controller->Possess(last_pawn);
 	control_entity = nullptr;
 	last_pawn = nullptr;
+
+	// 恢复第一人称视角
+	gvalue::controller->SetViewTargetWithBlend(
+		gvalue::controller->Pawn,
+		0.3f,
+		SDK::EViewTargetBlendFunction::VTBlend_EaseInOut,
+		2.0f,
+		false
+	);
 }
 
 void entity::domain()
@@ -277,4 +309,48 @@ void entity::domain()
 	control_entity->AddControllerYawInput(gvalue::x_offset * sen);
 	gvalue::y_offset = 0.0f;
 	gvalue::x_offset = 0.0f;
+
+	// 第三人称摄像机跟随
+	static SDK::ACameraActor* tpp_camera = nullptr;
+	if (!tpp_camera)
+	{
+		SDK::FTransform trans;
+		SDK::AActor* new_camera = SDK::UGameplayStatics::BeginDeferredActorSpawnFromClass(
+			gvalue::world,
+			SDK::ACameraActor::StaticClass(),
+			trans,
+			SDK::ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
+			nullptr
+		);
+		SDK::UGameplayStatics::FinishSpawningActor(new_camera, trans);
+		tpp_camera = static_cast<SDK::ACameraActor*>(new_camera);
+	}
+
+	if (tpp_camera)
+	{
+		SDK::FVector cam_start = control_entity->K2_GetActorLocation();
+		cam_start.Z += 80.0f;
+		SDK::FVector cam_end = cam_start + SDK::UKismetMathLibrary::GetForwardVector(control_entity->GetControlRotation()) * -400.0f;
+
+		SDK::TArray<SDK::AActor*> ignore_actors;
+		ignore_actors.Add(control_entity);
+		SDK::FHitResult result;
+		SDK::UKismetSystemLibrary::LineTraceSingle(
+			gvalue::world,
+			cam_start,
+			cam_end,
+			SDK::ETraceTypeQuery::TraceTypeQuery1,
+			false,
+			ignore_actors,
+			SDK::EDrawDebugTrace::None,
+			&result,
+			true,
+			SDK::FLinearColor(1.0f, 0.0f, 0.0f, 1.0f),
+			SDK::FLinearColor(0.0f, 1.0f, 0.0f, 1.0f),
+			0.0f
+		);
+
+		tpp_camera->K2_SetActorLocation(result.bBlockingHit ? result.Location : result.TraceEnd, false, nullptr, true);
+		tpp_camera->K2_SetActorRotation(control_entity->GetControlRotation(), false);
+	}
 }
