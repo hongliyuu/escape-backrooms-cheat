@@ -280,6 +280,10 @@ void entity::domain()
 	{
 		SDK::ACharacter* character = static_cast<SDK::ACharacter*>(control_entity);
 		character->CharacterMovement->MaxWalkSpeed = gvalue::entity_speed * 4000;
+		if (character->CharacterMovement->JumpZVelocity <= 0.0f)
+		{
+			character->CharacterMovement->JumpZVelocity = 500.0f;
+		}
 	}
 
 	const SDK::FRotator rot = SDK::FRotator(0.0f, control_entity->GetControlRotation().Yaw, 0.0f);
@@ -301,6 +305,20 @@ void entity::domain()
 	if (kismet::is_key_down('D'))
 	{
 		control_entity->AddMovementInput(right, 1.0f, true);
+	}
+
+	// 跳跃
+	if (control_entity->IsA(SDK::ACharacter::StaticClass()))
+	{
+		SDK::ACharacter* character = static_cast<SDK::ACharacter*>(control_entity);
+		if (kismet::is_key_down(VK_SPACE))
+		{
+			character->Jump();
+		}
+		else
+		{
+			character->StopJumping();
+		}
 	}
 
 	const float sen = 0.2f;
