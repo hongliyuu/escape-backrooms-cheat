@@ -22,7 +22,12 @@ void item::spawn(SDK::TSubclassOf<SDK::AActor> actor_class)
 
     SDK::ABPCharacter_Demo_C* my_player = static_cast<SDK::ABPCharacter_Demo_C*>(gvalue::controller->Pawn);
 
+    int32_t slot_index = 0;
+    bool found = false;
+    my_player->InvFindFreeSlot(&slot_index, &found);
+
     SDK::FTransform trans;
+    trans.Rotation = SDK::FQuat(0.0f, 0.0f, 0.0f, 1.0f);
     trans.Translation = gvalue::controller->PlayerCameraManager->GetCameraLocation();
     trans.Scale3D = SDK::FVector(1.0f, 1.0f, 1.0f);
 
@@ -35,7 +40,20 @@ void item::spawn(SDK::TSubclassOf<SDK::AActor> actor_class)
     );
     SDK::UGameplayStatics::FinishSpawningActor(new_actor, trans);
     SDK::ABP_DroppedItem_C* item = static_cast<SDK::ABP_DroppedItem_C*>(new_actor);
-    my_player->InvAdd(item);
+
+    if (found)
+    {
+        my_player->InvAdd(item);
+    }
+    else
+    {
+        if (item->ItemMesh)
+        {
+            item->ItemMesh->SetCollisionEnabled(SDK::ECollisionEnabled::QueryAndPhysics);
+            item->ItemMesh->SetEnableGravity(true);
+            item->ItemMesh->SetSimulatePhysics(true);
+        }
+    }
 }
 
 void item::interact_all(const std::string& name)

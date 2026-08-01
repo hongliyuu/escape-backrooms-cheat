@@ -203,6 +203,7 @@
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Backrooms_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Basic.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\BPCharacter_Demo_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\BP_DroppedItem_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\BP_Scanner_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\CoreUObject_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Engine_functions.cpp" />
