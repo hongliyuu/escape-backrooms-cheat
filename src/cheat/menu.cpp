@@ -709,7 +709,7 @@ void menu::player()
 				flush_player();
 				return;
 			}
-			function::pice(pos, SDK::FVector2D(400, 40));
+			function::pice(pos, SDK::FVector2D(460, 40));
 			function::text(pos + SDK::FVector2D(10, 12), pawn->PlayerState->GetPlayerName());
 
 			if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送"))
@@ -728,26 +728,47 @@ void menu::player()
 				pawn->KillServer(false);
 				flush_player();
 			}
+
+			if (function::button_color_text(" ", pos + SDK::FVector2D(400, 5), SDK::FVector2D(50, 30), L"踢出"))
+			{
+				SDK::APlayerController* target_pc = nullptr;
+				for (int i = 0; i < 16; i++)
+				{
+					SDK::APlayerController* pc = SDK::UGameplayStatics::GetPlayerController(gvalue::world, i);
+					if (!pc)
+						break;
+					if (pc->Pawn == pawn || pc->PlayerState == pawn->PlayerState)
+					{
+						target_pc = pc;
+						break;
+					}
+				}
+				if (target_pc && target_pc != gvalue::controller)
+				{
+					SDK::UAdvancedSessionsLibrary::KickPlayer(gvalue::world, target_pc, SDK::FText());
+				}
+				flush_player();
+			}
 		};
 
 	render::fill_box(
 		SDK::FVector2D(param::pos.X + (param::size.X + 18) * gvalue::menu_scale, param::pos.Y - 2 * gvalue::menu_scale),
-		SDK::FVector2D((420 + 4)* gvalue::menu_scale, (90 + param::player_list.size() * 50 + 4)* gvalue::menu_scale), 
+		SDK::FVector2D((470 + 4)* gvalue::menu_scale, (90 + param::player_list.size() * 50 + 4)* gvalue::menu_scale), 
 		color::get()->outline_col
 	);
 
 	render::fill_box(
 		SDK::FVector2D(param::pos.X + (param::size.X + 20) * gvalue::menu_scale, param::pos.Y),
-		SDK::FVector2D(420 * gvalue::menu_scale, (90 + param::player_list.size() * 50)* gvalue::menu_scale), 
+		SDK::FVector2D(470 * gvalue::menu_scale, (90 + param::player_list.size() * 50)* gvalue::menu_scale), 
 		color::get()->back_col
 	);
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(400, 30), L"刷新玩家列表"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(470, 30), L"刷新玩家列表"))
 	{
 		flush_player();
 	}
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(400, 30), L"将所有人传送到我"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(470, 30), L"将所有人传送到我"))
 	{
 		for (int i = 0; i < param::player_list.size(); i++)
 		{
