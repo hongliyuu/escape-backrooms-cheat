@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 #include <string>
 
@@ -94,4 +94,9 @@ namespace gvalue
 	inline bool rb_move = false;
 
 	inline float entity_speed = 0.1f;
+
+	// 联机大厅扩展（仅 host）
+	inline bool online_extend = false;        // 开关：开启后自动扩展房间人数
+	inline float online_player_count = 0.25f; // 目标人数滑块（0.0=4人 ~ 1.0=16人），默认 7 人
+	inline bool online_hud_show = true;       // 开关：是否在游戏画面显示房间人数
 }

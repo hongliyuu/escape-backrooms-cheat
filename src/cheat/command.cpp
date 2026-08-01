@@ -116,6 +116,10 @@ void command::init()
 
 	VALUE_INIT(entity_speed, float);
 
+	VALUE_INIT(online_extend, bool);
+	VALUE_INIT(online_player_count, float);
+	VALUE_INIT(online_hud_show, bool);
+
 #undef VALUE_INIT
 }
 

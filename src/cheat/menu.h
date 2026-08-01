@@ -6,6 +6,8 @@ public:
 
 	void init();
 	void main();
+	void online_tick();
+	void online_hud();
 private:
 	menu() = default;
 
@@ -21,5 +23,6 @@ private:
 	void entity();
 	void level();
 	void misc();
+	void online();
 };
 

@@ -26,6 +26,7 @@ enum class e_page
 	entity,
 	level,
 	misc,
+	online,
 };
 
 class param
@@ -207,6 +208,8 @@ void menu::init()
 
 void menu::main()
 {
+	online_tick();
+
 	if (gvalue::menu_open)
 	{
 		color::get()->flush_color();
@@ -215,6 +218,7 @@ void menu::main()
 		cursor();
 	}
 	lable();
+	online_hud();
 }
 
 void menu::lable()
@@ -336,6 +340,7 @@ case e_page::_name_: \
 		break;
 		ETB_SWITCH(level);
 		ETB_SWITCH(misc);
+		ETB_SWITCH(online);
 	}
 
 	left();
@@ -378,6 +383,7 @@ if (function::button_text(#_page_, SDK::FVector2D(10, _ypos_), SDK::FVector2D(80
 	ETB_BUTTON(entity, 实体, 130);
 	ETB_BUTTON(level, 关卡, 170);
 	ETB_BUTTON(misc, 杂项, 210);
+	ETB_BUTTON(online, 联机, 250);
 
 #undef ETB_BUTTON
 
@@ -1099,4 +1105,97 @@ void menu::misc()
 
 		function::text(SDK::FVector2D(290, 20), log);
 	}
+}
+
+void menu::online_tick()
+{
+	if (!gvalue::online_extend)
+		return;
+
+	// 只在 Lobby 阶段生效
+	if (!gvalue::world || !gvalue::world->GameState ||
+		!gvalue::world->GameState->IsA(SDK::ALobby_GS_C::StaticClass()))
+		return;
+
+	SDK::ALobby_GS_C* lobby_gs = static_cast<SDK::ALobby_GS_C*>(gvalue::world->GameState);
+	const int target = 4 + static_cast<int>(12.0f * gvalue::online_player_count);
+
+	// 只改 MaxPlayers 数据（host 权威，网络同步给客户端）
+	// 不创建 entry、不调 OnRep/RefreshPlayerList（会导致假玩家）
+	if (lobby_gs->MaxPlayers != target)
+	{
+		lobby_gs->MaxPlayers = target;
+	}
+}
+
+void menu::online_hud()
+{
+	// 仅在联机扩展 + HUD 开关都开启时显示
+	if (!gvalue::online_extend || !gvalue::online_hud_show)
+		return;
+
+	// 用 AGameStateBase 获取玩家数（Lobby 和游戏内都适用）
+	if (!gvalue::world || !gvalue::world->GameState)
+		return;
+
+	if (!gvalue::canvas || !gvalue::engine || !gvalue::engine->TinyFont)
+		return;
+
+	SDK::AGameStateBase* gs = gvalue::world->GameState;
+	const int current = gs->PlayerArray.Num();
+
+	// MaxPlayers 只在 Lobby_GS 有，进游戏后用 target 值
+	int max = 4 + static_cast<int>(12.0f * gvalue::online_player_count);
+	if (gs->IsA(SDK::ALobby_GS_C::StaticClass()))
+	{
+		max = static_cast<SDK::ALobby_GS_C*>(gs)->MaxPlayers;
+	}
+
+	const std::wstring text = L"房间人数：" + std::to_wstring(current) + L" / " + std::to_wstring(max);
+
+	function::set_font(12);
+
+	// 右上角显示，避免与左上角按键提示及游戏内 UMG 界面重叠遮挡
+	const float hud_x = gvalue::canvas->SizeX - 250.0f;
+	const float hud_y = 10.0f;
+
+	render::draw_text(
+		gvalue::engine->TinyFont,
+		text.c_str(),
+		SDK::FVector2D(hud_x, hud_y),
+		SDK::FVector2D(1.0f, 1.0f),
+		SDK::FLinearColor(1.0f, 1.0f, 1.0f, 1.0f),
+		1.0f,
+		SDK::FLinearColor(0.0f, 0.0f, 0.0f, 0.5f),
+		SDK::FVector2D(1.0f, 1.0f),
+		false,
+		false,
+		true,
+		SDK::FLinearColor(0.0f, 0.0f, 0.0f, 1.0f)
+	);
+}
+
+void menu::online()
+{
+	param::size.X = 650;
+	param::size.Y = 400;
+
+	function::pice(SDK::FVector2D(110, 10), SDK::FVector2D(param::size.X - 120, param::size.Y - 20));
+
+	function::check_box(" ", SDK::FVector2D(120, 20), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::online_extend);
+	function::text(SDK::FVector2D(150, 21), L"联机大厅扩展");
+
+	if (!gvalue::online_extend)
+		return;
+
+	const int target = 4 + static_cast<int>(12.0f * gvalue::online_player_count);
+
+	{
+		const std::wstring wstr = L"目标人数：" + std::to_wstring(target);
+		function::text(SDK::FVector2D(120, 60), wstr.c_str());
+		function::drag_bar("online_count", SDK::FVector2D(120, 90), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::online_player_count);
+	}
+
+	function::check_box(" ", SDK::FVector2D(120, 120), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::online_hud_show);
+	function::text(SDK::FVector2D(150, 121), L"显示房间人数");
 }

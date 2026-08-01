@@ -206,7 +206,13 @@
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\BP_Scanner_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\CoreUObject_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Engine_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Lobby_GS_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Lobby_PlayerController_Nebula_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\UI_Menu_Lobby_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\UMG_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\WB_SettingsPanel_Theme2_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\W_Lobby_PlayerList_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\W_Lobby_PlayerList_Entry_functions.cpp" />
     <ClCompile Include="session.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="visual.cpp" />
