@@ -5,7 +5,7 @@
 
 ## 偏移位置
 
-[Basic.hpp:62-70](cheat_etb/cheat/sdk/SDK/Basic.hpp#L62-L70) 的 `Offsets` 命名空间,6 个 RVA(相对模块基址):
+[Basic.hpp:62-70](../third_party/ue4-sdk/SDK/Basic.hpp#L62-L70) 的 `Offsets` 命名空间,6 个 RVA(相对模块基址):
 
 - `GObjects` / `GNames` / `GWorld` / `AppendString` / `ProcessEvent` / `ProcessEventIdx`
 
@@ -66,8 +66,8 @@ $proc = Get-Process | Where-Object { $_.ProcessName -like "*scape*" -or $_.Proce
 ### 3. 替换 SDK
 
 ```powershell
-Remove-Item cheat_etb\cheat\sdk -Recurse -Force
-Copy-Item "C:\Dumper-7\<FolderName>\CppSDK" cheat_etb\cheat\sdk -Recurse
+Remove-Item third_party\ue4-sdk -Recurse -Force
+Copy-Item "C:\Dumper-7\<FolderName>\CppSDK" third_party\ue4-sdk -Recurse
 ```
 
 偏移由 Dumper-7 自动写入新 `Basic.hpp`,无需手动改。
@@ -75,15 +75,15 @@ Copy-Item "C:\Dumper-7\<FolderName>\CppSDK" cheat_etb\cheat\sdk -Recurse
 ### 4. 编译验证
 
 ```powershell
-& $msbuild "cheat_etb\cheat\cheat.vcxproj" /p:Configuration=Release /p:Platform=x64 /m
-& $msbuild "cheat_etb\loader\loader.vcxproj" /p:Configuration=Release /p:Platform=x64 /m
+& $msbuild "src\cheat\cheat.vcxproj" /p:Configuration=Release /p:Platform=x64 /m
+& $msbuild "src\loader\loader.vcxproj" /p:Configuration=Release /p:Platform=x64 /m
 ```
 
 `cheat.vcxproj` 显式引用 8 个 `_functions.cpp`(AdvancedSessions/Backrooms/Basic/BPCharacter_Demo/BP_Scanner/CoreUObject/Engine/UMG),新 SDK 都有,**vcxproj 无需改动**。
 
 ### 5. 测试
 
-运行 `cheat_etb\loader\x64\Release\启动器.exe`,确认游戏不崩溃、菜单正常。
+运行 `src\loader\x64\Release\启动器.exe`,确认游戏不崩溃、菜单正常。
 
 ## 注意
 
