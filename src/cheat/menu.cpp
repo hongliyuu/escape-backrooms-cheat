@@ -897,6 +897,16 @@ void menu::entity()
 		entity::get()->kill("BP_Fish_Scare_C");
 	}
 
+	if (function::button_color_text(" ", SDK::FVector2D(120, 370), SDK::FVector2D(140, 30), L"冻结所有实体"))
+	{
+		entity::get()->freeze_all();
+	}
+
+	if (function::button_color_text(" ", SDK::FVector2D(120, 405), SDK::FVector2D(140, 30), L"解冻所有实体"))
+	{
+		entity::get()->unfreeze_all();
+	}
+
 #define ETB_BUTTON(_name_,_class_,_x_,_y_) \
 if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(120, 30), L#_name_)) \
 { \
@@ -960,7 +970,7 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 				flush_entity();
 				return;
 			}
-			function::pice(pos, SDK::FVector2D(240, 40.0f));
+			function::pice(pos, SDK::FVector2D(290, 40.0f));
 			const std::wstring name = visual::get()->find_name(pawn->Class->Name.ToString());
 			function::text(
 				pos + SDK::FVector2D(10, 12),
@@ -972,22 +982,38 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 				entity::get()->poss(pawn);
 			}
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(190, 10), SDK::FVector2D(40, 20), L"删除"))
+			if (function::button_color_text(" ", pos + SDK::FVector2D(185, 10), SDK::FVector2D(40, 20), L"删除"))
 			{
+				entity::get()->unfreeze(pawn);
 				pawn->K2_DestroyActor();
 				flush_entity();
+			}
+
+			if (entity::get()->is_frozen(pawn))
+			{
+				if (function::button_color_text(" ", pos + SDK::FVector2D(230, 10), SDK::FVector2D(55, 20), L"解冻"))
+				{
+					entity::get()->unfreeze(pawn);
+				}
+			}
+			else
+			{
+				if (function::button_color_text(" ", pos + SDK::FVector2D(230, 10), SDK::FVector2D(55, 20), L"冻结"))
+				{
+					entity::get()->freeze(pawn);
+				}
 			}
 		};
 
 	render::fill_box(
 		SDK::FVector2D(param::pos.X + (param::size.X + 18) * gvalue::menu_scale, param::pos.Y - 2 * gvalue::menu_scale),
-		SDK::FVector2D((260 + 4) * gvalue::menu_scale, (150 + param::entity_list.size() * 50 + 4) * gvalue::menu_scale), 
+		SDK::FVector2D((300 + 4) * gvalue::menu_scale, (150 + param::entity_list.size() * 50 + 4) * gvalue::menu_scale), 
 		color::get()->outline_col
 	);
 
 	render::fill_box(
 		SDK::FVector2D(param::pos.X + (param::size.X + 20) * gvalue::menu_scale, param::pos.Y),
-		SDK::FVector2D(260 * gvalue::menu_scale, (150 + param::entity_list.size() * 50) * gvalue::menu_scale), 
+		SDK::FVector2D(300 * gvalue::menu_scale, (150 + param::entity_list.size() * 50) * gvalue::menu_scale), 
 		color::get()->back_col
 	);
 

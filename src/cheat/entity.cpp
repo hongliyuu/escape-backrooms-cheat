@@ -1,10 +1,20 @@
-#include "entity.h"
+﻿#include "entity.h"
 
 #include "gvalue.h"
 #include "kismet.h"
+#include <set>
 
 SDK::APawn* last_pawn = nullptr;
 SDK::APawn* control_entity = nullptr;
+
+// 已冻结实体集合（用指针地址跟踪，避免依赖 SDK 内部状态查询）
+static std::set<SDK::ACharacter*> frozen_entities;
+
+// StopLogic 参数布局（与 SDK::Params::BrainComponent_StopLogic 兼容）
+struct StopLogicParams
+{
+	SDK::FString reason;
+};
 
 entity* entity::get()
 {
@@ -41,6 +51,7 @@ void entity::kill_all()
 		}
 		actor->K2_DestroyActor();
 	}
+	frozen_entities.clear();
 }
 
 void entity::kill(const std::string& name)
@@ -53,6 +64,98 @@ void entity::kill(const std::string& name)
 		{
 			actor->K2_DestroyActor();
 		}
+	}
+	frozen_entities.clear();
+}
+
+void entity::freeze(SDK::ACharacter* character)
+{
+	if (!character)
+		return;
+	if (character->CharacterMovement)
+	{
+		character->CharacterMovement->StopMovementImmediately();
+	}
+	SDK::AController* controller = character->GetController();
+	if (controller && controller->IsA(SDK::AAIController::StaticClass()))
+	{
+		SDK::AAIController* ai_controller = static_cast<SDK::AAIController*>(controller);
+		if (ai_controller->BrainComponent)
+		{
+			static SDK::UFunction* func = nullptr;
+			if (!func)
+				func = ai_controller->BrainComponent->Class->GetFunction("BrainComponent", "StopLogic");
+			if (func)
+			{
+				StopLogicParams params;
+				params.reason = SDK::FString(L"frozen");
+				auto flgs = func->FunctionFlags;
+				func->FunctionFlags |= 0x400;
+				ai_controller->BrainComponent->ProcessEvent(func, &params);
+				func->FunctionFlags = flgs;
+			}
+		}
+	}
+	frozen_entities.insert(character);
+}
+
+void entity::unfreeze(SDK::ACharacter* character)
+{
+	if (!character)
+		return;
+	SDK::AController* controller = character->GetController();
+	if (controller && controller->IsA(SDK::AAIController::StaticClass()))
+	{
+		SDK::AAIController* ai_controller = static_cast<SDK::AAIController*>(controller);
+		if (ai_controller->BrainComponent)
+		{
+			static SDK::UFunction* func = nullptr;
+			if (!func)
+				func = ai_controller->BrainComponent->Class->GetFunction("BrainComponent", "StartLogic");
+			if (func)
+			{
+				auto flgs = func->FunctionFlags;
+				func->FunctionFlags |= 0x400;
+				ai_controller->BrainComponent->ProcessEvent(func, nullptr);
+				func->FunctionFlags = flgs;
+			}
+		}
+	}
+	frozen_entities.erase(character);
+}
+
+bool entity::is_frozen(SDK::ACharacter* character)
+{
+	if (!character)
+		return false;
+	return frozen_entities.count(character) > 0;
+}
+
+void entity::freeze_all()
+{
+	SDK::TArray<SDK::AActor*> list;
+	SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ACharacter::StaticClass(), &list);
+	for (SDK::AActor* actor : list)
+	{
+		if (actor->IsA(SDK::ABP_Explorer_C::StaticClass()) || actor->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+		{
+			continue;
+		}
+		freeze(static_cast<SDK::ACharacter*>(actor));
+	}
+}
+
+void entity::unfreeze_all()
+{
+	SDK::TArray<SDK::AActor*> list;
+	SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ACharacter::StaticClass(), &list);
+	for (SDK::AActor* actor : list)
+	{
+		if (actor->IsA(SDK::ABP_Explorer_C::StaticClass()) || actor->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+		{
+			continue;
+		}
+		unfreeze(static_cast<SDK::ACharacter*>(actor));
 	}
 }
 
