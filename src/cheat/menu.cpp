@@ -1042,10 +1042,15 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 	auto flush_entity=[&]()
 	{
 		param::entity_list.clear();
+		if (!entity::get()->is_valid(gvalue::world))
+			return;
+
 		SDK::TArray<SDK::AActor*> actor_list;
 		SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ACharacter::StaticClass(), &actor_list);
 		for (SDK::AActor* actor : actor_list)
 		{
+			if (!entity::get()->is_valid(actor))
+				continue;
 			if (actor->IsA(SDK::ABP_Explorer_C::StaticClass()) ||
 				actor->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
 			{
@@ -1058,7 +1063,7 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 
 	auto entity_box = [&](SDK::ACharacter* pawn, SDK::FVector2D pos)
 		{
-			if (!pawn || !pawn->IsA(SDK::ACharacter::StaticClass()))
+			if (!entity::get()->is_valid(pawn) || !pawn->IsA(SDK::ACharacter::StaticClass()))
 			{
 				flush_entity();
 				return;
@@ -1070,16 +1075,23 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 				name.c_str()
 			);
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(140, 10), SDK::FVector2D(40, 20), L"控制"))
+			if (entity::get()->can_control(pawn))
 			{
-				entity::get()->poss(pawn);
+				if (function::button_color_text(" ", pos + SDK::FVector2D(140, 10), SDK::FVector2D(40, 20), L"控制"))
+				{
+					entity::get()->poss(pawn);
+				}
+			}
+			else
+			{
+				function::text(pos + SDK::FVector2D(145, 12), L"不可控");
 			}
 
 			if (function::button_color_text(" ", pos + SDK::FVector2D(185, 10), SDK::FVector2D(40, 20), L"删除"))
 			{
-				entity::get()->unfreeze(pawn);
-				pawn->K2_DestroyActor();
+				entity::get()->destroy(pawn);
 				flush_entity();
+				return;
 			}
 
 			if (entity::get()->is_frozen(pawn))
