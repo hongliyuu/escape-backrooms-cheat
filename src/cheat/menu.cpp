@@ -828,6 +828,14 @@ void menu::player()
 					}
 
 					bool spawned_fallback_pawn = false;
+					bool restored_dead_host_pawn = false;
+					if (!revived_pawn && entry.controller == gvalue::controller && pawn && pawn->PlayerState == entry.player_state)
+					{
+						revived_pawn = pawn;
+						revived_pawn->IsDead = false;
+						restored_dead_host_pawn = true;
+					}
+
 					if (!revived_pawn && mp_game_mode)
 					{
 						const bool should_spawn_spectators = mp_game_mode->ShouldSpawnSpectators;
@@ -877,15 +885,28 @@ void menu::player()
 
 					if (revived_pawn && !revived_pawn->IsDead)
 					{
+						if (restored_dead_host_pawn)
+						{
+							revived_pawn->OnRep_IsDead();
+						}
 						if (entry.controller->Pawn != revived_pawn)
 						{
 							entry.controller->Possess(revived_pawn);
 						}
+						revived_pawn->IsPossessed = true;
 						if (spawned_fallback_pawn)
 						{
 							mp_game_mode->OnPlayerSpawn(revived_pawn);
 						}
+						if (restored_dead_host_pawn)
+						{
+							revived_pawn->OnRep_IsPossessed();
+						}
 						entry.controller->ClientRestart(revived_pawn);
+						if (restored_dead_host_pawn)
+						{
+							revived_pawn->OnPossess();
+						}
 					}
 					flush_player();
 				}
