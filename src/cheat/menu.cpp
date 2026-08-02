@@ -748,20 +748,27 @@ void menu::player()
 					}
 				}
 
-				for (SDK::AActor* actor : actor_list)
+				if (entry.controller && entry.controller->Pawn &&
+					entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
 				{
-					auto* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
-					if (pawn && pawn->PlayerState == player_state)
+					auto* controller_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
+					if (controller_pawn->PlayerState == player_state && controller_pawn->GetController() == entry.controller)
 					{
-						entry.pawn = pawn;
-						break;
+						entry.pawn = controller_pawn;
 					}
 				}
 
-				if (!entry.pawn && entry.controller && entry.controller->Pawn &&
-					entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+				for (SDK::AActor* actor : actor_list)
 				{
-					entry.pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
+					if (entry.pawn)
+						break;
+
+					auto* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
+					if (pawn && pawn->PlayerState == player_state &&
+						(!entry.controller || pawn->GetController() == entry.controller))
+					{
+						entry.pawn = pawn;
+					}
 				}
 
 				param::player_list.emplace_back(entry);
@@ -774,7 +781,7 @@ void menu::player()
 				return;
 
 			auto* pawn = entry.pawn;
-			const bool is_dead = !pawn || pawn->IsDead;
+			const bool is_dead = !pawn || pawn->IsDead || pawn->bIsDead;
 
 			function::pice(pos, SDK::FVector2D(460, 40));
 			function::text(pos + SDK::FVector2D(10, 12), entry.player_state->GetPlayerName());
@@ -801,131 +808,25 @@ void menu::player()
 						game_mode->RestartPlayer(entry.controller);
 					}
 
-					SDK::ABPCharacter_Demo_C* revived_pawn = nullptr;
-					if (entry.controller->Pawn && entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
-					{
-						auto* controller_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
-						if (controller_pawn->PlayerState == entry.player_state)
-						{
-							revived_pawn = controller_pawn;
-						}
-					}
-
-					if (!revived_pawn || revived_pawn->IsDead)
-					{
-						revived_pawn = nullptr;
-						SDK::TArray<SDK::AActor*> player_pawns;
-						SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ABPCharacter_Demo_C::StaticClass(), &player_pawns);
-						for (SDK::AActor* actor : player_pawns)
-						{
-							auto* candidate = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
-							if (candidate && !candidate->IsDead && candidate->PlayerState == entry.player_state)
-							{
-								revived_pawn = candidate;
-								break;
-							}
-						}
-					}
-
-					bool spawned_fallback_pawn = false;
-					bool restored_dead_host_pawn = false;
-					if (!revived_pawn && entry.controller == gvalue::controller && pawn && pawn->PlayerState == entry.player_state)
-					{
-						revived_pawn = pawn;
-						revived_pawn->IsDead = false;
-						restored_dead_host_pawn = true;
-					}
-
-					if (!revived_pawn && mp_game_mode)
-					{
-						const bool should_spawn_spectators = mp_game_mode->ShouldSpawnSpectators;
-						mp_game_mode->ShouldSpawnSpectators = false;
-						SDK::AActor* start_spot = mp_game_mode->FindPlayerStart(entry.controller, SDK::FString());
-						SDK::APawn* spawned_pawn = start_spot ? mp_game_mode->SpawnDefaultPawnFor(entry.controller, start_spot) : nullptr;
-						mp_game_mode->ShouldSpawnSpectators = should_spawn_spectators;
-
-						if (spawned_pawn && spawned_pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
-						{
-							revived_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(spawned_pawn);
-							spawned_fallback_pawn = true;
-						}
-
-						if (!revived_pawn)
-						{
-							SDK::FTransform spawn_transform{};
-							spawn_transform.Rotation = SDK::FQuat(0.0f, 0.0f, 0.0f, 1.0f);
-							spawn_transform.Scale3D = SDK::FVector(1.0f, 1.0f, 1.0f);
-							if (start_spot)
-							{
-								spawn_transform.Translation = start_spot->K2_GetActorLocation();
-							}
-							else if (entry.controller->Pawn)
-							{
-								spawn_transform.Translation = entry.controller->Pawn->K2_GetActorLocation();
-							}
-
-							SDK::AActor* spawned_actor = SDK::UGameplayStatics::BeginDeferredActorSpawnFromClass(
-								gvalue::world,
-								SDK::ABPCharacter_Demo_C::StaticClass(),
-								spawn_transform,
-								SDK::ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
-								nullptr
-							);
-							if (spawned_actor)
-							{
-								SDK::UGameplayStatics::FinishSpawningActor(spawned_actor, spawn_transform);
-								if (spawned_actor->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
-								{
-									revived_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(spawned_actor);
-									spawned_fallback_pawn = true;
-								}
-							}
-						}
-					}
-
-					if (revived_pawn && !revived_pawn->IsDead)
-					{
-						if (restored_dead_host_pawn)
-						{
-							revived_pawn->OnRep_IsDead();
-						}
-						if (entry.controller->Pawn != revived_pawn)
-						{
-							entry.controller->Possess(revived_pawn);
-						}
-						revived_pawn->IsPossessed = true;
-						if (mp_game_mode && (spawned_fallback_pawn || restored_dead_host_pawn))
-						{
-							mp_game_mode->OnPlayerSpawn(revived_pawn);
-						}
-						if (restored_dead_host_pawn)
-						{
-							revived_pawn->OnRep_IsPossessed();
-						}
-						entry.controller->ClientRestart(revived_pawn);
-						if (restored_dead_host_pawn)
-						{
-							revived_pawn->OnPossess();
-						}
-					}
 					flush_player();
 				}
 			}
 			else
 			{
-				if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送"))
+				if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送") &&
+					gvalue::controller && gvalue::controller->Pawn)
 				{
 					gvalue::controller->Pawn->K2_SetActorLocation(pawn->K2_GetActorLocation(), false, nullptr, false);
 				}
 
-				if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"传送到我"))
+				if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"传送到我") &&
+					gvalue::controller && gvalue::controller->Pawn)
 				{
 					pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
 				}
 
 				if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"杀死"))
 				{
-					pawn->KillClient();
 					pawn->KillServer(false);
 					flush_player();
 				}
@@ -960,11 +861,14 @@ void menu::player()
 
 	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(200, 30), L"将所有人传送到我"))
 	{
-		for (const s_player_entry& entry : param::player_list)
+		if (gvalue::controller && gvalue::controller->Pawn)
 		{
-			if (entry.pawn && !entry.pawn->IsDead)
+			for (const s_player_entry& entry : param::player_list)
 			{
-				entry.pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
+				if (entry.pawn && !entry.pawn->IsDead && !entry.pawn->bIsDead)
+				{
+					entry.pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
+				}
 			}
 		}
 	}
