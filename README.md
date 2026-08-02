@@ -1,4 +1,4 @@
-## Escape The Backrooms Cheat - 逃离后室外挂修改器
+﻿## Escape The Backrooms Cheat - 逃离后室外挂修改器
 ### 效果图
 ![效果图](misc/img.png)
 ### 问题反馈

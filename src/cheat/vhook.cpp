@@ -1,4 +1,4 @@
-#include "vhook.h"
+﻿#include "vhook.h"
 #include "_sdk.h"
 #include "gvalue.h"
 #include "kismet.h"

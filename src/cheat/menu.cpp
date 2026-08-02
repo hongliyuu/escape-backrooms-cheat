@@ -1204,16 +1204,73 @@ void menu::online_tick()
 	if (!gvalue::online_extend)
 		return;
 
-	// 只在 Lobby 阶段生效
-	if (!gvalue::world || !gvalue::world->GameState ||
+	if (!gvalue::world)
+		return;
+
+	const int target = 4 + static_cast<int>(12.0f * gvalue::online_player_count);
+
+	// 创建 Session 前，游戏从这些界面字段读取 PublicConnections。只改 Lobby_GS
+	// 会让 UI 显示扩容，但在线服务仍会按原上限拒绝新玩家。
+	if (gvalue::world->OwningGameInstance &&
+		gvalue::world->OwningGameInstance->IsA(SDK::UBP_MyGameInstance_C::StaticClass()))
+	{
+		auto* game_instance = static_cast<SDK::UBP_MyGameInstance_C*>(gvalue::world->OwningGameInstance);
+		game_instance->MaxPlayers = target;
+	}
+
+	// Widget 树只需周期性查找；新打开的创建界面会在下一次检查中同步。
+	static float next_widget_sync = 0.0f;
+	next_widget_sync -= gvalue::delta_time;
+	if (next_widget_sync <= 0.0f)
+	{
+		next_widget_sync = 0.25f;
+
+		SDK::TArray<SDK::UUserWidget*> widgets;
+		SDK::UWidgetBlueprintLibrary::GetAllWidgetsOfClass(
+			gvalue::world,
+			&widgets,
+			SDK::TSubclassOf<SDK::UUserWidget>(SDK::UUI_Menu_ModeSelection_C::StaticClass()),
+			false
+		);
+
+		for (SDK::UUserWidget* widget : widgets)
+		{
+			auto* mode_selection = static_cast<SDK::UUI_Menu_ModeSelection_C*>(widget);
+			if (mode_selection->Slider_MaxPlayers)
+			{
+				mode_selection->Slider_MaxPlayers->SetMaxValue(static_cast<float>(target));
+				mode_selection->Slider_MaxPlayers->SetValue(static_cast<float>(target));
+			}
+			mode_selection->MaxPlayers = target;
+		}
+
+		widgets = {};
+		SDK::UWidgetBlueprintLibrary::GetAllWidgetsOfClass(
+			gvalue::world,
+			&widgets,
+			SDK::TSubclassOf<SDK::UUserWidget>(SDK::UW_CreateServer_C::StaticClass()),
+			false
+		);
+
+		for (SDK::UUserWidget* widget : widgets)
+		{
+			auto* create_server = static_cast<SDK::UW_CreateServer_C*>(widget);
+			create_server->MaximumPlayers = target;
+			if (create_server->Slider_MaxPlayers)
+			{
+				create_server->Slider_MaxPlayers->SetMaxValue(static_cast<float>(target));
+				create_server->Slider_MaxPlayers->SetValue(static_cast<float>(target));
+			}
+			create_server->MaxPlayer = target;
+		}
+	}
+
+	// Lobby 阶段还需要同步可复制的显示数据给已加入的客户端。
+	if (!gvalue::world->GameState ||
 		!gvalue::world->GameState->IsA(SDK::ALobby_GS_C::StaticClass()))
 		return;
 
-	SDK::ALobby_GS_C* lobby_gs = static_cast<SDK::ALobby_GS_C*>(gvalue::world->GameState);
-	const int target = 4 + static_cast<int>(12.0f * gvalue::online_player_count);
-
-	// 只改 MaxPlayers 数据（host 权威，网络同步给客户端）
-	// 不创建 entry、不调 OnRep/RefreshPlayerList（会导致假玩家）
+	auto* lobby_gs = static_cast<SDK::ALobby_GS_C*>(gvalue::world->GameState);
 	if (lobby_gs->MaxPlayers != target)
 	{
 		lobby_gs->MaxPlayers = target;

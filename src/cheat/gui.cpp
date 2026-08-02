@@ -1,4 +1,4 @@
-#include "gui.h"
+﻿#include "gui.h"
 
 #include "_sdk.h"
 #include "gvalue.h"

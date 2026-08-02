@@ -1,4 +1,4 @@
-#include "color.h"
+ï»¿#include "color.h"
 
 #include "gvalue.h"
 
@@ -157,38 +157,38 @@ std::wstring color::get_name()
 {
 	if (gvalue::new_year_color)
 	{
-		return L"ĞÂÄêÌØ±ğÖ÷Ìâ";
+		return L"æ–°å¹´ç‰¹åˆ«ä¸»é¢˜";
 	}
-	std::wstring name = L"´íÎó";
+	std::wstring name = L"é”™è¯¯";
 	switch (gvalue::color_index)
 	{
 	case 0:
-		name = L"Èü²©×Ï";
+		name = L"èµ›åšç´«";
 		break;
 	case 1:
-		name = L"±¡ºÉÂÌ";
+		name = L"è–„è·ç»¿";
 		break;
 	case 2:
-		name = L"Ã×°×";
+		name = L"ç±³ç™½";
 		break;
 	case 3:
-		name = L"±ùÀ¶";
+		name = L"å†°è“";
 		break;
 	case 4:
-		name = L"Éî¿ÕÀ¶";
+		name = L"æ·±ç©ºè“";
 		break;
 	case 5:
-		name = L"À¶ºÚ";
+		name = L"è“é»‘";
 		break;
 	case 6:
-		name = L"ÆÏÌÑ×Ï";
+		name = L"è‘¡è„ç´«";
 		break;
 	case 7:
-		name = L"ÑÒ½¬³È";
+		name = L"å²©æµ†æ©™";
 		break;
 	case 8:
-		name = L"°µºì";
+		name = L"æš—çº¢";
 		break;
 	}
-	return L"ÅäÉ«£º" + name;
+	return L"é…è‰²ï¼š" + name;
 }

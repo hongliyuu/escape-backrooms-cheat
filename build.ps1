@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     编译脚本：使用 MSBuild 构建 cheat.dll 与 启动器.exe
 

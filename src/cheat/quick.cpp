@@ -1,4 +1,4 @@
-#include "quick.h"
+ï»¿#include "quick.h"
 #include "kismet.h"
 #include "gvalue.h"
 #include "gui.h"
@@ -25,7 +25,7 @@ public:
 			};
 
 		SDK::FLinearColor col = (*ptr) ? SDK::FLinearColor(0, 0.4f, 0, 1) : SDK::FLinearColor(0.4f, 0, 0, 1);
-		std::wstring render_str = str + ((*ptr) ? L"£º¿ªÆô" : L"£º¹Ø±Õ");
+		std::wstring render_str = str + ((*ptr) ? L"ï¼šå¼€å¯" : L"ï¼šå…³é—­");
 
 		const bool value = gui::button_color_text(
 			" ",
@@ -105,8 +105,8 @@ void quick::visual()
 #define BUTTON(_y_,_name_,_param_) \
 function::button(SDK::FVector2D(20, _y_), SDK::FVector2D(200, 40), L#_name_, &gvalue::_param_);
 
-	BUTTON(20, »æÖÆÍø¸ñÌå, draw_mesh);
-	BUTTON(70, µÚÈıÈË³Æ, third_person);
+	BUTTON(20, ç»˜åˆ¶ç½‘æ ¼ä½“, draw_mesh);
+	BUTTON(70, ç¬¬ä¸‰äººç§°, third_person);
 
 #undef BUTTON
 }
@@ -122,13 +122,13 @@ void quick::player()
 #define BUTTON(_y_,_name_,_param_) \
 function::button(SDK::FVector2D(20, _y_), SDK::FVector2D(200, 40), L#_name_, &gvalue::_param_);
 
-	BUTTON(140, ·ÉĞĞÄ£Ê½, fly_mode);
-	BUTTON(190, ÎŞµĞÄ£Ê½, inf_health);
-	BUTTON(240, Áé»ê³öÇÏ, ghost_mode);
-	BUTTON(290, X¼üÉ¾³ı, x_delete);
-	BUTTON(340, ·´×ÔÃé, spin);
-	BUTTON(390, T×Ö×ËÊÆ, t_pos);
-	BUTTON(440, ÓÒ¼üÒÆ¶¯, rb_move);
+	BUTTON(140, é£è¡Œæ¨¡å¼, fly_mode);
+	BUTTON(190, æ— æ•Œæ¨¡å¼, inf_health);
+	BUTTON(240, çµé­‚å‡ºçª, ghost_mode);
+	BUTTON(290, Xé”®åˆ é™¤, x_delete);
+	BUTTON(340, åè‡ªç„, spin);
+	BUTTON(390, Tå­—å§¿åŠ¿, t_pos);
+	BUTTON(440, å³é”®ç§»åŠ¨, rb_move);
 
 #undef BUTTON
 }
@@ -145,7 +145,7 @@ void quick::entity()
 const bool b = function::button_color_text(SDK::FVector2D(250, _y_), SDK::FVector2D(200, 40), L#_name_);
 
 	{
-		BUTTON(20, É±ËÀËùÓĞÊµÌå);
+		BUTTON(20, æ€æ­»æ‰€æœ‰å®ä½“);
 		if (b)
 		{
 			entity::get()->kill_all();
@@ -154,7 +154,7 @@ const bool b = function::button_color_text(SDK::FVector2D(250, _y_), SDK::FVecto
 
 
 	{
-		BUTTON(70, È¡Ïû¿ØÖÆÊµÌå);
+		BUTTON(70, å–æ¶ˆæ§åˆ¶å®ä½“);
 		if (b)
 		{
 			entity::get()->unposs();
@@ -176,7 +176,7 @@ void quick::item()
 const bool b = function::button_color_text(SDK::FVector2D(250, _y_), SDK::FVector2D(200, 40), L#_name_);
 
 {
-	BUTTON(140, Îü¸½ËùÓĞ´Å´ø);
+	BUTTON(140, å¸é™„æ‰€æœ‰ç£å¸¦);
 	if (b)
 	{
 		item::get()->interact_all("Tape_BP_C");
@@ -198,7 +198,7 @@ void quick::misc()
 function::button_color_text(SDK::FVector2D(480, _y_), SDK::FVector2D(200, 40), L#_name_);
 
 	{
-		const bool b = BUTTON(20, ±£´æÅäÖÃ);
+		const bool b = BUTTON(20, ä¿å­˜é…ç½®);
 		if (b)
 		{
 			config::get()->save();

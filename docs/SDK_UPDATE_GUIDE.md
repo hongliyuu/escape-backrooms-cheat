@@ -1,4 +1,4 @@
-# SDK 更新指南
+﻿# SDK 更新指南
 
 > 用 Dumper-7 重新生成 SDK,修复游戏版本更新导致的偏移失效(注入后崩溃)。
 > 工具:https://github.com/Encryqed/Dumper-7(支持 UE4.11 - UE5.x)
