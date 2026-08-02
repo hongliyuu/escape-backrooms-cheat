@@ -29,6 +29,13 @@ enum class e_page
 	online,
 };
 
+struct s_player_entry
+{
+	SDK::APlayerState* player_state = nullptr;
+	SDK::APlayerController* controller = nullptr;
+	SDK::ABPCharacter_Demo_C* pawn = nullptr;
+};
+
 class param
 {
 public:
@@ -39,7 +46,7 @@ public:
 
 	inline static e_page page = e_page::visual;
 
-	inline static std::vector<SDK::ABPCharacter_Demo_C*> player_list;
+	inline static std::vector<s_player_entry> player_list;
 	inline static std::vector<SDK::ACharacter*> entity_list;
 
 	inline static SDK::UTexture2D* t_visual = nullptr;
@@ -693,59 +700,121 @@ void menu::player()
 	auto flush_player = [&]()
 		{
 			param::player_list.clear();
+			if (!gvalue::world || !gvalue::world->GameState)
+				return;
+
 			SDK::TArray<SDK::AActor*> actor_list;
 			SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ABPCharacter_Demo_C::StaticClass(), &actor_list);
-			for (SDK::AActor* actor : actor_list)
+
+			SDK::AMP_GameMode_C* game_mode = nullptr;
+			if (gvalue::world->AuthorityGameMode &&
+				gvalue::world->AuthorityGameMode->IsA(SDK::AMP_GameMode_C::StaticClass()))
 			{
-				SDK::ABPCharacter_Demo_C* cur_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
-				param::player_list.emplace_back(cur_pawn);
+				game_mode = static_cast<SDK::AMP_GameMode_C*>(gvalue::world->AuthorityGameMode);
+			}
+
+			for (SDK::APlayerState* player_state : gvalue::world->GameState->PlayerArray)
+			{
+				if (!player_state)
+					continue;
+
+				s_player_entry entry{};
+				entry.player_state = player_state;
+
+				if (game_mode)
+				{
+					for (SDK::AMP_PlayerController_C* controller : game_mode->PlayerControllers)
+					{
+						if (controller && controller->PlayerState == player_state)
+						{
+							entry.controller = controller;
+							break;
+						}
+					}
+				}
+
+				if (!entry.controller)
+				{
+					for (int index = 0; index < 16; ++index)
+					{
+						auto* controller = SDK::UGameplayStatics::GetPlayerController(gvalue::world, index);
+						if (!controller)
+							break;
+						if (controller->PlayerState == player_state)
+						{
+							entry.controller = controller;
+							break;
+						}
+					}
+				}
+
+				for (SDK::AActor* actor : actor_list)
+				{
+					auto* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
+					if (pawn && pawn->PlayerState == player_state)
+					{
+						entry.pawn = pawn;
+						break;
+					}
+				}
+
+				if (!entry.pawn && entry.controller && entry.controller->Pawn &&
+					entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+				{
+					entry.pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
+				}
+
+				param::player_list.emplace_back(entry);
 			}
 		};
 
-	auto player_box = [&](SDK::ABPCharacter_Demo_C* pawn, SDK::FVector2D pos)
+	auto player_box = [&](const s_player_entry& entry, SDK::FVector2D pos)
 		{
-			if (!pawn || !pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
-			{
-				flush_player();
+			if (!entry.player_state)
 				return;
-			}
+
+			auto* pawn = entry.pawn;
+			const bool is_dead = !pawn || pawn->IsDead;
+
 			function::pice(pos, SDK::FVector2D(460, 40));
-			function::text(pos + SDK::FVector2D(10, 12), pawn->PlayerState->GetPlayerName());
+			function::text(pos + SDK::FVector2D(10, 12), entry.player_state->GetPlayerName());
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送"))
+			if (is_dead)
 			{
-				gvalue::controller->Pawn->K2_SetActorLocation(pawn->K2_GetActorLocation(), false, nullptr, false);
+				function::text(pos + SDK::FVector2D(180, 12), L"死亡");
+
+				if (entry.controller && gvalue::world->AuthorityGameMode &&
+					function::button_color_text(" ", pos + SDK::FVector2D(300, 5), SDK::FVector2D(80, 30), L"复活"))
+				{
+					gvalue::world->AuthorityGameMode->RestartPlayer(entry.controller);
+					flush_player();
+				}
 			}
-
-			if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"传送到我"))
+			else
 			{
-				pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
-			}
+				if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送"))
+				{
+					gvalue::controller->Pawn->K2_SetActorLocation(pawn->K2_GetActorLocation(), false, nullptr, false);
+				}
 
-			if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"杀死"))
-			{
-				pawn->KillClient();
-				pawn->KillServer(false);
-				flush_player();
+				if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"传送到我"))
+				{
+					pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
+				}
+
+				if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"杀死"))
+				{
+					pawn->KillClient();
+					pawn->KillServer(false);
+					flush_player();
+				}
 			}
 
 			if (function::button_color_text(" ", pos + SDK::FVector2D(400, 5), SDK::FVector2D(50, 30), L"踢出"))
 			{
-				SDK::APlayerController* target_pc = nullptr;
-				for (int i = 0; i < 16; i++)
+				if (entry.controller && entry.controller != gvalue::controller)
 				{
-					SDK::APlayerController* pc = SDK::UGameplayStatics::GetPlayerController(gvalue::world, i);
-					if (!pc)
-						break;
-					if (pc->Pawn == pawn || pc->PlayerState == pawn->PlayerState)
-					{
-						target_pc = pc;
-						break;
-					}
-				}
-				if (target_pc && target_pc != gvalue::controller)
-				{
-					SDK::UAdvancedSessionsLibrary::KickPlayer(gvalue::world, target_pc, SDK::FText());
+					SDK::UAdvancedSessionsLibrary::KickPlayer(gvalue::world, entry.controller, SDK::FText());
 				}
 				flush_player();
 			}
@@ -770,9 +839,12 @@ void menu::player()
 
 	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(200, 30), L"将所有人传送到我"))
 	{
-		for (int i = 0; i < param::player_list.size(); i++)
+		for (const s_player_entry& entry : param::player_list)
 		{
-			param::player_list[i]->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
+			if (entry.pawn && !entry.pawn->IsDead)
+			{
+				entry.pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
+			}
 		}
 	}
 

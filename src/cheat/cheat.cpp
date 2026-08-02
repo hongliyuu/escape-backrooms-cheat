@@ -43,6 +43,8 @@ void cheat::console()
 {
 #ifdef CHEAT_DEBUG
     AllocConsole();
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     FILE* value = freopen("CONOUT$", "w+", stdout);
 #endif
 }
