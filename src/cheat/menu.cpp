@@ -786,7 +786,54 @@ void menu::player()
 				if (entry.controller && gvalue::world->AuthorityGameMode &&
 					function::button_color_text(" ", pos + SDK::FVector2D(300, 5), SDK::FVector2D(80, 30), L"复活"))
 				{
-					gvalue::world->AuthorityGameMode->RestartPlayer(entry.controller);
+					auto* game_mode = gvalue::world->AuthorityGameMode;
+					if (game_mode->IsA(SDK::AMP_GameMode_C::StaticClass()))
+					{
+						auto* mp_game_mode = static_cast<SDK::AMP_GameMode_C*>(game_mode);
+						const bool should_spawn_spectators = mp_game_mode->ShouldSpawnSpectators;
+						mp_game_mode->ShouldSpawnSpectators = false;
+						mp_game_mode->RestartPlayer(entry.controller);
+						mp_game_mode->ShouldSpawnSpectators = should_spawn_spectators;
+					}
+					else
+					{
+						game_mode->RestartPlayer(entry.controller);
+					}
+
+					SDK::ABPCharacter_Demo_C* revived_pawn = nullptr;
+					if (entry.controller->Pawn && entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+					{
+						auto* controller_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
+						if (controller_pawn->PlayerState == entry.player_state)
+						{
+							revived_pawn = controller_pawn;
+						}
+					}
+
+					if (!revived_pawn || revived_pawn->IsDead)
+					{
+						revived_pawn = nullptr;
+						SDK::TArray<SDK::AActor*> player_pawns;
+						SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ABPCharacter_Demo_C::StaticClass(), &player_pawns);
+						for (SDK::AActor* actor : player_pawns)
+						{
+							auto* candidate = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
+							if (candidate && !candidate->IsDead && candidate->PlayerState == entry.player_state)
+							{
+								revived_pawn = candidate;
+								break;
+							}
+						}
+					}
+
+					if (revived_pawn && !revived_pawn->IsDead)
+					{
+						if (entry.controller->Pawn != revived_pawn)
+						{
+							entry.controller->Possess(revived_pawn);
+						}
+						entry.controller->ClientRestart(revived_pawn);
+					}
 					flush_player();
 				}
 			}
