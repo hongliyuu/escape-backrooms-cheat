@@ -841,6 +841,38 @@ void menu::player()
 							revived_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(spawned_pawn);
 							spawned_fallback_pawn = true;
 						}
+
+						if (!revived_pawn)
+						{
+							SDK::FTransform spawn_transform{};
+							spawn_transform.Rotation = SDK::FQuat(0.0f, 0.0f, 0.0f, 1.0f);
+							spawn_transform.Scale3D = SDK::FVector(1.0f, 1.0f, 1.0f);
+							if (start_spot)
+							{
+								spawn_transform.Translation = start_spot->K2_GetActorLocation();
+							}
+							else if (entry.controller->Pawn)
+							{
+								spawn_transform.Translation = entry.controller->Pawn->K2_GetActorLocation();
+							}
+
+							SDK::AActor* spawned_actor = SDK::UGameplayStatics::BeginDeferredActorSpawnFromClass(
+								gvalue::world,
+								SDK::ABPCharacter_Demo_C::StaticClass(),
+								spawn_transform,
+								SDK::ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
+								nullptr
+							);
+							if (spawned_actor)
+							{
+								SDK::UGameplayStatics::FinishSpawningActor(spawned_actor, spawn_transform);
+								if (spawned_actor->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+								{
+									revived_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(spawned_actor);
+									spawned_fallback_pawn = true;
+								}
+							}
+						}
 					}
 
 					if (revived_pawn && !revived_pawn->IsDead)
