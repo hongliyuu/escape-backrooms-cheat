@@ -213,6 +213,7 @@
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Engine_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Lobby_GS_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\Lobby_PlayerController_Nebula_functions.cpp" />
+    <ClCompile Include="..\..\third_party\ue4-sdk\SDK\MP_GameMode_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\UI_Menu_Lobby_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\UMG_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\WB_SettingsPanel_Theme2_functions.cpp" />
