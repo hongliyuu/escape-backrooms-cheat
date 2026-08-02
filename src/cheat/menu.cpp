@@ -787,9 +787,10 @@ void menu::player()
 					function::button_color_text(" ", pos + SDK::FVector2D(300, 5), SDK::FVector2D(80, 30), L"复活"))
 				{
 					auto* game_mode = gvalue::world->AuthorityGameMode;
+					SDK::AMP_GameMode_C* mp_game_mode = nullptr;
 					if (game_mode->IsA(SDK::AMP_GameMode_C::StaticClass()))
 					{
-						auto* mp_game_mode = static_cast<SDK::AMP_GameMode_C*>(game_mode);
+						mp_game_mode = static_cast<SDK::AMP_GameMode_C*>(game_mode);
 						const bool should_spawn_spectators = mp_game_mode->ShouldSpawnSpectators;
 						mp_game_mode->ShouldSpawnSpectators = false;
 						mp_game_mode->RestartPlayer(entry.controller);
@@ -826,11 +827,31 @@ void menu::player()
 						}
 					}
 
+					bool spawned_fallback_pawn = false;
+					if (!revived_pawn && mp_game_mode)
+					{
+						const bool should_spawn_spectators = mp_game_mode->ShouldSpawnSpectators;
+						mp_game_mode->ShouldSpawnSpectators = false;
+						SDK::AActor* start_spot = mp_game_mode->FindPlayerStart(entry.controller, SDK::FString());
+						SDK::APawn* spawned_pawn = start_spot ? mp_game_mode->SpawnDefaultPawnFor(entry.controller, start_spot) : nullptr;
+						mp_game_mode->ShouldSpawnSpectators = should_spawn_spectators;
+
+						if (spawned_pawn && spawned_pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+						{
+							revived_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(spawned_pawn);
+							spawned_fallback_pawn = true;
+						}
+					}
+
 					if (revived_pawn && !revived_pawn->IsDead)
 					{
 						if (entry.controller->Pawn != revived_pawn)
 						{
 							entry.controller->Possess(revived_pawn);
+						}
+						if (spawned_fallback_pawn)
+						{
+							mp_game_mode->OnPlayerSpawn(revived_pawn);
 						}
 						entry.controller->ClientRestart(revived_pawn);
 					}
