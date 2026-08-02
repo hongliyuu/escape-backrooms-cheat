@@ -179,9 +179,16 @@ void cheat::hk_post_render(void* thisptr, SDK::UCanvas* canvas)
     __try
     {
         gvalue::world = SDK::UWorld::GetWorld();
-        gvalue::controller = SDK::UGameplayStatics::GetPlayerController(gvalue::world, 0);
         gvalue::canvas = canvas;
         gvalue::engine = SDK::UEngine::GetEngine();
+
+        if (!gvalue::world || !gvalue::canvas || !gvalue::engine)
+        {
+            gvalue::def_post_render(thisptr, canvas);
+            return;
+        }
+
+        gvalue::controller = SDK::UGameplayStatics::GetPlayerController(gvalue::world, 0);
         gvalue::delta_time = SDK::UGameplayStatics::GetWorldDeltaSeconds(gvalue::world);
 
         network::get()->main();

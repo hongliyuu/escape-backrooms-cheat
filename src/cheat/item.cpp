@@ -2,6 +2,14 @@
 
 #include "gvalue.h"
 
+namespace
+{
+    bool is_valid_object(SDK::UObject* object)
+    {
+        return object && SDK::UKismetSystemLibrary::IsValid(object);
+    }
+}
+
 item* item::get()
 {
     static item inst;
@@ -10,12 +18,14 @@ item* item::get()
 
 void item::spawn(SDK::TSubclassOf<SDK::AActor> actor_class)
 {
-    if (!gvalue::world || !gvalue::controller)
+    if (!is_valid_object(gvalue::world) || !is_valid_object(gvalue::controller) ||
+        !is_valid_object(actor_class.Get()) || !is_valid_object(gvalue::controller->PlayerCameraManager))
     {
         return;
     }
 
-    if (!gvalue::controller->Pawn || !gvalue::controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+    if (!is_valid_object(gvalue::controller->Pawn) ||
+        !gvalue::controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
     {
         return;
     }
@@ -38,6 +48,11 @@ void item::spawn(SDK::TSubclassOf<SDK::AActor> actor_class)
         SDK::ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
         nullptr
     );
+    if (!is_valid_object(new_actor) || !new_actor->IsA(SDK::ABP_DroppedItem_C::StaticClass()))
+    {
+        return;
+    }
+
     SDK::UGameplayStatics::FinishSpawningActor(new_actor, trans);
     SDK::ABP_DroppedItem_C* item = static_cast<SDK::ABP_DroppedItem_C*>(new_actor);
 
@@ -58,6 +73,12 @@ void item::spawn(SDK::TSubclassOf<SDK::AActor> actor_class)
 
 void item::interact_all(const std::string& name)
 {
+    if (!is_valid_object(gvalue::world) || !is_valid_object(gvalue::controller) ||
+        !is_valid_object(gvalue::controller->PlayerCameraManager))
+    {
+        return;
+    }
+
     SDK::FVector trace_start = gvalue::controller->PlayerCameraManager->GetCameraLocation();
     SDK::FVector trace_end = trace_start + SDK::UKismetMathLibrary::GetForwardVector(gvalue::controller->GetControlRotation()) * 200;
     SDK::TArray<SDK::AActor*> ignore_actors;
@@ -83,7 +104,7 @@ void item::interact_all(const std::string& name)
     SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::AInteractableActor::StaticClass(), &actor_list);
     for (SDK::AActor* actor : actor_list)
     {
-        if (actor->Class->Name.ToString() != name)
+        if (!is_valid_object(actor) || !actor->Class || actor->Class->Name.ToString() != name)
         {
             continue;
         }

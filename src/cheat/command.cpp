@@ -4,6 +4,7 @@
 
 #include <unordered_map>
 #include <sstream>
+#include <exception>
 
 #include "keybind.h"
 
@@ -155,9 +156,17 @@ if (it->second.type == #_type_) \
 	return; \
 }
 
-		VAR_CHANGE(bool, cmd_list[2] == "true");
-		VAR_CHANGE(float, std::stof(cmd_list[2]));
-		VAR_CHANGE(int, std::stoi(cmd_list[2]));
+		try
+		{
+			VAR_CHANGE(bool, cmd_list[2] == "true");
+			VAR_CHANGE(float, std::stof(cmd_list[2]));
+			VAR_CHANGE(int, std::stoi(cmd_list[2]));
+		}
+		catch (const std::exception&)
+		{
+			printf("[system] invalid value\n");
+			return;
+		}
 
 #undef VAR_CHANGE
 
@@ -165,7 +174,7 @@ if (it->second.type == #_type_) \
 		return;
 	}
 
-	if (cmd_list[0] == "bind")
+	if (cmd_list[0] == "bind" && cmd_list.size() >= 2)
 	{
 		const std::string key = cmd_list[1];
 		std::vector<std::string> bind_cmd;
@@ -174,8 +183,7 @@ if (it->second.type == #_type_) \
 		{
 			const size_t left = left_string.find('(');
 			const size_t right = left_string.find(')');
-			if (left == std::string::npos ||
-				right == std::string::npos)
+			if (left == std::string::npos || right == std::string::npos || right <= left)
 			{
 				break;
 			}
@@ -183,6 +191,12 @@ if (it->second.type == #_type_) \
 			bind_cmd.emplace_back(cur_cmd);
 			left_string = left_string.substr(right + 1);
 		}
+		if (bind_cmd.empty())
+		{
+			printf("[system] bind command is empty\n");
+			return;
+		}
+
 		printf("bind key : [%s]\n", key.c_str());
 		for (const std::string& cur_cmd : bind_cmd)
 		{

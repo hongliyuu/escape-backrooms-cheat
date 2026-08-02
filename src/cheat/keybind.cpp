@@ -53,6 +53,11 @@ void keybind::empty_bind()
 
 void keybind::add_bind(const std::string& key, const std::vector<std::string>& cmd)
 {
+	if (key.empty() || cmd.empty())
+	{
+		return;
+	}
+
 	keybind_event event;
 	event.key = key;
 	event.cmd = cmd;
@@ -79,6 +84,16 @@ void keybind::call_bind(int w_param)
 
 void keybind_event::run()
 {
+	if (cmd.empty())
+	{
+		return;
+	}
+
+	if (index < 0 || index >= static_cast<int>(cmd.size()))
+	{
+		index = 0;
+	}
+
     command::get()->run(cmd[index]);
     index++;
     if (index >= cmd.size())
