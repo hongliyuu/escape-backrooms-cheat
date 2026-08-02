@@ -894,7 +894,7 @@ void menu::player()
 							entry.controller->Possess(revived_pawn);
 						}
 						revived_pawn->IsPossessed = true;
-						if (spawned_fallback_pawn)
+						if (spawned_fallback_pawn || restored_dead_host_pawn)
 						{
 							mp_game_mode->OnPlayerSpawn(revived_pawn);
 						}
