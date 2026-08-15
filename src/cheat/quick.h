@@ -13,7 +13,6 @@ private:
 	void visual();
 	void player();
 	void entity();
-	void item();
 	void misc();
 
 	void cursor();

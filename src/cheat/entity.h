@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "_sdk.h"
 #include <string>
 
@@ -21,6 +21,7 @@ public:
 	void freeze(SDK::ACharacter* character);
 	void unfreeze(SDK::ACharacter* character);
 	bool is_frozen(SDK::ACharacter* character);
+	bool has_frozen();
 	bool is_valid(SDK::UObject* object);
 
 private:

@@ -296,6 +296,11 @@ bool entity::is_frozen(SDK::ACharacter* character)
 	return frozen_entities.count(character) > 0;
 }
 
+bool entity::has_frozen()
+{
+	return !frozen_entities.empty();
+}
+
 void entity::freeze_all()
 {
 	if (!is_valid(gvalue::world))

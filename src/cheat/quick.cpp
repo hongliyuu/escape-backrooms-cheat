@@ -1,4 +1,4 @@
-﻿#include "quick.h"
+#include "quick.h"
 #include "kismet.h"
 #include "gvalue.h"
 #include "gui.h"
@@ -7,7 +7,6 @@
 #include "color.h"
 #include "entity.h"
 #include "config.h"
-#include "item.h"
 
 class function
 {
@@ -89,7 +88,6 @@ void quick::main()
 	visual();
 	player();
 	entity();
-	item();
 	misc();
 	cursor();
 }
@@ -137,53 +135,35 @@ void quick::entity()
 {
 	render::fill_box(
 		SDK::FVector2D(240, 10),
-		SDK::FVector2D(220, 110),
+		SDK::FVector2D(220, 150),
 		SDK::FLinearColor(0.01f, 0.01f, 0.02f, 1)
 	);
 
-#define BUTTON(_y_,_name_) \
-const bool b = function::button_color_text(SDK::FVector2D(250, _y_), SDK::FVector2D(200, 40), L#_name_);
-
 	{
-		BUTTON(20, 杀死所有实体);
+		const bool b = function::button_color_text(SDK::FVector2D(250, 20), SDK::FVector2D(200, 40), L"杀死所有实体");
 		if (b)
 		{
 			entity::get()->kill_all();
 		}
 	}
 
-
 	{
-		BUTTON(70, 取消控制实体);
+		const bool b = function::button_color_text(SDK::FVector2D(250, 70), SDK::FVector2D(200, 40), L"取消控制实体");
 		if (b)
 		{
 			entity::get()->unposs();
 		}
 	}
 
-#undef BUTTON
-}
-
-void quick::item()
-{
-	render::fill_box(
-		SDK::FVector2D(240, 130),
-		SDK::FVector2D(220, 60),
-		SDK::FLinearColor(0.01f, 0.01f, 0.02f, 1)
-	);
-
-#define BUTTON(_y_,_name_) \
-const bool b = function::button_color_text(SDK::FVector2D(250, _y_), SDK::FVector2D(200, 40), L#_name_);
-
-{
-	BUTTON(140, 吸附所有磁带);
-	if (b)
 	{
-		item::get()->interact_all("Tape_BP_C");
+		const bool frozen = entity::get()->has_frozen();
+		const bool b = function::button_color_text(SDK::FVector2D(250, 120), SDK::FVector2D(200, 40),
+			frozen ? L"解冻所有实体" : L"冻结所有实体");
+		if (b)
+		{
+			frozen ? entity::get()->unfreeze_all() : entity::get()->freeze_all();
+		}
 	}
-}
-
-#undef BUTTON
 }
 
 void quick::misc()
