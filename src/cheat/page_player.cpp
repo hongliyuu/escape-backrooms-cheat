@@ -193,7 +193,15 @@ void menu::player()
 				return;
 
 			auto* pawn = entry.pawn;
-			const bool is_dead = !pawn || pawn->IsDead || pawn->bIsDead;
+			// 本地玩家正在控制实体时，本体并非死亡：控制权被实体占用，
+			// 角色 PlayerState 被清空导致列表扫不到本体
+			const bool is_controlling = entry.controller == gvalue::controller &&
+				entry.controller->Pawn &&
+				entry.controller->Pawn->IsA(SDK::ACharacter::StaticClass()) &&
+				!entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()) &&
+				!entry.controller->Pawn->IsA(SDK::ABP_Explorer_C::StaticClass()) &&
+				!entry.controller->Pawn->IsA(SDK::ABP_Spectator_C::StaticClass());
+			const bool is_dead = !is_controlling && (!pawn || pawn->IsDead || pawn->bIsDead);
 
 			function::pice(pos, SDK::FVector2D(460, 40));
 			function::text(pos + SDK::FVector2D(10, 12), entry.player_state->GetPlayerName());
@@ -238,21 +246,25 @@ void menu::player()
 					flush_player();
 				}
 			}
+			else if (is_controlling)
+			{
+				function::text(pos + SDK::FVector2D(180, 12), L"控制实体中");
+			}
 			else
 			{
 				if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送") &&
-					gvalue::controller && gvalue::controller->Pawn)
+					gvalue::controller && gvalue::controller->Pawn && pawn)
 				{
 					gvalue::controller->Pawn->K2_SetActorLocation(pawn->K2_GetActorLocation(), false, nullptr, false);
 				}
 
 				if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"传送到我") &&
-					gvalue::controller && gvalue::controller->Pawn)
+					gvalue::controller && gvalue::controller->Pawn && pawn)
 				{
 					pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
 				}
 
-				if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"杀死"))
+				if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"杀死") && pawn)
 				{
 					pawn->KillServer(false);
 					flush_player();
