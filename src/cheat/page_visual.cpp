@@ -5,12 +5,13 @@ void menu::visual()
 	// 左上：ESP 设置表
 	function::section(SDK::FVector2D(120, layout::TOP), SDK::FVector2D(380, 200), L"透视设置");
 
-	function::text(SDK::FVector2D(175, 64), L"启用");
-	function::text(SDK::FVector2D(235, 64), L"方框");
-	function::text(SDK::FVector2D(295, 64), L"名称");
-	function::text(SDK::FVector2D(355, 64), L"距离");
-	function::text(SDK::FVector2D(415, 64), L"连线");
-	function::text(SDK::FVector2D(475, 64), L"范围");
+	// 表头文字按各检查框列居中（检查框 x=170/230/290/350/410/470，中心 +10）
+	function::text(SDK::FVector2D(180, 64), L"启用", true);
+	function::text(SDK::FVector2D(240, 64), L"方框", true);
+	function::text(SDK::FVector2D(300, 64), L"名称", true);
+	function::text(SDK::FVector2D(360, 64), L"距离", true);
+	function::text(SDK::FVector2D(420, 64), L"连线", true);
+	function::text(SDK::FVector2D(480, 64), L"范围", true);
 
 #define ETB_TEXT(_y_,_text_) \
 function::text(SDK::FVector2D(130, _y_), L#_text_);
