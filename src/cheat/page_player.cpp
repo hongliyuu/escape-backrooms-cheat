@@ -5,8 +5,8 @@
 void menu::player()
 {
 	function::pice(SDK::FVector2D(110, 10), SDK::FVector2D(200, param::size.Y - 20));
-	function::pice(SDK::FVector2D(320, 10), SDK::FVector2D(270, 200));
-	function::pice(SDK::FVector2D(320, 220), SDK::FVector2D(270, param::size.Y - 230));
+	function::pice(SDK::FVector2D(320, 10), SDK::FVector2D(270, 230));
+	function::pice(SDK::FVector2D(320, 245), SDK::FVector2D(270, param::size.Y - 255));
 
 #define ETB_CHECK(_y_,_name_,_param_) \
 { \
@@ -22,28 +22,26 @@ void menu::player()
 	function::text(SDK::FVector2D(273, _y_), L"队"); \
 }
 
+	// 玩家属性区
 	ETB_CHECK_TEAM(20, 无限耐力, inf_energy, inf_energy_team);
-	ETB_CHECK_TEAM(50, 无限SAN值, inf_san, inf_san_team);
-	ETB_CHECK_TEAM(80, 无敌模式, inf_health, inf_health_team);
-	ETB_CHECK(110, 灵魂出窍, ghost_mode);
-	ETB_CHECK(140, 自动平衡, auto_balance);
-	ETB_CHECK_TEAM(170, 无限跳跃, inf_jump, inf_jump_team);
-	ETB_CHECK(200, 飞天遁地, fly_mode);
+	ETB_CHECK_TEAM(55, 无限SAN值, inf_san, inf_san_team);
+	ETB_CHECK_TEAM(90, 无敌模式, inf_health, inf_health_team);
+	ETB_CHECK(125, 灵魂出窍, ghost_mode);
+	ETB_CHECK(160, 自动平衡, auto_balance);
+	ETB_CHECK_TEAM(195, 无限跳跃, inf_jump, inf_jump_team);
+	ETB_CHECK(230, 飞天遁地, fly_mode);
 
 	{
 		const int speed = 100 * gvalue::fly_speed;
 		const std::wstring wstr = L"飞行速度：" + std::to_wstring(speed);
-		function::text(SDK::FVector2D(120, 230), wstr.c_str());
-		function::drag_bar("fly_speed", SDK::FVector2D(120, 260), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::fly_speed);
+		function::text(SDK::FVector2D(120, 265), wstr.c_str());
+		function::drag_bar("fly_speed", SDK::FVector2D(120, 300), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::fly_speed);
 	}
-
-	ETB_CHECK(290, X键删除, x_delete);
-	ETB_CHECK(320, 右键移动, rb_move);
 
 #undef ETB_CHECK
 #undef ETB_CHECK_TEAM
 
-	// 速度区全队总开关（在面板内顶部）
+	// 速度区（含全队总开关）
 	function::check_box(" ", SDK::FVector2D(330, 20), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::speed_team);
 	function::text(SDK::FVector2D(360, 20), L"全队加速");
 
@@ -86,19 +84,24 @@ void menu::player()
 #undef ETB_DRAG
 
 	// 整活区
-	function::pice(SDK::FVector2D(320, 240), SDK::FVector2D(270, param::size.Y - 250));
-	function::check_box(" ", SDK::FVector2D(330, 250), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::spin);
-	function::text(SDK::FVector2D(360, 250), L"反瞄准[整活]");
+	function::check_box(" ", SDK::FVector2D(330, 255), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::spin);
+	function::text(SDK::FVector2D(360, 255), L"反瞄准[整活]");
 
 	{
 		const int speed = 100 * gvalue::spin_speed;
 		const std::wstring wstr = L"旋转速度：" + std::to_wstring(speed);
-		function::text(SDK::FVector2D(330, 280), wstr.c_str());
-		function::drag_bar("spin_speed", SDK::FVector2D(460, 280), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::spin_speed);
+		function::text(SDK::FVector2D(330, 285), wstr.c_str());
+		function::drag_bar("spin_speed", SDK::FVector2D(460, 285), SDK::FVector2D(120, 20), SDK::FVector2D(10, 20), &gvalue::spin_speed);
 	}
 
-	function::check_box(" ", SDK::FVector2D(330, 310), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::t_pos);
-	function::text(SDK::FVector2D(360, 310), L"T字姿势[整活]");
+	function::check_box(" ", SDK::FVector2D(330, 315), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::t_pos);
+	function::text(SDK::FVector2D(360, 315), L"T字姿势[整活]");
+
+	function::check_box(" ", SDK::FVector2D(330, 345), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::x_delete);
+	function::text(SDK::FVector2D(360, 345), L"X键删除[整活]");
+
+	function::check_box(" ", SDK::FVector2D(330, 375), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::rb_move);
+	function::text(SDK::FVector2D(360, 375), L"右键移动[整活]");
 
 	auto flush_player = [&]()
 		{
