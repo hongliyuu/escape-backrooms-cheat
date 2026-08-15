@@ -193,6 +193,13 @@
     <ClCompile Include="keybind.cpp" />
     <ClCompile Include="kismet.cpp" />
     <ClCompile Include="menu.cpp" />
+    <ClCompile Include="page_entity.cpp" />
+    <ClCompile Include="page_item.cpp" />
+    <ClCompile Include="page_level.cpp" />
+    <ClCompile Include="page_misc.cpp" />
+    <ClCompile Include="page_online.cpp" />
+    <ClCompile Include="page_player.cpp" />
+    <ClCompile Include="page_visual.cpp" />
     <ClCompile Include="..\..\third_party\minhook\src\buffer.c" />
     <ClCompile Include="..\..\third_party\minhook\src\hde\hde32.c" />
     <ClCompile Include="..\..\third_party\minhook\src\hde\hde64.c" />

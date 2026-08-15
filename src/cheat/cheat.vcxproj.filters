@@ -189,6 +189,27 @@
     <ClCompile Include="menu.cpp">
       <Filter>source\cheat\menu</Filter>
     </ClCompile>
+    <ClCompile Include="page_entity.cpp">
+      <Filter>source\cheat\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="page_item.cpp">
+      <Filter>source\cheat\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="page_level.cpp">
+      <Filter>source\cheat\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="page_misc.cpp">
+      <Filter>source\cheat\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="page_online.cpp">
+      <Filter>source\cheat\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="page_player.cpp">
+      <Filter>source\cheat\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="page_visual.cpp">
+      <Filter>source\cheat\menu</Filter>
+    </ClCompile>
     <ClCompile Include="visual.cpp">
       <Filter>source\cheat\visual</Filter>
     </ClCompile>
