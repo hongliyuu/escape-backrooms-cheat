@@ -748,20 +748,23 @@ void menu::player()
 					}
 				}
 
-				for (SDK::AActor* actor : actor_list)
-				{
-					auto* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
-					if (pawn && pawn->PlayerState == player_state)
-					{
-						entry.pawn = pawn;
-						break;
-					}
-				}
-
-				if (!entry.pawn && entry.controller && entry.controller->Pawn &&
+				// 优先使用控制器当前 Pawn（死亡时是观战者不会误判；复活后是新角色）
+				if (entry.controller && entry.controller->Pawn &&
 					entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
 				{
 					entry.pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
+				}
+				if (!entry.pawn)
+				{
+					for (SDK::AActor* actor : actor_list)
+					{
+						auto* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
+						if (pawn && pawn->PlayerState == player_state)
+						{
+							entry.pawn = pawn;
+							break;
+						}
+					}
 				}
 
 				param::player_list.emplace_back(entry);
@@ -786,128 +789,36 @@ void menu::player()
 				if (entry.controller && gvalue::world->AuthorityGameMode &&
 					function::button_color_text(" ", pos + SDK::FVector2D(300, 5), SDK::FVector2D(80, 30), L"复活"))
 				{
-					auto* game_mode = gvalue::world->AuthorityGameMode;
-					SDK::AMP_GameMode_C* mp_game_mode = nullptr;
-					if (game_mode->IsA(SDK::AMP_GameMode_C::StaticClass()))
+					// 复活自己时若正控制实体，先归还实体控制，避免状态错乱
+					if (entry.controller == gvalue::controller)
+						entity::get()->unposs();
+
+					// 释放当前持有的观战者/尸体，使 RestartPlayer 满足 GetPawn()==nullptr 前提
+					SDK::APawn* old_pawn = entry.controller->Pawn;
+					entry.controller->UnPossess();
+					if (old_pawn && old_pawn->IsA(SDK::ABP_Spectator_C::StaticClass()))
+						old_pawn->K2_DestroyActor();
+
+					// 走游戏原生出生流程：生成新角色 + Possess + ClientRestart + 游戏出生回调
+					if (gvalue::world->AuthorityGameMode->IsA(SDK::AMP_GameMode_C::StaticClass()))
 					{
-						mp_game_mode = static_cast<SDK::AMP_GameMode_C*>(game_mode);
+						auto* mp_game_mode = static_cast<SDK::AMP_GameMode_C*>(gvalue::world->AuthorityGameMode);
 						const bool should_spawn_spectators = mp_game_mode->ShouldSpawnSpectators;
 						mp_game_mode->ShouldSpawnSpectators = false;
 						mp_game_mode->RestartPlayer(entry.controller);
 						mp_game_mode->ShouldSpawnSpectators = should_spawn_spectators;
+
+						// 清除被复活玩家客户端的击杀界面（游戏自带 NetClient RPC）
+						if (SDK::UFunction* func = entry.controller->Class->GetFunction("MP_PlayerController_C", "OC_RemoveKillScreen"))
+						{
+							entry.controller->ProcessEvent(func, nullptr);
+						}
 					}
 					else
 					{
-						game_mode->RestartPlayer(entry.controller);
+						gvalue::world->AuthorityGameMode->RestartPlayer(entry.controller);
 					}
 
-					SDK::ABPCharacter_Demo_C* revived_pawn = nullptr;
-					if (entry.controller->Pawn && entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
-					{
-						auto* controller_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
-						if (controller_pawn->PlayerState == entry.player_state)
-						{
-							revived_pawn = controller_pawn;
-						}
-					}
-
-					if (!revived_pawn || revived_pawn->IsDead)
-					{
-						revived_pawn = nullptr;
-						SDK::TArray<SDK::AActor*> player_pawns;
-						SDK::UGameplayStatics::GetAllActorsOfClass(gvalue::world, SDK::ABPCharacter_Demo_C::StaticClass(), &player_pawns);
-						for (SDK::AActor* actor : player_pawns)
-						{
-							auto* candidate = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
-							if (candidate && !candidate->IsDead && candidate->PlayerState == entry.player_state)
-							{
-								revived_pawn = candidate;
-								break;
-							}
-						}
-					}
-
-					bool spawned_fallback_pawn = false;
-					bool restored_dead_host_pawn = false;
-					if (!revived_pawn && entry.controller == gvalue::controller && pawn && pawn->PlayerState == entry.player_state)
-					{
-						revived_pawn = pawn;
-						revived_pawn->IsDead = false;
-						restored_dead_host_pawn = true;
-					}
-
-					if (!revived_pawn && mp_game_mode)
-					{
-						const bool should_spawn_spectators = mp_game_mode->ShouldSpawnSpectators;
-						mp_game_mode->ShouldSpawnSpectators = false;
-						SDK::AActor* start_spot = mp_game_mode->FindPlayerStart(entry.controller, SDK::FString());
-						SDK::APawn* spawned_pawn = start_spot ? mp_game_mode->SpawnDefaultPawnFor(entry.controller, start_spot) : nullptr;
-						mp_game_mode->ShouldSpawnSpectators = should_spawn_spectators;
-
-						if (spawned_pawn && spawned_pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
-						{
-							revived_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(spawned_pawn);
-							spawned_fallback_pawn = true;
-						}
-
-						if (!revived_pawn)
-						{
-							SDK::FTransform spawn_transform{};
-							spawn_transform.Rotation = SDK::FQuat(0.0f, 0.0f, 0.0f, 1.0f);
-							spawn_transform.Scale3D = SDK::FVector(1.0f, 1.0f, 1.0f);
-							if (start_spot)
-							{
-								spawn_transform.Translation = start_spot->K2_GetActorLocation();
-							}
-							else if (entry.controller->Pawn)
-							{
-								spawn_transform.Translation = entry.controller->Pawn->K2_GetActorLocation();
-							}
-
-							SDK::AActor* spawned_actor = SDK::UGameplayStatics::BeginDeferredActorSpawnFromClass(
-								gvalue::world,
-								SDK::ABPCharacter_Demo_C::StaticClass(),
-								spawn_transform,
-								SDK::ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
-								nullptr
-							);
-							if (spawned_actor)
-							{
-								SDK::UGameplayStatics::FinishSpawningActor(spawned_actor, spawn_transform);
-								if (spawned_actor->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
-								{
-									revived_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(spawned_actor);
-									spawned_fallback_pawn = true;
-								}
-							}
-						}
-					}
-
-					if (revived_pawn && !revived_pawn->IsDead)
-					{
-						if (restored_dead_host_pawn)
-						{
-							revived_pawn->OnRep_IsDead();
-						}
-						if (entry.controller->Pawn != revived_pawn)
-						{
-							entry.controller->Possess(revived_pawn);
-						}
-						revived_pawn->IsPossessed = true;
-						if (mp_game_mode && (spawned_fallback_pawn || restored_dead_host_pawn))
-						{
-							mp_game_mode->OnPlayerSpawn(revived_pawn);
-						}
-						if (restored_dead_host_pawn)
-						{
-							revived_pawn->OnRep_IsPossessed();
-						}
-						entry.controller->ClientRestart(revived_pawn);
-						if (restored_dead_host_pawn)
-						{
-							revived_pawn->OnPossess();
-						}
-					}
 					flush_player();
 				}
 			}
