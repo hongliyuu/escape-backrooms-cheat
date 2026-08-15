@@ -13,12 +13,6 @@ public:
     inline static std::unordered_map<std::string, std::wstring> name_map;
 };
 
-class function
-{
-public:
-
-};
-
 namespace
 {
     bool is_valid_object(SDK::UObject* object)

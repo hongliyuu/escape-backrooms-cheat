@@ -18,7 +18,6 @@
 #include "quick.h"
 #include "vhook.h"
 #include "keybind.h"
-#include "test.h"
 #include "_minhook.h"
 
 #include <filesystem>
@@ -198,8 +197,6 @@ void cheat::hk_post_render(void* thisptr, SDK::UCanvas* canvas)
         entity::get()->main();
         menu::get()->main();
         quick::get()->main();
-
-        test::get()->main();
 
         gvalue::def_post_render(thisptr, canvas);
 

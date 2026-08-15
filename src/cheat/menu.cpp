@@ -283,35 +283,6 @@ void menu::base()
 		color::get()->back_col
 	);
 
-	{
-		render::fill_box(
-			SDK::FVector2D(param::pos.X - 2 * gvalue::menu_scale, param::pos.Y + (param::size.Y + 8) * gvalue::menu_scale),
-			SDK::FVector2D((param::size.X + 4) * gvalue::menu_scale, 39 * gvalue::menu_scale), 
-			SDK::FLinearColor(0.3f, 0.1f, 0.0f, 1.0f)
-		);
-		render::fill_box(
-			SDK::FVector2D(param::pos.X, param::pos.Y + (param::size.Y + 10) * gvalue::menu_scale),
-			SDK::FVector2D(param::size.X * gvalue::menu_scale, 35 * gvalue::menu_scale), 
-			SDK::FLinearColor(0.1f, 0.06f, 0.0f, 1.0f)
-		);
-		function::text(SDK::FVector2D(10, param::size.Y + 18), L"本修改器永久免费开源，问题反馈QQ群：1071845133");
-	}
-
-	if (gvalue::max_version != VERSION && gvalue::max_version != "")
-	{
-		render::fill_box(
-			SDK::FVector2D(param::pos.X - 2 * gvalue::menu_scale, param::pos.Y + (param::size.Y + 58) * gvalue::menu_scale),
-			SDK::FVector2D((170 + 4) * gvalue::menu_scale, 39 * gvalue::menu_scale), 
-			SDK::FLinearColor(0.3f, 0.1f, 0.0f, 1.0f)
-		);
-		render::fill_box(
-			SDK::FVector2D(param::pos.X, param::pos.Y + (param::size.Y + 60) * gvalue::menu_scale),
-			SDK::FVector2D(170 * gvalue::menu_scale, 35 * gvalue::menu_scale),
-			SDK::FLinearColor(0.1f, 0.06f, 0.0f, 1.0f)
-		);
-		function::text(SDK::FVector2D(10, param::size.Y + 68), L"有新版本可以下载！");
-	}
-
 	param::size = SDK::FVector2D(600, 400);
 
 #define ETB_SWITCH(_name_) \
@@ -393,11 +364,6 @@ if (function::button_text(#_page_, SDK::FVector2D(10, _ypos_), SDK::FVector2D(80
 	ETB_BUTTON(online, 联机, 250);
 
 #undef ETB_BUTTON
-
-	if (function::button_text("", SDK::FVector2D(10, param::size.Y - 40), SDK::FVector2D(80, 30), L"LHY1339 "))
-	{
-		system("start https://afdian.com/a/lhy1339");
-	}
 }
 
 void menu::visual()
@@ -1293,31 +1259,11 @@ void menu::misc()
 	function::check_box(" ", SDK::FVector2D(120, 410), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::draw_lable);
 	function::text(SDK::FVector2D(150, 411), L"显示按键提示");
 
-	function::pice(SDK::FVector2D(110, 450), SDK::FVector2D(160, 90));
-	if (function::button_color_text(" ", SDK::FVector2D(120, 460), SDK::FVector2D(140, 30), L"源码下载"))
-	{
-		system("start https://github.com/LHY1339/cheat_escape_the_backrooms");
-	}
-	if (function::button_color_text(" ", SDK::FVector2D(120, 500), SDK::FVector2D(140, 30), L"新版本下载"))
-	{
-		system("start https://github.com/LHY1339/cheat_escape_the_backrooms/releases/");
-	}
-
 	function::pice(SDK::FVector2D(280, 10), SDK::FVector2D(param::size.X - 290, param::size.Y - 20));
 	{
 		const wchar_t* log = L"逃离后室修改器\n"
 			VERSION_W
-			GAME_VERSION
-			L"作者：LHY1339\n"
-			L"源代码：cheat_escape_the_backrooms\n"
-			L"爱发电：LHY1339\n"
-			L"交流群：1071845133\n"
-			L"\n--------特别感谢--------\n"
-			THANKS
-			"\n--------其他--------\n"
-			"祝各位在新的一年里\n"
-			"多喜乐、长安宁，所愿皆所成\n"
-			"心有所悦、业有所成，万事皆可期";
+			GAME_VERSION;
 
 		function::text(SDK::FVector2D(290, 20), log);
 	}

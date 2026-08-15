@@ -58,7 +58,7 @@ int loader::main()
     init_file((paths::data_dir() + "\\").c_str());
     unzip_dll(MAKEINTRESOURCE(IDR_DLL1), paths::data_file("cheat.dll").c_str());
 
-    SetConsoleTitle(L"[LHY1339] 修改器");
+    SetConsoleTitle(L"修改器");
 
     HWND hwnd = GetConsoleWindow();
     LONG style = GetWindowLong(hwnd, GWL_STYLE);
@@ -97,29 +97,10 @@ int loader::main()
 
 void loader::print_log()
 {
-    printf(R"(
- /##       /##   /## /##     /##  /##    /######   /######   /###### 
-| ##      | ##  | ##|  ##   /##//####   /##__  ## /##__  ## /##__  ##
-| ##      | ##  | ## \  ## /##/|_  ##  |__/  \ ##|__/  \ ##| ##  \ ##
-| ##      | ########  \  ####/   | ##     /#####/   /#####/|  #######
-| ##      | ##__  ##   \  ##/    | ##    |___  ##  |___  ## \____  ##
-| ##      | ##  | ##    | ##     | ##   /##  \ ## /##  \ ## /##  \ ##
-| ########| ##  | ##    | ##    /######|  ######/|  ######/|  ######/
-|________/|__/  |__/    |__/   |______/ \______/  \______/  \______/ 
-
-)");
     printf("--------------------------------------------------------\n\n");
-    set_console_color(FOREGROUND_RED | FOREGROUND_GREEN);
-    printf("- 免责声明：本修改器仅供学习与娱乐使用，切勿破坏游戏环境，使用产生的任何后果作者概不负责\n\n");
-    set_console_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-    printf("--------------------------------------------------------\n\n");
-    set_console_color(FOREGROUND_RED | FOREGROUND_GREEN);
     printf("- 请以管理员身份运行此程序！！！\n\n");
     printf("- 请关闭或卸载所有杀毒软件（包括Windows自带的Defender）\n\n");
     printf("- 请关闭或卸载任何反作弊软件（EAC、ACE、BE、完美、5E等），不然可能导致加载失败或误封\n\n");
-    set_console_color(FOREGROUND_GREEN);
-    printf("- 任何问题加QQ群：1071845133\n\n");
-    set_console_color(FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
     printf("--------------------------------------------------------\n\n");
     printf("- 请运行游戏，修改器会自动加载\n\n");
 }

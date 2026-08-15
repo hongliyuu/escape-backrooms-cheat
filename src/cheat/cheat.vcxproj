@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -176,7 +176,6 @@
     <ClInclude Include="render.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="session.h" />
-    <ClInclude Include="test.h" />
     <ClInclude Include="visual.h" />
     <ClInclude Include="_minhook.h" />
     <ClInclude Include="_sdk.h" />
@@ -220,7 +219,6 @@
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\W_Lobby_PlayerList_functions.cpp" />
     <ClCompile Include="..\..\third_party\ue4-sdk\SDK\W_Lobby_PlayerList_Entry_functions.cpp" />
     <ClCompile Include="session.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="visual.cpp" />
   </ItemGroup>
   <ItemGroup>
