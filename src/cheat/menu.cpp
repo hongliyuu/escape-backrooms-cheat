@@ -92,10 +92,23 @@ void menu::lable()
 void menu::pre_base()
 {
 	SDK::FVector2D size = param::size * function::scale();
+	// 玩家/实体页右侧有列表栏，视觉页右侧有预览面板：拖动区域覆盖整个菜单矩形
+	switch (param::page)
+	{
+	case e_page::player:
+	case e_page::entity:
+		size.X += 520 * gvalue::menu_scale;
+		break;
+	case e_page::visual:
+		size.X += 420 * gvalue::menu_scale;
+		break;
+	default:
+		break;
+	}
 	gui::drag(
 		param::pos,
 		size,
-		param::drag_pos, 
+		param::drag_pos,
 		param::is_drag
 	);
 }
