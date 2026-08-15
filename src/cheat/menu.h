@@ -242,6 +242,85 @@ public:
 			SDK::FVector2D(1.0f, 1.0f)
 		);
 	}
+
+	// 下拉框：点击展开选项列表，选择后收起；点击列表外区域自动收起
+	static bool combo_box(const std::string& name, SDK::FVector2D pos, SDK::FVector2D size, const std::vector<std::wstring>& items, int* index)
+	{
+		static std::string open;
+		static bool was_down = false;
+		const bool left_down = gvalue::mouse.left;
+		const bool click = left_down && !was_down;
+		was_down = left_down;
+
+		const SDK::FVector2D s_pos = pos * scale();
+		const SDK::FVector2D s_size = size * scale();
+		const SDK::FVector2D real_pos = attach(s_pos.X, s_pos.Y);
+		const float item_h = 20.0f * scale().Y;
+
+		const bool is_open = (open == name);
+		const bool on_button =
+			gvalue::mouse.x > real_pos.X && gvalue::mouse.x < real_pos.X + s_size.X &&
+			gvalue::mouse.y > real_pos.Y && gvalue::mouse.y < real_pos.Y + s_size.Y;
+
+		if (click && on_button)
+		{
+			open = is_open ? "" : name;
+		}
+
+		// 闭合按钮
+		gui::button_color_text(
+			name + "_btn",
+			real_pos,
+			s_size,
+			SDK::FString((L"主题：" + items[*index]).c_str()),
+			gvalue::engine->TinyFont,
+			color::get()->text_col,
+			color::get()->normal_col,
+			color::get()->hover_col,
+			color::get()->press_col,
+			SDK::FVector2D(1.0f, 1.0f)
+		);
+
+		if (is_open)
+		{
+			const SDK::FVector2D list_pos = SDK::FVector2D(real_pos.X, real_pos.Y + s_size.Y);
+			const SDK::FVector2D list_size = SDK::FVector2D(s_size.X, item_h * (float)items.size());
+
+			render::fill_box(list_pos, list_size, color::get()->pice_col);
+
+			for (int i = 0; i < (int)items.size(); i++)
+			{
+				const SDK::FVector2D item_pos = SDK::FVector2D(list_pos.X, list_pos.Y + i * item_h);
+				const bool selected = (i == *index);
+				if (gui::button_color_text(
+					name + "_i" + std::to_string(i),
+					item_pos,
+					SDK::FVector2D(s_size.X, item_h),
+					SDK::FString(items[i].c_str()),
+					gvalue::engine->TinyFont,
+					selected ? SDK::FLinearColor(1.0f, 1.0f, 1.0f, 1.0f) : color::get()->text_col,
+					selected ? color::get()->bar_col : color::get()->normal_col,
+					color::get()->hover_col,
+					color::get()->press_col,
+					SDK::FVector2D(1.0f, 1.0f)))
+				{
+					*index = i;
+					open = "";
+				}
+			}
+
+			// 点击列表/按钮区域之外：收起
+			const bool in_area =
+				gvalue::mouse.x > real_pos.X && gvalue::mouse.x < real_pos.X + s_size.X &&
+				gvalue::mouse.y > real_pos.Y && gvalue::mouse.y < real_pos.Y + s_size.Y + item_h * (float)items.size();
+			if (click && !in_area)
+			{
+				open = "";
+			}
+		}
+
+		return false;
+	}
 };
 
 class menu

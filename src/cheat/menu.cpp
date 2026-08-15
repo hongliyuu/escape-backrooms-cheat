@@ -129,7 +129,7 @@ void menu::base()
 		color::get()->outline_col
 	);
 	function::text(SDK::FVector2D(12, 7), L"逃离后室修改器");
-	static const wchar_t* page_names[] = { L"视觉", L"玩家", L"物品", L"实体", L"关卡", L"杂项", L"联机" };
+	static const wchar_t* page_names[] = { L"视觉", L"玩家", L"物品", L"实体", L"关卡", L"设置", L"联机" };
 	function::text(SDK::FVector2D(layout::W - 90, 7), page_names[(int)param::page]);
 
 #define ETB_SWITCH(_name_) \
@@ -202,10 +202,10 @@ void menu::left()
 		param::page = e_page::entity;
 	if (function::nav_button("nav_level", e_page::level, L"关卡", layout::TOP + 176))
 		param::page = e_page::level;
-	if (function::nav_button("nav_misc", e_page::misc, L"杂项", layout::TOP + 220))
-		param::page = e_page::misc;
-	if (function::nav_button("nav_online", e_page::online, L"联机", layout::TOP + 264))
+	if (function::nav_button("nav_online", e_page::online, L"联机", layout::TOP + 220))
 		param::page = e_page::online;
+	if (function::nav_button("nav_misc", e_page::misc, L"设置", layout::TOP + 264))
+		param::page = e_page::misc;
 }
 
 
