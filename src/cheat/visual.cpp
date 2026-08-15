@@ -19,6 +19,14 @@ public:
 
 };
 
+namespace
+{
+    bool is_valid_object(SDK::UObject* object)
+    {
+        return object && SDK::UKismetSystemLibrary::IsValid(object);
+    }
+}
+
 visual* visual::get()
 {
     static visual inst;
@@ -197,7 +205,9 @@ void visual::init()
 
 void visual::main()
 {
-	if (!gvalue::world || !gvalue::controller)
+    if (!is_valid_object(gvalue::world) || !is_valid_object(gvalue::controller) ||
+        !is_valid_object(gvalue::controller->PlayerCameraManager) ||
+        !is_valid_object(gvalue::canvas) || !is_valid_object(gvalue::engine))
 	{
 		return;
 	}
@@ -209,7 +219,7 @@ void visual::get_all()
 {
     auto domain = [&](SDK::AActor* actor)
         {
-            if (!actor || !actor->RootComponent)
+            if (!is_valid_object(actor) || !is_valid_object(actor->RootComponent))
             {
                 return;
             }
@@ -303,6 +313,11 @@ void visual::get_all()
 
     for (SDK::ULevel* level: gvalue::world->Levels)
     {
+        if (!is_valid_object(level))
+        {
+            continue;
+        }
+
         for (SDK::AActor* actor : level->Actors)
         {
             domain(actor);
@@ -312,29 +327,37 @@ void visual::get_all()
 
 void visual::camera()
 {
-    if (!gvalue::controller->Pawn || !gvalue::controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
+    if (!is_valid_object(gvalue::controller->Pawn) ||
+        !gvalue::controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
     {
         return;
     }
 
     SDK::ABPCharacter_Demo_C* character = static_cast<SDK::ABPCharacter_Demo_C*>(gvalue::controller->Pawn);
+    if (!is_valid_object(character->CameraComponent))
+    {
+        return;
+    }
+
     character->CameraComponent->FieldOfView = static_cast<float>(gvalue::fov * 180);
     character->CameraComponent->PostProcessBlendWeight = gvalue::disable_post ? 0.0f : 1.0f;
 
     static SDK::ACameraActor* tpp_camera = nullptr;
     static SDK::APawn* cur_pawn = nullptr;
+    static SDK::UWorld* camera_world = nullptr;
 
-    if (cur_pawn != gvalue::controller->Pawn)
+    if (camera_world != gvalue::world || cur_pawn != gvalue::controller->Pawn)
     {
         tpp_camera = nullptr;
         cur_pawn = gvalue::controller->Pawn;
+        camera_world = gvalue::world;
     }
 
     static bool do_once_tpp = false;
     static bool do_once_fpp = false;
     if (gvalue::third_person)
     {
-        if (!tpp_camera)
+        if (!is_valid_object(tpp_camera))
         {
             SDK::FTransform trans;
             SDK::AActor* new_camera = SDK::UGameplayStatics::BeginDeferredActorSpawnFromClass(
@@ -344,10 +367,21 @@ void visual::camera()
                 SDK::ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
                 character
             );
+            if (!is_valid_object(new_camera) || !new_camera->IsA(SDK::ACameraActor::StaticClass()))
+            {
+                return;
+            }
+
             SDK::UGameplayStatics::FinishSpawningActor(new_camera, trans);
             tpp_camera = static_cast<SDK::ACameraActor*>(new_camera);
         }
-        else
+
+        if (!is_valid_object(tpp_camera) || !is_valid_object(tpp_camera->CameraComponent))
+        {
+            return;
+        }
+
+        if (is_valid_object(tpp_camera))
         {
             SDK::FVector trace_start = character->K2_GetActorLocation();
             trace_start += character->GetActorUpVector() * (-250 + gvalue::cam_y * 500);
@@ -539,7 +573,9 @@ void visual::draw_extent(SDK::USceneComponent* comp, const SDK::FLinearColor& co
 
 void visual::draw(SDK::USceneComponent* comp, const SDK::FLinearColor& color, const std::string& name, const s_esp& esp, const bool& use_map, const std::wstring& player_name)
 {
-    if (!esp.enable)
+    if (!esp.enable || !is_valid_object(comp) || !is_valid_object(gvalue::controller) ||
+        !is_valid_object(gvalue::controller->PlayerCameraManager) || !is_valid_object(gvalue::canvas) ||
+        !is_valid_object(gvalue::engine))
     {
         return;
     }

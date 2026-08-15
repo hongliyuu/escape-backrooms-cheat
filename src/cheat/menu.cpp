@@ -752,7 +752,24 @@ void menu::player()
 				if (entry.controller && entry.controller->Pawn &&
 					entry.controller->Pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
 				{
-					entry.pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
+					auto* controller_pawn = static_cast<SDK::ABPCharacter_Demo_C*>(entry.controller->Pawn);
+					if (controller_pawn->PlayerState == player_state && controller_pawn->GetController() == entry.controller)
+					{
+						entry.pawn = controller_pawn;
+					}
+				}
+
+				for (SDK::AActor* actor : actor_list)
+				{
+					if (entry.pawn)
+						break;
+
+					auto* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
+					if (pawn && pawn->PlayerState == player_state &&
+						(!entry.controller || pawn->GetController() == entry.controller))
+					{
+						entry.pawn = pawn;
+					}
 				}
 				if (!entry.pawn)
 				{
@@ -777,7 +794,7 @@ void menu::player()
 				return;
 
 			auto* pawn = entry.pawn;
-			const bool is_dead = !pawn || pawn->IsDead;
+			const bool is_dead = !pawn || pawn->IsDead || pawn->bIsDead;
 
 			function::pice(pos, SDK::FVector2D(460, 40));
 			function::text(pos + SDK::FVector2D(10, 12), entry.player_state->GetPlayerName());
@@ -824,19 +841,20 @@ void menu::player()
 			}
 			else
 			{
-				if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送"))
+				if (function::button_color_text(" ", pos + SDK::FVector2D(210, 5), SDK::FVector2D(40, 30), L"传送") &&
+					gvalue::controller && gvalue::controller->Pawn)
 				{
 					gvalue::controller->Pawn->K2_SetActorLocation(pawn->K2_GetActorLocation(), false, nullptr, false);
 				}
 
-				if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"传送到我"))
+				if (function::button_color_text(" ", pos + SDK::FVector2D(260, 5), SDK::FVector2D(80, 30), L"传送到我") &&
+					gvalue::controller && gvalue::controller->Pawn)
 				{
 					pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
 				}
 
 				if (function::button_color_text(" ", pos + SDK::FVector2D(350, 5), SDK::FVector2D(40, 30), L"杀死"))
 				{
-					pawn->KillClient();
 					pawn->KillServer(false);
 					flush_player();
 				}
@@ -871,11 +889,14 @@ void menu::player()
 
 	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(200, 30), L"将所有人传送到我"))
 	{
-		for (const s_player_entry& entry : param::player_list)
+		if (gvalue::controller && gvalue::controller->Pawn)
 		{
-			if (entry.pawn && !entry.pawn->IsDead)
+			for (const s_player_entry& entry : param::player_list)
 			{
-				entry.pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
+				if (entry.pawn && !entry.pawn->IsDead && !entry.pawn->bIsDead)
+				{
+					entry.pawn->K2_SetActorLocation(gvalue::controller->Pawn->K2_GetActorLocation(), false, nullptr, false);
+				}
 			}
 		}
 	}

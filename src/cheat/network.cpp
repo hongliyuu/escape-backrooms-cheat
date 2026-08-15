@@ -9,8 +9,9 @@
 float wait_time = 0.0f;
 
 WSADATA clt_wsadata;
-SOCKET clt_socket;
+SOCKET clt_socket = INVALID_SOCKET;
 sockaddr_in srv_addr;
+bool network_ready = false;
 
 constexpr int srv_port = 1314;
 const char* srv_ip = "62.234.220.74";
@@ -23,6 +24,7 @@ network* network::get()
 
 void network::init()
 {
+	network_ready = false;
 	if (WSAStartup(MAKEWORD(2, 2), &clt_wsadata) != 0)
 	{
 		printf("WSAStartup(MAKEWORD(2, 2), &clt_wsadata) != 0\n");
@@ -36,15 +38,26 @@ void network::init()
 		return;
 	}
 	u_long mode = 1;
-	ioctlsocket(clt_socket, FIONBIO, &mode);
+	if (ioctlsocket(clt_socket, FIONBIO, &mode) == SOCKET_ERROR)
+	{
+		closesocket(clt_socket);
+		clt_socket = INVALID_SOCKET;
+		return;
+	}
 
 	srv_addr.sin_family = AF_INET;
 	srv_addr.sin_port = htons(srv_port);
 	srv_addr.sin_addr.s_addr = inet_addr(srv_ip);
+	network_ready = true;
 }
 
 void network::main()
 {
+	if (!network_ready || clt_socket == INVALID_SOCKET)
+	{
+		return;
+	}
+
 	auto send_heart = [&]()
 		{
 			wait_time += gvalue::delta_time;
@@ -75,6 +88,11 @@ void network::main()
 
 void network::send(const std::string& str)
 {
+	if (!network_ready || clt_socket == INVALID_SOCKET)
+	{
+		return;
+	}
+
 	sendto(
 		clt_socket,
 		str.c_str(),
@@ -90,6 +108,11 @@ void network::handle(const std::string& str)
 	//printf("%s\n", str.c_str());
 
 	const size_t pos = str.find('|');
+	if (pos == std::string::npos)
+	{
+		return;
+	}
+
 	gvalue::max_version = str.substr(0, pos);
 	gvalue::log = str.substr(pos + 1);
 }

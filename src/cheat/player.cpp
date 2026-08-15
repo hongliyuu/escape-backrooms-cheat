@@ -14,6 +14,14 @@ SDK::FVector fly_location = SDK::FVector(-114514, -114514, -114514);
 SDK::AActor* take_actor = nullptr;
 float take_distance = 0.0f;
 
+namespace
+{
+	bool is_valid_object(SDK::UObject* object)
+	{
+		return object && SDK::UKismetSystemLibrary::IsValid(object);
+	}
+}
+
 player* player::get()
 {
 	static player inst;
@@ -80,7 +88,10 @@ void player::domain()
 	//自动平衡
 	if (gvalue::auto_balance)
 	{
-		my_player->BalanceTimeline->TheTimeline.Position = 0.0f;
+		if (is_valid_object(my_player->BalanceTimeline))
+		{
+			my_player->BalanceTimeline->TheTimeline.Position = 0.0f;
+		}
 	}
 
 	//无限san值
@@ -114,12 +125,16 @@ void player::domain()
 	}
 
 	//通用加速
-	my_player->CustomTimeDilation = gvalue::global_speed * 10;
-	my_player->MouseSensitivity = def_sensitivity / (gvalue::global_speed * 10);
+	const float time_scale = gvalue::global_speed > 0.0f ? gvalue::global_speed * 10.0f : 0.01f;
+	my_player->CustomTimeDilation = time_scale;
+	my_player->MouseSensitivity = def_sensitivity / time_scale;
 
 	//跳跃速度
-	my_player->CharacterMovement->JumpZVelocity = gvalue::jump_speed * 4000;
-	my_player->CharacterMovement->AirControl = gvalue::air_control * 5;
+	if (is_valid_object(my_player->CharacterMovement))
+	{
+		my_player->CharacterMovement->JumpZVelocity = gvalue::jump_speed * 4000;
+		my_player->CharacterMovement->AirControl = gvalue::air_control * 5;
+	}
 
 	//灵魂出窍
 	my_player->SetReplicateMovement(!gvalue::ghost_mode);
@@ -166,7 +181,7 @@ void player::domain()
 	}
 
 	//X键删除
-	if (gvalue::x_delete)
+	if (gvalue::x_delete && is_valid_object(gvalue::controller->PlayerCameraManager))
 	{
 		SDK::FVector trace_start = gvalue::controller->PlayerCameraManager->GetCameraLocation();
 		SDK::FVector trace_end = trace_start + SDK::UKismetMathLibrary::GetForwardVector(my_player->GetControlRotation()) * 10000;
@@ -188,11 +203,10 @@ void player::domain()
 			0.0f
 		);
 
-		SDK::AActor* del_actor = nullptr;
-		if (result.bBlockingHit)
+		SDK::AActor* del_actor = result.bBlockingHit ? result.Actor.Get() : nullptr;
+		if (is_valid_object(del_actor))
 		{
-			draw_extent(result.Actor.Get(), SDK::FLinearColor(1.0f, 0.2f, 0.0f, 1.0f), L"[X键] 删除 " + SDK::UKismetStringLibrary::Conv_NameToString(result.Actor.Get()->Name).ToWString());
-			del_actor = result.Actor.Get();
+			draw_extent(del_actor, SDK::FLinearColor(1.0f, 0.2f, 0.0f, 1.0f), L"[X键] 删除 " + SDK::UKismetStringLibrary::Conv_NameToString(del_actor->Name).ToWString());
 		}
 
 		static bool x_down = false;
@@ -203,7 +217,7 @@ void player::domain()
 				x_down = true;
 				if (del_actor)
 				{
-					result.Actor.Get()->K2_DestroyActor();
+					del_actor->K2_DestroyActor();
 				}
 			}
 		}
@@ -226,28 +240,28 @@ void player::domain()
 	}
 	
 	//旋转
-	if (gvalue::spin)
+	if (is_valid_object(my_player->Mesh) && gvalue::spin)
 	{
 		SDK::FRotator rot = my_player->Mesh->RelativeRotation + SDK::FRotator(0.0f, (gvalue::spin_speed * 10000 * gvalue::delta_time), 0.0f);
 		my_player->Mesh->K2_SetRelativeRotation(rot, true, nullptr, true);
 	}
-	else
+	else if (is_valid_object(my_player->Mesh))
 	{
 		my_player->Mesh->K2_SetRelativeRotation(SDK::FRotator(0, -90, 0), true, nullptr, true);
 	}
 
 	//T Pose
-	if (gvalue::t_pos)
+	if (is_valid_object(my_player->Mesh) && gvalue::t_pos)
 	{
 		my_player->Mesh->SetAnimClass(nullptr);
 	}
-	else
+	else if (is_valid_object(my_player->Mesh))
 	{
 		my_player->Mesh->SetAnimClass(SDK::UPlayer_AnimBP_C::StaticClass());
 	}
 
 	//右键移动
-	if (gvalue::rb_move)
+	if (gvalue::rb_move && is_valid_object(gvalue::controller->PlayerCameraManager))
 	{
 		SDK::FVector trace_start = gvalue::controller->PlayerCameraManager->GetCameraLocation();
 		SDK::FVector trace_end = trace_start + SDK::UKismetMathLibrary::GetForwardVector(my_player->GetControlRotation()) * 10000;
@@ -268,9 +282,21 @@ void player::domain()
 			SDK::FLinearColor(0.0f, 1.0f, 0.0f, 1.0f),
 			0.0f
 		);
-		draw_extent(take_actor ? take_actor : (result.bBlockingHit ? result.Actor.Get() : nullptr), 
-			SDK::FLinearColor(0.0f, 1.0f, 0.2f, 1.0f), 
-			L"[右键] 移动 " + SDK::UKismetStringLibrary::Conv_NameToString(result.Actor.Get()->Name).ToWString()
+		if (take_actor && !is_valid_object(take_actor))
+		{
+			take_actor = nullptr;
+			take_distance = 0.0f;
+		}
+
+		SDK::AActor* hovered_actor = result.bBlockingHit ? result.Actor.Get() : nullptr;
+		std::wstring move_label = L"[右键] 移动";
+		if (is_valid_object(hovered_actor))
+		{
+			move_label += L" " + SDK::UKismetStringLibrary::Conv_NameToString(hovered_actor->Name).ToWString();
+		}
+		draw_extent(take_actor ? take_actor : hovered_actor,
+			SDK::FLinearColor(0.0f, 1.0f, 0.2f, 1.0f),
+			move_label
 		);
 
 		static bool rb_down = false;
@@ -279,9 +305,9 @@ void player::domain()
 			if (!rb_down)
 			{
 				rb_down = true;
-				if (result.bBlockingHit)
+				if (is_valid_object(hovered_actor))
 				{
-					take_actor = result.Actor.Get();
+					take_actor = hovered_actor;
 					take_distance = result.Distance;
 				}
 			}
@@ -317,7 +343,10 @@ void player::domain()
 				0.0f
 			);
 
-			take_actor->K2_SetActorLocation(result.TraceEnd, true, nullptr, true);
+			if (is_valid_object(take_actor))
+			{
+				take_actor->K2_SetActorLocation(result.TraceEnd, true, nullptr, true);
+			}
 		}
 	}
 }
@@ -383,7 +412,10 @@ void player::domain_team()
 			// 通用加速
 			pawn->CustomTimeDilation = gvalue::global_speed * 10;
 			// 跳跃速度
-			pawn->CharacterMovement->JumpZVelocity = gvalue::jump_speed * 4000;
+			if (is_valid_object(pawn->CharacterMovement))
+			{
+				pawn->CharacterMovement->JumpZVelocity = gvalue::jump_speed * 4000;
+			}
 		}
 
 		// 无限san值
