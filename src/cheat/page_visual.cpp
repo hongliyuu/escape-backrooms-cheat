@@ -20,6 +20,7 @@ function::text(SDK::FVector2D(130, _y_), L#_text_);
 	ETB_TEXT(120, 实体);
 	ETB_TEXT(152, 物品);
 	ETB_TEXT(184, 互动);
+	ETB_TEXT(216, 门);
 
 #undef ETB_TEXT
 
@@ -35,6 +36,7 @@ function::text(SDK::FVector2D(130, _y_), L#_text_);
 	ETB_CHECK(120, entity);
 	ETB_CHECK(152, item);
 	ETB_CHECK(184, interact);
+	ETB_CHECK(216, door);
 
 #undef ETB_CHECK
 

@@ -274,10 +274,24 @@ void visual::get_all()
             if (actor->IsA(SDK::AInteractableActor::StaticClass()))
             {
                 SDK::AInteractableActor* target = static_cast<SDK::AInteractableActor*>(actor);
+                const std::string cls = target->Class->Name.ToString();
+                if (cls.find("Door") != std::string::npos || cls.find("Lock") != std::string::npos)
+                {
+                    // 门/门锁：独立 ESP 类别，淡橙显示，跟随透视距离
+                    draw(
+                        target->StaticMesh,
+                        SDK::FLinearColor(1.0f, 0.55f, 0.2f, 1.0f),
+                        cls,
+                        gvalue::esp_door,
+                        true,
+                        L""
+                    );
+                    return;
+                }
                 draw(
                     target->StaticMesh,
                     SDK::FLinearColor(1.0f, 1.0f, 0.0f, 1.0f),
-                    target->Class->Name.ToString(),
+                    cls,
                     gvalue::esp_interact
                 );
                 return;

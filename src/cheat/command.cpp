@@ -87,6 +87,13 @@ void command::init()
 	VALUE_INIT(esp_interact.line, bool);
 	VALUE_INIT(esp_interact.extent, bool);
 
+	VALUE_INIT(esp_door.enable, bool);
+	VALUE_INIT(esp_door.box, bool);
+	VALUE_INIT(esp_door.name, bool);
+	VALUE_INIT(esp_door.distance, bool);
+	VALUE_INIT(esp_door.line, bool);
+	VALUE_INIT(esp_door.extent, bool);
+
 	VALUE_INIT(esp_distance, float);
 	VALUE_INIT(draw_mesh, bool);
 	VALUE_INIT(fov, float);

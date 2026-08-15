@@ -64,6 +64,7 @@ namespace gvalue
 	inline s_esp esp_entity;
 	inline s_esp esp_item;
 	inline s_esp esp_interact;
+	inline s_esp esp_door;
 	inline float esp_distance = 0.2f;
 	inline bool draw_mesh = false;
 	inline float draw_mesh_distance = 0.05f;
