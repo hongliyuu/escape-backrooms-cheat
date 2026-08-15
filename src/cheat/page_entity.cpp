@@ -147,10 +147,12 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 		}
 	};
 
-	// 进入页面时刷新一次列表（页面切换/菜单打开会置 list_dirty）
-	if (param::list_dirty)
+	// 页面打开期间每 1 秒自动刷新一次（进入首帧即触发，等价打开即刷新）
+	static float list_timer = 0.0f;
+	list_timer -= gvalue::delta_time;
+	if (list_timer <= 0.0f)
 	{
-		param::list_dirty = false;
+		list_timer = 1.0f;
 		flush_entity();
 	}
 
@@ -215,12 +217,7 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 		color::get()->back_col
 	);
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(240, 30), L"刷新实体列表"))
-	{
-		flush_entity();
-	}
-
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 50), SDK::FVector2D(240, 30), L"取消控制实体"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 10), SDK::FVector2D(240, 30), L"取消控制实体"))
 	{
 		entity::get()->unposs();
 	}

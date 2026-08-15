@@ -49,14 +49,6 @@ void menu::main()
 {
 	online_tick();
 
-	// 菜单打开的瞬间标记列表需要刷新（menu_open 每帧都会变，只在 false->true 时置位）
-	static bool last_menu_open = false;
-	if (!last_menu_open && gvalue::menu_open)
-	{
-		param::list_dirty = true;
-	}
-	last_menu_open = gvalue::menu_open;
-
 	if (gvalue::menu_open)
 	{
 		color::get()->flush_color();
@@ -124,14 +116,6 @@ void menu::base()
 	);
 
 	param::size = SDK::FVector2D(600, 400);
-
-	// 页面切换时标记列表需要刷新
-	static e_page last_page = e_page::visual;
-	if (last_page != param::page)
-	{
-		param::list_dirty = true;
-		last_page = param::page;
-	}
 
 #define ETB_SWITCH(_name_) \
 case e_page::_name_: \
