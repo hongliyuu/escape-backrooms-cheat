@@ -20,6 +20,32 @@ enum class e_page
 	online,
 };
 
+// 布局常量：所有页面共用一套网格，消除尺寸跳变与坐标碎片
+namespace layout
+{
+	// 主面板
+	constexpr float W = 680.0f;   // 主面板宽
+	constexpr float H = 500.0f;   // 主面板高（全部页面统一）
+	constexpr float TOP = 40.0f;  // 内容区顶部偏移（标题栏之下）
+
+	// 控件
+	constexpr float ROW = 32.0f;  // 行高
+	constexpr float BTN_W = 140.0f;
+	constexpr float BTN_H = 28.0f;
+	constexpr float CHECK = 20.0f;
+
+	// 内容区三列（导航宽 100，内容区 110~670）
+	constexpr float COL1 = 120.0f;
+	constexpr float COL2 = 300.0f;
+	constexpr float COL3 = 480.0f;
+	constexpr float COL_W = 170.0f;
+
+	// 侧边导航
+	constexpr float NAV_X = 10.0f;
+	constexpr float NAV_W = 80.0f;
+	constexpr float NAV_H = 38.0f;
+}
+
 struct s_player_entry
 {
 	SDK::APlayerState* player_state = nullptr;
@@ -174,6 +200,46 @@ public:
 			attach(pos.X, pos.Y),
 			size,
 			color::get()->pice_col
+		);
+	}
+
+	// 分组面板：背景 + 顶部标题条，统一页面内分组样式
+	static void section(SDK::FVector2D pos, SDK::FVector2D size, const SDK::FString& title)
+	{
+		pice(pos, size);
+		render::fill_box(
+			attach(pos.X * scale().X, pos.Y * scale().Y),
+			SDK::FVector2D(size.X * scale().X, 22 * scale().Y),
+			color::get()->normal_col
+		);
+		text(SDK::FVector2D(pos.X + 6, pos.Y + 3), title);
+	}
+
+	// 侧边导航按钮：当前页高亮（背景 + 左侧指示条），其余页文字半透明
+	static bool nav_button(const std::string& name, e_page page, const SDK::FString& label, float y)
+	{
+		const bool active = (param::page == page);
+		const SDK::FVector2D pos = SDK::FVector2D(layout::NAV_X, y) * scale();
+		const SDK::FVector2D size = SDK::FVector2D(layout::NAV_W, layout::NAV_H) * scale();
+		const SDK::FVector2D real_pos = attach(pos.X, pos.Y);
+
+		if (active)
+		{
+			render::fill_box(real_pos, size, color::get()->normal_col);
+			render::fill_box(real_pos, SDK::FVector2D(3.0f * scale().X, layout::NAV_H * scale().Y), color::get()->bar_col);
+		}
+
+		const SDK::FLinearColor& col = color::get()->text_col;
+		return gui::button_text(
+			name,
+			real_pos,
+			size,
+			label,
+			gvalue::engine->TinyFont,
+			active ? col : SDK::FLinearColor(col.R, col.G, col.B, 0.65f),
+			col,
+			col,
+			SDK::FVector2D(1.0f, 1.0f)
 		);
 	}
 };

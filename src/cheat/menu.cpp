@@ -104,6 +104,8 @@ void menu::base()
 {
 	function::set_font((int)12 * gvalue::menu_scale);
 
+	param::size = SDK::FVector2D(layout::W, layout::H);
+
 	render::fill_box(
 		SDK::FVector2D(param::pos.X - 2 * gvalue::menu_scale, param::pos.Y - 2 * gvalue::menu_scale),
 		SDK::FVector2D(param::size.X + 4, param::size.Y + 4) * function::scale(),
@@ -115,7 +117,20 @@ void menu::base()
 		color::get()->back_col
 	);
 
-	param::size = SDK::FVector2D(600, 400);
+	// 标题栏
+	render::fill_box(
+		SDK::FVector2D(param::pos.X, param::pos.Y),
+		SDK::FVector2D(param::size.X, 28) * function::scale(),
+		color::get()->normal_col
+	);
+	render::fill_box(
+		SDK::FVector2D(param::pos.X, param::pos.Y + 28 * gvalue::menu_scale),
+		SDK::FVector2D(param::size.X, 2) * function::scale(),
+		color::get()->outline_col
+	);
+	function::text(SDK::FVector2D(12, 7), L"逃离后室修改器");
+	static const wchar_t* page_names[] = { L"视觉", L"玩家", L"物品", L"实体", L"关卡", L"杂项", L"联机" };
+	function::text(SDK::FVector2D(layout::W - 90, 7), page_names[(int)param::page]);
 
 #define ETB_SWITCH(_name_) \
 case e_page::_name_: \
@@ -174,28 +189,23 @@ void menu::cursor()
 
 void menu::left()
 {
-	function::pice(SDK::FVector2D(0, 0), SDK::FVector2D(100, param::size.Y));
+	// 侧边背景从内容区起始处绘制，避免覆盖标题栏
+	function::pice(SDK::FVector2D(0, layout::TOP), SDK::FVector2D(100, param::size.Y - layout::TOP));
 
-	static float current_y = 10.0f;
-	const float target_y = 10 + (int)param::page * 40;
-	current_y = current_y + (target_y - current_y) * 15 * gvalue::delta_time;
-	render::fill_box(function::attach(10 * gvalue::menu_scale, current_y * gvalue::menu_scale), SDK::FVector2D(80, 30) * gvalue::menu_scale, color::get()->normal_col);
-
-#define ETB_BUTTON(_page_,_name_,_ypos_) \
-if (function::button_text(#_page_, SDK::FVector2D(10, _ypos_), SDK::FVector2D(80, 30), L#_name_)) \
-{ \
-	param::page = e_page::_page_; \
-}
-
-	ETB_BUTTON(visual, 视觉, 10);
-	ETB_BUTTON(player, 玩家, 50);
-	ETB_BUTTON(item, 物品, 90);
-	ETB_BUTTON(entity, 实体, 130);
-	ETB_BUTTON(level, 关卡, 170);
-	ETB_BUTTON(misc, 杂项, 210);
-	ETB_BUTTON(online, 联机, 250);
-
-#undef ETB_BUTTON
+	if (function::nav_button("nav_visual", e_page::visual, L"视觉", layout::TOP))
+		param::page = e_page::visual;
+	if (function::nav_button("nav_player", e_page::player, L"玩家", layout::TOP + 44))
+		param::page = e_page::player;
+	if (function::nav_button("nav_item", e_page::item, L"物品", layout::TOP + 88))
+		param::page = e_page::item;
+	if (function::nav_button("nav_entity", e_page::entity, L"实体", layout::TOP + 132))
+		param::page = e_page::entity;
+	if (function::nav_button("nav_level", e_page::level, L"关卡", layout::TOP + 176))
+		param::page = e_page::level;
+	if (function::nav_button("nav_misc", e_page::misc, L"杂项", layout::TOP + 220))
+		param::page = e_page::misc;
+	if (function::nav_button("nav_online", e_page::online, L"联机", layout::TOP + 264))
+		param::page = e_page::online;
 }
 
 
