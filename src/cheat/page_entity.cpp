@@ -129,7 +129,7 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(14
 #undef ETB_BUTTON
 
 	// 列3：生成实体（第二组）
-	function::section(SDK::FVector2D(480, layout::TOP), SDK::FVector2D(170, 400), L"生成实体");
+	function::section(SDK::FVector2D(480, layout::TOP), SDK::FVector2D(170, 420), L"生成实体");
 
 #define ETB_BUTTON(_name_,_class_,_x_,_y_) \
 if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(140, 30), L#_name_)) \
@@ -149,13 +149,6 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(14
 	ETB_BUTTON(Kitty, BP_Entity974_C, 495, 360);
 
 #undef ETB_BUTTON
-
-	{
-		const int speed = 4000 * gvalue::entity_speed;
-		const std::wstring wstr = L"被控实体速度：" + std::to_wstring(speed);
-		function::text(SDK::FVector2D(490, 404), wstr.c_str());
-		function::drag_bar("entity_speed", SDK::FVector2D(490, 432), SDK::FVector2D(150, 20), SDK::FVector2D(10, 20), &gvalue::entity_speed);
-	}
 
 	auto flush_entity = [&]()
 		{
