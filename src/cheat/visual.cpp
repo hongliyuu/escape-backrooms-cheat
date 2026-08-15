@@ -247,7 +247,22 @@ void visual::get_all()
 
             if (actor->IsA(SDK::AStaticMeshActor::StaticClass()))
             {
-                if (gvalue::draw_mesh && actor->bActorEnableCollision)
+                // 带交互组件（UInteractableComponent）的静态网格 → 归入互动 ESP
+                if (actor->GetComponentByClass(SDK::UInteractableComponent::StaticClass()))
+                {
+                    const std::string mesh_cls = actor->Class->Name.ToString();
+                    if (mesh_cls.find("Lock") != std::string::npos || mesh_cls.find("Latch") != std::string::npos)
+                    {
+                        return; // 门锁/门闩不显示
+                    }
+                    draw(
+                        actor->RootComponent,
+                        SDK::FLinearColor(1.0f, 1.0f, 0.0f, 1.0f),
+                        mesh_cls,
+                        gvalue::esp_interact
+                    );
+                }
+                else if (gvalue::draw_mesh && actor->bActorEnableCollision)
                 {
                     const int dist = static_cast<int>(SDK::UKismetMathLibrary::Vector_Distance(gvalue::controller->PlayerCameraManager->GetCameraLocation(), actor->RootComponent->K2_GetComponentLocation()) / 100.0f);
                     if (dist < gvalue::draw_mesh_distance * 1000)
@@ -275,9 +290,13 @@ void visual::get_all()
             {
                 SDK::AInteractableActor* target = static_cast<SDK::AInteractableActor*>(actor);
                 const std::string cls = target->Class->Name.ToString();
-                if (cls.find("Door") != std::string::npos || cls.find("Lock") != std::string::npos)
+                if (cls.find("Lock") != std::string::npos || cls.find("Latch") != std::string::npos)
                 {
-                    // 门/门锁：独立 ESP 类别，淡橙显示，跟随透视距离
+                    return; // 门锁/门闩不显示
+                }
+                if (cls.find("Door") != std::string::npos)
+                {
+                    // 门：独立 ESP 类别，淡橙显示，跟随透视距离
                     draw(
                         target->StaticMesh,
                         SDK::FLinearColor(1.0f, 0.55f, 0.2f, 1.0f),
