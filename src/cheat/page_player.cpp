@@ -192,6 +192,8 @@ void menu::player()
 		flush_player();
 	}
 
+	// 渲染期间不直接刷新列表，避免循环索引失效；循环结束后统一刷新
+	bool need_flush = false;
 	auto player_box = [&](const s_player_entry& entry, SDK::FVector2D pos)
 		{
 			if (!entry.player_state)
@@ -248,7 +250,7 @@ void menu::player()
 						gvalue::world->AuthorityGameMode->RestartPlayer(entry.controller);
 					}
 
-					flush_player();
+					need_flush = true;
 				}
 			}
 			else if (is_controlling)
@@ -272,7 +274,7 @@ void menu::player()
 				if (function::button_color_text(" ", pos + SDK::FVector2D(370, 5), SDK::FVector2D(40, 30), L"杀死") && pawn)
 				{
 					pawn->KillServer(false);
-					flush_player();
+					need_flush = true;
 				}
 			}
 
@@ -282,7 +284,7 @@ void menu::player()
 				{
 					SDK::UAdvancedSessionsLibrary::KickPlayer(gvalue::world, entry.controller, SDK::FText());
 				}
-				flush_player();
+				need_flush = true;
 			}
 		};
 
@@ -349,5 +351,10 @@ void menu::player()
 	for (int i = 0; i < visible_rows; i++)
 	{
 		player_box(param::player_list[start_row + i], SDK::FVector2D(param::size.X + 30, 130 + 50 * i));
+	}
+
+	if (need_flush)
+	{
+		flush_player();
 	}
 }

@@ -188,11 +188,12 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(14
 		flush_entity();
 	}
 
+	// 渲染期间不直接刷新列表，避免循环索引失效；失效项本帧跳过，由定时刷新兜底
+	bool need_flush = false;
 	auto entity_box = [&](SDK::ACharacter* pawn, SDK::FVector2D pos)
 		{
 			if (!entity::get()->is_valid(pawn) || !pawn->IsA(SDK::ACharacter::StaticClass()))
 			{
-				flush_entity();
 				return;
 			}
 			function::pice(pos, SDK::FVector2D(460, 40.0f));
@@ -217,7 +218,7 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(14
 			if (function::button_color_text(" ", pos + SDK::FVector2D(355, 10), SDK::FVector2D(50, 20), L"删除"))
 			{
 				entity::get()->destroy(pawn);
-				flush_entity();
+				need_flush = true;
 				return;
 			}
 
@@ -298,5 +299,10 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(14
 	for (int i = 0; i < visible_rows; i++)
 	{
 		entity_box(param::entity_list[start_row + i], SDK::FVector2D(param::size.X + 30, 190 + 50 * i));
+	}
+
+	if (need_flush)
+	{
+		flush_entity();
 	}
 }
