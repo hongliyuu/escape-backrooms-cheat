@@ -229,6 +229,8 @@ void entity::freeze(SDK::ACharacter* character)
 	__try
 	{
 		character->CharacterMovement->StopMovementImmediately();
+		// 中断已播放的攻击/动作动画，防止动画通知结算伤害
+		character->StopAnimMontage(nullptr);
 		SDK::AController* controller = character->GetController();
 		if (is_valid_object(controller) && controller->IsA(SDK::AAIController::StaticClass()))
 		{
@@ -245,7 +247,11 @@ void entity::freeze(SDK::ACharacter* character)
 					ai_controller->BrainComponent->ProcessEvent(func, &params);
 					func->FunctionFlags = flgs;
 				}
+				// 停止行为树组件 tick，杜绝蓝图表驱动的攻击/决策继续执行
+				ai_controller->BrainComponent->SetComponentTickEnabled(false);
 			}
+			// 停止 AI 控制器 tick
+			ai_controller->SetActorTickEnabled(false);
 		}
 		frozen_entities.insert(character);
 	}
@@ -267,8 +273,10 @@ void entity::unfreeze(SDK::ACharacter* character)
 		if (is_valid_object(controller) && controller->IsA(SDK::AAIController::StaticClass()))
 		{
 			SDK::AAIController* ai_controller = static_cast<SDK::AAIController*>(controller);
+			ai_controller->SetActorTickEnabled(true);
 			if (is_valid_object(ai_controller->BrainComponent))
 			{
+				ai_controller->BrainComponent->SetComponentTickEnabled(true);
 				SDK::UFunction* func = ai_controller->BrainComponent->Class->GetFunction("BrainComponent", "StartLogic");
 				if (func)
 				{
