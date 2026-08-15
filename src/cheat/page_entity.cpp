@@ -9,13 +9,8 @@ void menu::entity()
 	// 列1：删除实体
 	function::section(SDK::FVector2D(120, layout::TOP), SDK::FVector2D(170, 420), L"删除实体");
 
-	if (function::button_color_text(" ", SDK::FVector2D(135, 72), SDK::FVector2D(140, 30), L"干死所有实体"))
 	{
-		entity::get()->kill_all();
-	}
-
-	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 104), SDK::FVector2D(140, 30), L"删除细菌"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 72), SDK::FVector2D(140, 30), L"删除细菌"))
 		{
 			entity::get()->kill("Bacteria_Roaming_BP_C");
 			entity::get()->kill("Bacteria_BP_C");
@@ -23,7 +18,7 @@ void menu::entity()
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 136), SDK::FVector2D(140, 30), L"删除笑魇"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 104), SDK::FVector2D(140, 30), L"删除笑魇"))
 		{
 			entity::get()->kill("Smiler_BP2_C");
 			entity::get()->kill("BP_Roaming_Smiler_C");
@@ -32,7 +27,7 @@ void menu::entity()
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 168), SDK::FVector2D(140, 30), L"删除派对客"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 136), SDK::FVector2D(140, 30), L"删除派对客"))
 		{
 			entity::get()->kill("BP_RoamingPartygoer_Idle_C");
 			entity::get()->kill("BP_RoamingPartygoer_C");
@@ -43,7 +38,7 @@ void menu::entity()
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 200), SDK::FVector2D(140, 30), L"删除死亡飞蛾"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 168), SDK::FVector2D(140, 30), L"删除死亡飞蛾"))
 		{
 			entity::get()->kill("BP_Moth_C");
 			entity::get()->kill("BP_Cave_Moth_C");
@@ -51,7 +46,7 @@ void menu::entity()
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 232), SDK::FVector2D(140, 30), L"删除窃皮者"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 200), SDK::FVector2D(140, 30), L"删除窃皮者"))
 		{
 			entity::get()->kill("BP_SkinStealer_C");
 			entity::get()->kill("BP_SkinStealer_Cave_C");
@@ -61,7 +56,7 @@ void menu::entity()
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 264), SDK::FVector2D(140, 30), L"删除猎犬"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 232), SDK::FVector2D(140, 30), L"删除猎犬"))
 		{
 			entity::get()->kill("BP_Hound_C");
 			entity::get()->kill("BP_Hound_Hotel_C");
@@ -69,7 +64,7 @@ void menu::entity()
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 296), SDK::FVector2D(140, 30), L"删除悲尸"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 264), SDK::FVector2D(140, 30), L"删除悲尸"))
 		{
 			entity::get()->kill("BP_Wretch_C");
 			entity::get()->kill("BP_Wretch_House_C");
@@ -77,31 +72,17 @@ void menu::entity()
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 328), SDK::FVector2D(140, 30), L"删除偷骨者"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 296), SDK::FVector2D(140, 30), L"删除偷骨者"))
 		{
 			entity::get()->kill("BP_BoneThief_C");
 		}
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 360), SDK::FVector2D(140, 30), L"删除鱼"))
+		if (function::button_color_text(" ", SDK::FVector2D(135, 328), SDK::FVector2D(140, 30), L"删除鱼"))
 		{
 			entity::get()->kill("BP_Fish_C");
 			entity::get()->kill("BP_Fish_Scare_C");
-		}
-	}
-
-	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 392), SDK::FVector2D(140, 30), L"冻结所有实体"))
-		{
-			entity::get()->freeze_all();
-		}
-	}
-
-	{
-		if (function::button_color_text(" ", SDK::FVector2D(135, 424), SDK::FVector2D(140, 30), L"解冻所有实体"))
-		{
-			entity::get()->unfreeze_all();
 		}
 	}
 
@@ -266,32 +247,47 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(14
 	);
 	function::text(SDK::FVector2D(param::size.X + 30, 7), L"实体列表");
 
-	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 40), SDK::FVector2D(440, 30), L"取消控制实体"))
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 40), SDK::FVector2D(215, 30), L"取消控制实体"))
 	{
 		entity::get()->unposs();
+	}
+
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 255, 40), SDK::FVector2D(215, 30), L"删除所有实体"))
+	{
+		entity::get()->kill_all();
+	}
+
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 76), SDK::FVector2D(215, 30), L"冻结所有实体"))
+	{
+		entity::get()->freeze_all();
+	}
+
+	if (function::button_color_text(" ", SDK::FVector2D(param::size.X + 255, 76), SDK::FVector2D(215, 30), L"解冻所有实体"))
+	{
+		entity::get()->unfreeze_all();
 	}
 
 	{
 		const int speed = 4000 * gvalue::entity_speed;
 		const std::wstring wstr = L"被控实体速度：" + std::to_wstring(speed);
-		function::text(SDK::FVector2D(param::size.X + 30, 82), wstr.c_str());
-		function::drag_bar("entity_speed", SDK::FVector2D(param::size.X + 30, 110), SDK::FVector2D(440, 20), SDK::FVector2D(10, 20), &gvalue::entity_speed);
+		function::text(SDK::FVector2D(param::size.X + 30, 122), wstr.c_str());
+		function::drag_bar("entity_speed", SDK::FVector2D(param::size.X + 30, 150), SDK::FVector2D(440, 20), SDK::FVector2D(10, 20), &gvalue::entity_speed);
 	}
 
 	// 翻页控件
-	if (list_page > 0 && function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 145), SDK::FVector2D(40, 30), L"上页"))
+	if (list_page > 0 && function::button_color_text(" ", SDK::FVector2D(param::size.X + 30, 186), SDK::FVector2D(40, 30), L"上页"))
 		list_page--;
-	if (list_page < max_page && function::button_color_text(" ", SDK::FVector2D(param::size.X + 480, 145), SDK::FVector2D(40, 30), L"下页"))
+	if (list_page < max_page && function::button_color_text(" ", SDK::FVector2D(param::size.X + 480, 186), SDK::FVector2D(40, 30), L"下页"))
 		list_page++;
 	if (max_page > 0)
 	{
 		const std::wstring page_str = L"第 " + std::to_wstring(list_page + 1) + L" / " + std::to_wstring(max_page + 1) + L" 页";
-		function::text(SDK::FVector2D(param::size.X + 75, 152), page_str.c_str());
+		function::text(SDK::FVector2D(param::size.X + 75, 193), page_str.c_str());
 	}
 
 	for (int i = 0; i < visible_rows; i++)
 	{
-		entity_box(param::entity_list[start_row + i], SDK::FVector2D(param::size.X + 30, 190 + 50 * i));
+		entity_box(param::entity_list[start_row + i], SDK::FVector2D(param::size.X + 30, 226 + 46 * i));
 	}
 
 	if (need_flush)
