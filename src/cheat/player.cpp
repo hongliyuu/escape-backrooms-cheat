@@ -1,4 +1,4 @@
-﻿#include "player.h"
+#include "player.h"
 
 #include "gvalue.h"
 #include "_sdk.h"
@@ -353,10 +353,8 @@ void player::domain()
 
 void player::domain_team()
 {
-	// 检查是否有任何全队开关开启
-	if (!gvalue::inf_energy_team && !gvalue::inf_san_team &&
-		!gvalue::inf_health_team && !gvalue::inf_jump_team &&
-		!gvalue::speed_team)
+	// 三个全队开关任一开启才遍历
+	if (!gvalue::team_effect && !gvalue::team_speed && !gvalue::team_fun)
 		return;
 
 	if (!gvalue::world || !my_player)
@@ -375,56 +373,70 @@ void player::domain_team()
 		if (!pawn->IsA(SDK::ABPCharacter_Demo_C::StaticClass()))
 			continue;
 
-		// 无限耐力
-		if (gvalue::inf_energy_team)
+		// 属性全队：耐力/SAN/无敌/跳跃
+		if (gvalue::team_effect)
 		{
-			pawn->Stamina = 45.0f;
+			// 无限耐力
+			if (gvalue::inf_energy)
+			{
+				pawn->Stamina = 45.0f;
+			}
+
+			// 无限跳跃
+			if (gvalue::inf_jump)
+			{
+				pawn->JumpCurrentCount = 0;
+				pawn->JumpMaxCount = 2;
+			}
+
+			// 无敌
+			if (gvalue::inf_health)
+			{
+				pawn->CanKill = false;
+			}
+
+			// 无限SAN值
+			if (gvalue::inf_san)
+			{
+				if (pawn->PlayerState && pawn->PlayerState->IsA(SDK::AMP_PS_C::StaticClass()))
+				{
+					SDK::AMP_PS_C* ps = static_cast<SDK::AMP_PS_C*>(pawn->PlayerState);
+					ps->Sanity = ps->MaxSanity;
+				}
+			}
 		}
 
-		// 无限跳跃
-		if (gvalue::inf_jump_team)
+		// 速度全队：行走/跑步/全局/跳跃速度
+		if (gvalue::team_speed)
 		{
-			pawn->JumpCurrentCount = 0;
-			pawn->JumpMaxCount = 2;
-		}
-
-		// 无敌
-		if (gvalue::inf_health_team)
-		{
-			pawn->CanKill = false;
-		}
-
-		// 速度总开关
-		if (gvalue::speed_team)
-		{
-			// 跑步速度
 			if (pawn->SprintSpeed != gvalue::run_speed * 5500)
 			{
 				pawn->SprintSpeed = gvalue::run_speed * 5500;
 				pawn->SetSprintSpeedServer(gvalue::run_speed * 5500);
 			}
-			// 走路速度
 			if (pawn->WalkSpeed != gvalue::walk_speed * 2750)
 			{
 				pawn->WalkSpeed = gvalue::walk_speed * 2750;
 				pawn->SetWalkSpeedServer(gvalue::walk_speed * 2750);
 			}
-			// 通用加速
 			pawn->CustomTimeDilation = gvalue::global_speed * 10;
-			// 跳跃速度
 			if (is_valid_object(pawn->CharacterMovement))
 			{
 				pawn->CharacterMovement->JumpZVelocity = gvalue::jump_speed * 4000;
 			}
 		}
 
-		// 无限san值
-		if (gvalue::inf_san_team)
+		// 整活全队：T字姿势/反自瞄旋转
+		if (gvalue::team_fun)
 		{
-			if (pawn->PlayerState && pawn->PlayerState->IsA(SDK::AMP_PS_C::StaticClass()))
+			if (gvalue::spin && is_valid_object(pawn->Mesh))
 			{
-				SDK::AMP_PS_C* ps = static_cast<SDK::AMP_PS_C*>(pawn->PlayerState);
-				ps->Sanity = ps->MaxSanity;
+				SDK::FRotator rot = pawn->Mesh->RelativeRotation + SDK::FRotator(0.0f, (gvalue::spin_speed * 10000 * gvalue::delta_time), 0.0f);
+				pawn->Mesh->K2_SetRelativeRotation(rot, true, nullptr, true);
+			}
+			if (gvalue::t_pos && is_valid_object(pawn->Mesh))
+			{
+				pawn->Mesh->SetAnimClass(nullptr);
 			}
 		}
 	}

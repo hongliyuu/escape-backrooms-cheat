@@ -4,74 +4,75 @@
 
 void menu::player()
 {
-	// 列1：玩家属性
-	function::section(SDK::FVector2D(120, layout::TOP), SDK::FVector2D(200, 360), L"玩家属性");
+	// 列1：玩家属性（含全队开关）
+	function::section(SDK::FVector2D(120, layout::TOP), SDK::FVector2D(200, 400), L"玩家属性");
 
-#define ETB_CHECK(_y_,_name_,_param_) \
-{ \
-	function::check_box(" ", SDK::FVector2D(130, _y_), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::_param_); \
-	function::text(SDK::FVector2D(160, _y_), L#_name_); \
-}
+	// 全队开关（仅房主有效）：已开启的耐力/SAN/无敌/跳跃同步全队
+	function::check_box(" ", SDK::FVector2D(130, 72), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::team_effect);
+	function::text(SDK::FVector2D(160, 72), L"全队");
 
-#define ETB_CHECK_TEAM(_y_,_name_,_param_,_team_param_) \
-{ \
-	function::check_box(" ", SDK::FVector2D(130, _y_), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::_param_); \
-	function::text(SDK::FVector2D(160, _y_), L#_name_); \
-	function::check_box(" ", SDK::FVector2D(260, _y_), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::_team_param_); \
-	function::text(SDK::FVector2D(283, _y_), L"队"); \
-}
+	function::check_box(" ", SDK::FVector2D(130, 104), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::inf_energy);
+	function::text(SDK::FVector2D(160, 104), L"无限耐力");
 
-	ETB_CHECK_TEAM(72, 无限耐力, inf_energy, inf_energy_team);
-	ETB_CHECK_TEAM(104, 无限SAN值, inf_san, inf_san_team);
-	ETB_CHECK_TEAM(136, 无敌模式, inf_health, inf_health_team);
-	ETB_CHECK(168, 灵魂出窍, ghost_mode);
-	ETB_CHECK(200, 自动平衡, auto_balance);
-	ETB_CHECK_TEAM(232, 无限跳跃, inf_jump, inf_jump_team);
-	ETB_CHECK(264, 飞天遁地, fly_mode);
+	function::check_box(" ", SDK::FVector2D(130, 136), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::inf_san);
+	function::text(SDK::FVector2D(160, 136), L"无限SAN值");
+
+	function::check_box(" ", SDK::FVector2D(130, 168), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::inf_health);
+	function::text(SDK::FVector2D(160, 168), L"无敌模式");
+
+	function::check_box(" ", SDK::FVector2D(130, 200), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::ghost_mode);
+	function::text(SDK::FVector2D(160, 200), L"灵魂出窍[房主]");
+
+	function::check_box(" ", SDK::FVector2D(130, 232), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::auto_balance);
+	function::text(SDK::FVector2D(160, 232), L"自动平衡[房主]");
+
+	function::check_box(" ", SDK::FVector2D(130, 264), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::inf_jump);
+	function::text(SDK::FVector2D(160, 264), L"无限跳跃");
+
+	function::check_box(" ", SDK::FVector2D(130, 296), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::fly_mode);
+	function::text(SDK::FVector2D(160, 296), L"飞天遁地[房主]");
 
 	{
 		const int speed = 100 * gvalue::fly_speed;
 		const std::wstring wstr = L"飞行速度：" + std::to_wstring(speed);
-		function::text(SDK::FVector2D(130, 296), wstr.c_str());
-		function::drag_bar("fly_speed", SDK::FVector2D(130, 324), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::fly_speed);
+		function::text(SDK::FVector2D(130, 328), wstr.c_str());
+		function::drag_bar("fly_speed", SDK::FVector2D(130, 356), SDK::FVector2D(180, 20), SDK::FVector2D(10, 20), &gvalue::fly_speed);
 	}
 
-#undef ETB_CHECK
-#undef ETB_CHECK_TEAM
+	// 列2：速度（含全队开关）
+	function::section(SDK::FVector2D(330, layout::TOP), SDK::FVector2D(180, 400), L"速度");
 
-	// 列2：速度（含全队总开关）
-	function::section(SDK::FVector2D(330, layout::TOP), SDK::FVector2D(180, 420), L"速度");
-
-	function::check_box(" ", SDK::FVector2D(340, 72), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::speed_team);
-	function::text(SDK::FVector2D(370, 72), L"全队加速");
+	// 全队开关（仅房主有效）：速度滑块同步全队
+	function::check_box(" ", SDK::FVector2D(340, 72), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::team_speed);
+	function::text(SDK::FVector2D(370, 72), L"全队");
 
 #define ETB_DRAG(_y_,_max_,_text_,_param_) \
 { \
 	const int speed = _max_ * gvalue::_param_; \
 	const std::wstring wstr = L#_text_ + std::to_wstring(speed); \
 	function::text(SDK::FVector2D(340, _y_), wstr.c_str()); \
-	function::drag_bar(#_param_, SDK::FVector2D(340, _y_ + 20), SDK::FVector2D(160, 20), SDK::FVector2D(10, 20), &gvalue::_param_); \
+	function::drag_bar(#_param_, SDK::FVector2D(340, _y_ + 28), SDK::FVector2D(160, 20), SDK::FVector2D(10, 20), &gvalue::_param_); \
 }
 
-	ETB_DRAG(112, 2750, 行走速度：, walk_speed);
-	ETB_DRAG(164, 5500, 跑步速度：, run_speed);
+	ETB_DRAG(124, 2750, 行走速度：, walk_speed);
+	ETB_DRAG(180, 5500, 跑步速度：, run_speed);
 
 	{
 		const std::wstring wstr = L"全局加速：" + std::format(L"{:.2f}", gvalue::global_speed * 10);
-		function::text(SDK::FVector2D(340, 216), wstr.c_str());
-		function::drag_bar("global_speed", SDK::FVector2D(340, 236), SDK::FVector2D(160, 20), SDK::FVector2D(10, 20), &gvalue::global_speed);
+		function::text(SDK::FVector2D(340, 236), wstr.c_str());
+		function::drag_bar("global_speed", SDK::FVector2D(340, 264), SDK::FVector2D(160, 20), SDK::FVector2D(10, 20), &gvalue::global_speed);
 	}
 
-	ETB_DRAG(268, 4000, 跳跃速度：, jump_speed);
+	ETB_DRAG(292, 4000, 跳跃速度：, jump_speed);
 
 	{
 		const std::wstring wstr = L"空中控制：" + std::format(L"{:.2f}", gvalue::air_control * 5);
-		function::text(SDK::FVector2D(340, 320), wstr.c_str());
-		function::drag_bar("air_control", SDK::FVector2D(340, 340), SDK::FVector2D(160, 20), SDK::FVector2D(10, 20), &gvalue::air_control);
+		function::text(SDK::FVector2D(340, 348), wstr.c_str());
+		function::drag_bar("air_control", SDK::FVector2D(340, 376), SDK::FVector2D(160, 20), SDK::FVector2D(10, 20), &gvalue::air_control);
 	}
 
 	{
-		if (function::button_color_text(" ", SDK::FVector2D(340, 380), SDK::FVector2D(160, 30), L"重置速度"))
+		if (function::button_color_text(" ", SDK::FVector2D(340, 404), SDK::FVector2D(160, 30), L"重置速度"))
 		{
 			gvalue::run_speed = 0.1f;
 			gvalue::walk_speed = 0.1f;
@@ -83,27 +84,31 @@ void menu::player()
 
 #undef ETB_DRAG
 
-	// 列3：整活
-	function::section(SDK::FVector2D(520, layout::TOP), SDK::FVector2D(150, 280), L"整活");
+	// 列3：整活（含全队开关）
+	function::section(SDK::FVector2D(520, layout::TOP), SDK::FVector2D(150, 400), L"整活");
 
-	function::check_box(" ", SDK::FVector2D(530, 72), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::spin);
-	function::text(SDK::FVector2D(560, 72), L"反瞄准");
+	// 全队开关（仅房主有效）：T字姿势/反自瞄旋转同步全队
+	function::check_box(" ", SDK::FVector2D(530, 72), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::team_fun);
+	function::text(SDK::FVector2D(560, 72), L"全队");
+
+	function::check_box(" ", SDK::FVector2D(530, 120), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::spin);
+	function::text(SDK::FVector2D(560, 120), L"反瞄准");
 
 	{
 		const int speed = 100 * gvalue::spin_speed;
 		const std::wstring wstr = L"旋转速度：" + std::to_wstring(speed);
-		function::text(SDK::FVector2D(530, 104), wstr.c_str());
-		function::drag_bar("spin_speed", SDK::FVector2D(530, 132), SDK::FVector2D(130, 20), SDK::FVector2D(10, 20), &gvalue::spin_speed);
+		function::text(SDK::FVector2D(530, 168), wstr.c_str());
+		function::drag_bar("spin_speed", SDK::FVector2D(530, 196), SDK::FVector2D(130, 20), SDK::FVector2D(10, 20), &gvalue::spin_speed);
 	}
 
-	function::check_box(" ", SDK::FVector2D(530, 172), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::t_pos);
-	function::text(SDK::FVector2D(560, 172), L"T字姿势");
+	function::check_box(" ", SDK::FVector2D(530, 248), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::t_pos);
+	function::text(SDK::FVector2D(560, 248), L"T字姿势");
 
-	function::check_box(" ", SDK::FVector2D(530, 204), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::x_delete);
-	function::text(SDK::FVector2D(560, 204), L"X键删除");
+	function::check_box(" ", SDK::FVector2D(530, 296), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::x_delete);
+	function::text(SDK::FVector2D(560, 296), L"X键删除[房主]");
 
-	function::check_box(" ", SDK::FVector2D(530, 236), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::rb_move);
-	function::text(SDK::FVector2D(560, 236), L"右键移动");
+	function::check_box(" ", SDK::FVector2D(530, 344), SDK::FVector2D(20, 20), SDK::FVector2D(10, 10), &gvalue::rb_move);
+	function::text(SDK::FVector2D(560, 344), L"右键移动[房主]");
 
 	auto flush_player = [&]()
 		{
