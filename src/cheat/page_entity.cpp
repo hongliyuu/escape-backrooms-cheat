@@ -147,6 +147,13 @@ if (function::button_color_text(" ", SDK::FVector2D(_x_, _y_), SDK::FVector2D(12
 		}
 	};
 
+	// 进入页面时刷新一次列表（页面切换/菜单打开会置 list_dirty）
+	if (param::list_dirty)
+	{
+		param::list_dirty = false;
+		flush_entity();
+	}
+
 	auto entity_box = [&](SDK::ACharacter* pawn, SDK::FVector2D pos)
 		{
 			if (!entity::get()->is_valid(pawn) || !pawn->IsA(SDK::ACharacter::StaticClass()))

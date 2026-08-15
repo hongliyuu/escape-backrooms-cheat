@@ -34,6 +34,7 @@ public:
 	inline static SDK::FVector2D size = SDK::FVector2D(600.0f, 400.0f);
 	inline static SDK::FVector2D drag_pos = SDK::FVector2D(0.0f, 0.0f);
 	inline static bool is_drag = false;
+	inline static bool list_dirty = true;   // 页面切换/菜单打开时标记，列表页进入时刷新一次
 
 	inline static e_page page = e_page::visual;
 

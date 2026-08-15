@@ -178,6 +178,13 @@ void menu::player()
 			}
 		};
 
+	// 进入页面时刷新一次列表（页面切换/菜单打开会置 list_dirty）
+	if (param::list_dirty)
+	{
+		param::list_dirty = false;
+		flush_player();
+	}
+
 	auto player_box = [&](const s_player_entry& entry, SDK::FVector2D pos)
 		{
 			if (!entry.player_state)
