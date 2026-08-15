@@ -758,19 +758,6 @@ void menu::player()
 						entry.pawn = controller_pawn;
 					}
 				}
-
-				for (SDK::AActor* actor : actor_list)
-				{
-					if (entry.pawn)
-						break;
-
-					auto* pawn = static_cast<SDK::ABPCharacter_Demo_C*>(actor);
-					if (pawn && pawn->PlayerState == player_state &&
-						(!entry.controller || pawn->GetController() == entry.controller))
-					{
-						entry.pawn = pawn;
-					}
-				}
 				if (!entry.pawn)
 				{
 					for (SDK::AActor* actor : actor_list)
